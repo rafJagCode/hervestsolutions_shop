@@ -45,11 +45,11 @@
                     <div class="block-products-carousel__column">
                         {% for product in column %}
                             <div class="block-products-carousel__cell">
-                                {% include '/components/product-card.twig' with {inputs: {
+                                {# {% include '/components/product-card.twig' with {inputs: {
                                     product: product,
                                     layout: product_card_layout,
                                     exclude: product_card_exclude,
-                                }} %}
+                                }} %} #}
                             </div>
                         {% endfor %}
                     </div>

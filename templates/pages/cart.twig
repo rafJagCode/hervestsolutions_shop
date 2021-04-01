@@ -45,7 +45,7 @@
                                         </ul>
                                     {% endif %}
                                 </td>
-                                <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td>
+                                {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                     <div class="cart-table__quantity input-number">
                                         <input class="form-control input-number__input" type="number" min="1" value="{{ item.quantity }}">
@@ -53,7 +53,7 @@
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </td>
-                                <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td>
+                                {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
                                 <td class="cart-table__column cart-table__column--remove">
                                     <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted">
                                         {{ svg('cross-12.svg') }}
