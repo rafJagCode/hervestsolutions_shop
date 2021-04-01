@@ -88,10 +88,10 @@
     {% endif %}
     <div class="header__navbar">
         <div class="header__navbar-departments">
-            {% include '/header/departments.twig' %}
+            {# {% include '/header/departments.twig' %} #}
         </div>
         <div class="header__navbar-menu">
-            {% include '/header/main-menu.twig' %}
+            {# {% include '/header/main-menu.twig' %} #}
         </div>
         {% if global_header_layout == 'classic' %}
             <div class="header__navbar-phone phone">
@@ -117,7 +117,7 @@
             </a>
         </div>
         <div class="indicator indicator--trigger--click">
-            <a href="account-login.html" class="indicator__button">
+            <a href="account-login" class="indicator__button">
                 <span class="indicator__icon">
                     {{ svg('person-32.svg') }}
                 </span>
@@ -149,7 +149,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Login</button>
                         </div>
                         <div class="account-menu__form-link">
-                            <a href="account-login.html">Create An Account</a>
+                            <a href="account-login">Create An Account</a>
                         </div>
                     </form>
                     <div class="account-menu__divider"></div>
@@ -172,13 +172,13 @@
                     </ul>
                     <div class="account-menu__divider"></div>
                     <ul class="account-menu__links">
-                        <li><a href="account-login.html">Logout</a></li>
+                        <li><a href="account-login">Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="indicator indicator--trigger--click">
-            <a href="cart.html" class="indicator__button">
+            <a href="cart" class="indicator__button">
                 <span class="indicator__icon">
                     {{ svg('cart-32.svg') }}
                     <span class="indicator__counter">3</span>

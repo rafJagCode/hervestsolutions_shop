@@ -2,11 +2,12 @@
 // inputs:
 #}
 
-{% set menu = data('header-main-menu.json') %}
+{% set menu = data('main-menu.json') %}
 
 <div class="main-menu">
     <ul class="main-menu__list">
-        {% for item in menu if not item.ignore_in or global_header_layout not in item.ignore_in %}
+        {% for item in menu|filter(item => not item.ignore_in or global_header_layout not in item.ignore_in) -%}
+        {# {% for item in menu if not item.ignore_in or global_header_layout not in item.ignore_in %} #}
             {% set item_classes = classnames('main-menu__item', {
                 'main-menu__item--has-submenu': item.submenu,
                 'main-menu__item--submenu--menu': item.submenu.type == 'menu',
