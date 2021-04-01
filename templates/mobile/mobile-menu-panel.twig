@@ -40,10 +40,10 @@
                                 <span class="mobile-menu__setting-arrow">{{ svg('arrow-rounded-right-6x9.svg') }}</span>
                             </button>
                             {% if item.panel %}
-                                <div class="mobile-menu__setting-panel" data-mobile-menu-panel>
+                                {# <div class="mobile-menu__setting-panel" data-mobile-menu-panel>
                                     {% include '/mobile/mobile-menu-panel.twig' with {inputs: {
                                         panel: item.panel,
-                                    }} %}
+                                    }} %} #}
                                 </div>
                             {% endif %}
                         </div>
@@ -88,9 +88,9 @@
 
                             {% if item.panel %}
                                 <div class="mobile-menu__links-panel" data-mobile-menu-panel>
-                                    {% include '/mobile/mobile-menu-panel.twig' with {inputs: {
+                                    {# {% include '/mobile/mobile-menu-panel.twig' with {inputs: {
                                         panel: item.panel,
-                                    }} %}
+                                    }} %} #}
                                 </div>
                             {% endif %}
                         </li>
