@@ -6,7 +6,6 @@
 
 {% set direction = inputs.direction|default('prev') %}
 {% set classes = inputs.classes|default('') %}
-{% set svg = svg('arrow-rounded-left-7x11.svg') %}
 
 {% set root_classes = classnames('arrow', classes, 'arrow--'~direction) %}
 
