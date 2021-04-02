@@ -91,10 +91,10 @@
     <div class="product-card__footer">
         <div class="product-card__prices">
             {% if product.compareAtPrice %}
-                <div class="product-card__price product-card__price--new">{{ product.price|currency }}</div>
-                <div class="product-card__price product-card__price--old">{{ product.compareAtPrice|currency }}</div>
+                {# <div class="product-card__price product-card__price--new">{{ product.price|currency }}</div> #}
+                {# <div class="product-card__price product-card__price--old">{{ product.compareAtPrice|currency }}</div> #}
             {% else %}
-                <div class="product-card__price product-card__price--current">{{ product.price|currency }}</div>
+                {# <div class="product-card__price product-card__price--current">{{ product.price|currency }}</div> #}
             {% endif %}
         </div>
         {% if not ('buttons' in exclude) %}

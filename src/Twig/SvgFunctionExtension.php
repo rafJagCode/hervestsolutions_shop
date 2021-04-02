@@ -24,7 +24,8 @@ class SvgFunctionExtension extends AbstractExtension
     {
         $path=$this->projectDir . '/assets/svg/' . $name;
         $svg = include($path);
-        return $svg;
+		$final = substr($svg, 0, -1);
+        return $final;
     }
 }
 ?>

@@ -20,7 +20,7 @@ class ImageFunctionExtension extends AbstractExtension
             $this->baseUrl = $requestStack->getCurrentRequest()->getSchemeAndHttpHost();
         }
     }
-    
+
     public function getFunctions()
     {
         return [
@@ -30,9 +30,9 @@ class ImageFunctionExtension extends AbstractExtension
 
     public function returnPath(string $name)
     {
-        $path='@base_url/assets/' . $name;
+        $path='../assets/' . $name;
         $asset = `asset($path)`;
-        return $asset;
+        return $path;
     }
 }
 ?>
