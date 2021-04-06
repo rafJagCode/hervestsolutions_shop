@@ -1,7 +1,10 @@
 {#
 // inputs:
+	isUserAuthenticated
 #}
-
+{% if inputs.isUserAuthenticated %}
+{{inputs.isUserAuthenticated}}
+{% endif %}
 {% set topbar %}
     {% set topbar_classes = classnames('topbar', {
         'topbar--spaceship-end': global_header_layout == 'spaceship',
@@ -128,6 +131,7 @@
             </a>
             <div class="indicator__content">
                 <div class="account-menu">
+				{% if inputs.isUserAuthenticated is defined and not inputs.isUserAuthenticated %}
                     <form class="account-menu__form">
                         <div class="account-menu__form-title">
                             Log In to Your Account
@@ -152,6 +156,8 @@
                             <a href="account-login">Create An Account</a>
                         </div>
                     </form>
+					{% endif %}
+					{% if inputs.isUserAuthenticated is defined and inputs.isUserAuthenticated %}
                     <div class="account-menu__divider"></div>
                     <a href="" class="account-menu__user">
                         <div class="account-menu__user-avatar">
@@ -174,6 +180,7 @@
                     <ul class="account-menu__links">
                         <li><a href="account-login">Logout</a></li>
                     </ul>
+					{% endif %}
                 </div>
             </div>
         </div>

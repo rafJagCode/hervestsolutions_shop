@@ -52,7 +52,9 @@
 
     <!-- site__header -->
     <header class="site__header">
-        {% include '/header/header.twig' %}
+        {% include '/header/header.twig' with {inputs: {
+                                                isUserAuthenticated: isUserAuthenticated,
+                                            }} %}
     </header>
     <!-- site__header / end -->
 
