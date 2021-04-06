@@ -33,7 +33,7 @@
     <div class="product-card__image">
         <div class="image image--type--product">
             <a href="product-full.html" class="image__body">
-                <img class="image__tag" src="{{ image(product.images[0], {size: 245}) }}" alt="">
+                <img class="image__tag" src="{{ image("images/products/product-1.jpg", {size: 245}) }}" alt="">
             </a>
         </div>
 
@@ -50,30 +50,30 @@
 
     <div class="product-card__info">
         {% if not ('meta' in exclude) %}
-            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.sku }}</div>
+            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.id }}</div>
         {% endif %}
 
         <div class="product-card__name">
             <div>
-                {% if product.badges %}
+                {# {% if product.badges %}
                     <div class="product-card__badges">
                         {% for badge in product.badges %}
                             <div class="{{ classnames('tag-badge', 'tag-badge--'~badge) }}">{{ badge }}</div>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% endif %} #}
 
                 <a href="product-full.html">{{ product.name }}</a>
             </div>
         </div>
 
-        <div class="product-card__rating">
+        {# <div class="product-card__rating">
             {% include '/components/rating.twig' with {inputs: {
                 classes: 'product-card__rating-stars',
                 rating: product.rating
             }} %}
             <div class="product-card__rating-label">{{ product.rating }} on {{ product.reviews }} reviews</div>
-        </div>
+        </div> #}
 
         {% if not ('features' in exclude) %}
             <div class="product-card__features">
@@ -90,11 +90,11 @@
 
     <div class="product-card__footer">
         <div class="product-card__prices">
-            {% if product.compareAtPrice %}
-                {# <div class="product-card__price product-card__price--new">{{ product.price|currency }}</div> #}
-                {# <div class="product-card__price product-card__price--old">{{ product.compareAtPrice|currency }}</div> #}
+            {% if product.compareAtPrice is defined %}
+                <div class="product-card__price product-card__price--new">{{ product.price }}</div>
+                <div class="product-card__price product-card__price--old">{{ product.compareAtPrice }}</div>
             {% else %}
-                {# <div class="product-card__price product-card__price--current">{{ product.price|currency }}</div> #}
+                <div class="product-card__price product-card__price--current">{{ product.price }}</div>
             {% endif %}
         </div>
         {% if not ('buttons' in exclude) %}

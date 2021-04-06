@@ -13,7 +13,7 @@
 {% set offcanvas = grid in ['grid-4-full', 'grid-5-full', 'grid-6-full'] ? 'always' : 'mobile' %}
 
 {% set root_classes = classnames('block-split', {
-    'block-split--has-sidebar': sidebar in ['left', 'right'] and offcanvas != 'always',
+    'block-split--has-sidebar': sidebar in ['left', 'right'] and offcanvas == 'always',
 }) %}
 
 {% set list_classes = classnames('products-view__list products-list', {
@@ -28,17 +28,17 @@
 }} %}
 
 <div class="{{ root_classes }}">
-    {% if offcanvas == 'always' %}
+    {% if offcanvas != 'always' %}
         {% include '/components/shop-sidebar.twig' with {inputs: {
             offcanvas: offcanvas,
         }} %}
     {% endif %}
     <div class="container">
         <div class="block-split__row row no-gutters">
-            {% if sidebar == 'left' and offcanvas != 'always' %}
+            {% if sidebar == 'left' and offcanvas == 'always' %}
                 <div class="block-split__item block-split__item-sidebar col-auto">
                     {% include '/components/shop-sidebar.twig' with {inputs: {
-                        offcanvas: offcanvas,
+                        offcanvas: 'mobile',
                     }} %}
                 </div>
             {% endif %}
@@ -144,11 +144,12 @@
                                 <div class="products-list__column products-list__column--price">Price</div>
                             </div>
                             <div class="products-list__content">
-                                {% for product in products %}
+                                {% for product in productsB %}
                                     <div class="products-list__item">
-                                        {# {% include '/components/product-card.twig' with {inputs: {
+                                        {% include '/components/product-card.twig' with {inputs: {
                                             product: product,
-                                        }} %} #}
+											layout: 'list'
+                                        }} %}
                                     </div>
                                 {% endfor %}
                             </div>
