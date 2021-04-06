@@ -26,6 +26,7 @@
                     {% endif %}
                     <div class="dropcart__item-meta">
                         <div class="dropcart__item-quantity">{{ item.quantity }}</div>
+                        <div class="dropcart__item-price">{{ item.price }}</div>
                         {# <div class="dropcart__item-price">{{ item.price|currency }}</div> #}
                     </div>
                 </div>
@@ -40,6 +41,7 @@
                 <tr>
                     <th>{{ total.title }}</th>
                     {# <td>{{ total.value|currency }}</td> #}
+                    <td>{{ total.value }}</td>
                 </tr>
             {% endfor %}
         </table>
