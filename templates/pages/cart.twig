@@ -1,3 +1,4 @@
+{# Backend input products #}
 {% set global_page_title = 'Shopping Cart — Red Parts' %}
 {% set global_page_description = '' %}
 
@@ -9,7 +10,6 @@
     {% include '/blocks/block-header.twig' with {inputs: {
         title: 'Shopping Cart',
     }} %}
-
     <div class="block">
         <div class="container">
             <div class="cart">
@@ -26,34 +26,37 @@
                         </tr>
                         </thead>
                         <tbody class="cart-table__body">
-                        {% for item in cart.items %}
+                        {# {% for item in cart.items %} #}
+						{% for product in products %}
                             <tr class="cart-table__row">
                                 <td class="cart-table__column cart-table__column--image">
                                     <div class="image image--type--product">
                                         <a href="product-full.html" class="image__body">
-                                            <img class="image__tag" src="{{ image(item.image, {size: 160}) }}" alt="">
+                                            <img class="image__tag" src="{{ image("images/products/product-4.jpg", {size: 160}) }}" alt="">
                                         </a>
                                     </div>
                                 </td>
                                 <td class="cart-table__column cart-table__column--product">
-                                    <a href="" class="cart-table__product-name">{{ item.name }}</a>
-                                    {% if item.options %}
+                                    <a href="" class="cart-table__product-name">{{ product.product.name }}</a>
+                                    {# {% if item.options %}
                                         <ul class="cart-table__options">
                                             {% for option in item.options %}
                                                 <li>{{ option.name }}: {{ option.value }}</li>
                                             {% endfor %}
                                         </ul>
-                                    {% endif %}
+                                    {% endif %} #}
                                 </td>
                                 {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
+								<td class="cart-table__column cart-table__column--price" data-title="Price">{{ product.product.price }}</td>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                     <div class="cart-table__quantity input-number">
-                                        <input class="form-control input-number__input" type="number" min="1" value="{{ item.quantity }}">
+                                        <input class="form-control input-number__input" type="number" min="1" value="{{ product.product.quantity }}">
                                         <div class="input-number__add"></div>
                                         <div class="input-number__sub"></div>
                                     </div>
                                 </td>
                                 {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
+								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}}</td>
                                 <td class="cart-table__column cart-table__column--remove">
                                     <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted">
                                         {{ svg('cross-12.svg') }}
