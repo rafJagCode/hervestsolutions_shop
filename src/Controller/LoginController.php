@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Cookie;
+use App\Service\AuthChecker;
 
 class LoginController extends AbstractController
 {
@@ -22,18 +23,21 @@ class LoginController extends AbstractController
     /**
      * @Route("/account-login", name="account-login")
      */
-    public function index(): Response
+    public function index(Request $request, AuthChecker $authChecker): Response
     {
+        $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         return $this->render("/pages/account-login.twig", [
             "controller_name" => "LoginController",
+            "isUserAuthenticated" => $isUserAuthenticated,
         ]);
     }
 
     /**
      * @Route("/sign-in", name="sign-in")
      */
-    public function signIn(Request $request): Response
+    public function signIn(Request $request, AuthChecker $authChecker): Response
     {
+        $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         try {
             $response = $this->client->request(
                 "POST",
@@ -74,6 +78,7 @@ class LoginController extends AbstractController
             return $this->render("/pages/account-login.twig", [
                 "controller_name" => "LoginController",
                 "loginMessage" => $message,
+                "isUserAuthenticated" => $isUserAuthenticated,
             ]);
         }
     }

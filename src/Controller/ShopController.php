@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
+use App\Service\AuthChecker;
+use Symfony\Component\HttpFoundation\Request;
 
 class ShopController extends AbstractController
 {
@@ -19,8 +21,9 @@ class ShopController extends AbstractController
     /**
      * @Route("/shop", name="shop")
      */
-    public function index(): Response
+    public function index(Request $request, AuthChecker $authChecker): Response
     {
+        $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         try {
             $response = $this->client->request(
                 "POST",
@@ -37,6 +40,7 @@ class ShopController extends AbstractController
             return $this->render("pages/shop-grid-4-columns-full.twig", [
                 "controller_name" => "ShopController",
                 "productsB" => $products,
+                "isUserAuthenticated" => $isUserAuthenticated,
             ]);
         }
     }
