@@ -1,4 +1,4 @@
-{# Backend input products #}
+{# Backend inputs: products, total #}
 {% set global_page_title = 'Shopping Cart — Red Parts' %}
 {% set global_page_description = '' %}
 
@@ -95,7 +95,7 @@
                                 <thead>
                                 <tr>
                                     <th>Subtotal</th>
-                                    <td>$5,877.00</td>
+                                    <td>${{total}}</td>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,7 +116,7 @@
                                 <tfoot>
                                 <tr>
                                     <th>Total</th>
-                                    <td>$5,902.00</td>
+                                    <td>${{total}}</td>
                                 </tr>
                                 </tfoot>
                             </table>

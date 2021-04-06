@@ -34,10 +34,18 @@ class CartController extends AbstractController
         }
 
         $statusCode = $response->getStatusCode();
+        $products = $response->toArray();
+        $totalCost = array_reduce($products, function ($sum, $product) {
+            $productStackCost =
+                $product["product"]["price"] * $product["product"]["quantity"];
+            return $sum + $productStackCost;
+        });
+
         if ($statusCode === 200) {
             return $this->render("pages/cart.twig", [
                 "controller_name" => "CartController",
-                "products" => $response->toArray(),
+                "products" => $products,
+                "total" => $totalCost,
             ]);
         }
     }
