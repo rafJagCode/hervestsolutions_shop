@@ -44,10 +44,21 @@ class CartController extends AbstractController
             return $sum + $productStackCost;
         });
 
+        $productsWithImgs = array_map(
+            function ($product, $key) {
+                $productArray = (array) $product;
+                $productArray["image"] =
+                    "images/parts/part" . $key + 2 . ".jpg";
+                return (object) $productArray;
+            },
+            $products,
+            array_keys($products)
+        );
+
         if ($statusCode === 200) {
             return $this->render("pages/cart.twig", [
                 "controller_name" => "CartController",
-                "products" => $products,
+                "products" => $productsWithImgs,
                 "total" => $totalCost,
                 "isUserAuthenticated" => $isUserAuthenticated,
             ]);

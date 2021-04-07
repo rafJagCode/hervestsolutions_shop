@@ -35,9 +35,8 @@ class LoginController extends AbstractController
     /**
      * @Route("/sign-in", name="sign-in")
      */
-    public function signIn(Request $request, AuthChecker $authChecker): Response
+    public function signIn(Request $request): Response
     {
-        $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         try {
             $response = $this->client->request(
                 "POST",
@@ -57,7 +56,7 @@ class LoginController extends AbstractController
         if ($statusCode === 200) {
             $cookieResponse = $this->render("/pages/account-dashboard.twig", [
                 "controller_name" => "LoginController",
-                "isUserAuthenticated" => $isUserAuthenticated,
+                "isUserAuthenticated" => true,
             ]);
 
             $cookieResponse->headers->setCookie(
@@ -67,10 +66,10 @@ class LoginController extends AbstractController
                     new \DateTime("+1 day"), // the expiration
                     "/", // the path
                     null, // the domain, null means that Symfony will generate it on its own
-                    true, // secure, e.g. only via https
-                    true, // http only cookie, which is the default so no need to specify
+                    false, // secure, e.g. only via https
+                    false, // http only cookie, which is the default so no need to specify
                     false, // raw
-                    "strict" // the same-site parameter, can be 'lax' or 'strict'
+                    "none" // the same-site parameter, can be 'lax' or 'strict'
                 )
             );
 
@@ -79,7 +78,7 @@ class LoginController extends AbstractController
             return $this->render("/pages/account-login.twig", [
                 "controller_name" => "LoginController",
                 "loginMessage" => $message,
-                "isUserAuthenticated" => $isUserAuthenticated,
+                "isUserAuthenticated" => false,
             ]);
         }
     }

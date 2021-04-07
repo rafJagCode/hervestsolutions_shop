@@ -8,7 +8,7 @@
 
 {% block site_body %}
     {% include '/blocks/block-header.twig' with {inputs: {
-        title: 'Shopping Cart',
+        title: 'Koszyk',
     }} %}
     <div class="block">
         <div class="container">
@@ -17,11 +17,11 @@
                     <table class="cart-table__table">
                         <thead class="cart-table__head">
                         <tr class="cart-table__row">
-                            <th class="cart-table__column cart-table__column--image">Image</th>
-                            <th class="cart-table__column cart-table__column--product">Product</th>
-                            <th class="cart-table__column cart-table__column--price">Price</th>
-                            <th class="cart-table__column cart-table__column--quantity">Quantity</th>
-                            <th class="cart-table__column cart-table__column--total">Total</th>
+                            <th class="cart-table__column cart-table__column--image">Zdjęcie</th>
+                            <th class="cart-table__column cart-table__column--product">Produkt</th>
+                            <th class="cart-table__column cart-table__column--price">Cena</th>
+                            <th class="cart-table__column cart-table__column--quantity">Ilość</th>
+                            <th class="cart-table__column cart-table__column--total">Razem</th>
                             <th class="cart-table__column cart-table__column--remove"></th>
                         </tr>
                         </thead>
@@ -32,7 +32,7 @@
                                 <td class="cart-table__column cart-table__column--image">
                                     <div class="image image--type--product">
                                         <a href="product-full.html" class="image__body">
-                                            <img class="image__tag" src="{{ image("images/products/product-4.jpg", {size: 160}) }}" alt="">
+                                            <img class="image__tag" src="{{ image(product.image, {size: 160}) }}" alt="">
                                         </a>
                                     </div>
                                 </td>
@@ -47,7 +47,7 @@
                                     {% endif %} #}
                                 </td>
                                 {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
-								<td class="cart-table__column cart-table__column--price" data-title="Price">{{ product.product.price }}</td>
+								<td class="cart-table__column cart-table__column--price" data-title="Price">{{ product.product.price }} zł</td>
                                 <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                                     <div class="cart-table__quantity input-number">
                                         <input class="form-control input-number__input" type="number" min="1" value="{{ product.product.quantity }}">
@@ -56,7 +56,7 @@
                                     </div>
                                 </td>
                                 {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
-								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}}</td>
+								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}} zł</td>
                                 <td class="cart-table__column cart-table__column--remove">
                                     <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted">
                                         {{ svg('cross-12.svg') }}
@@ -71,14 +71,14 @@
                                 <div class="cart-table__actions">
                                     <form class="cart-table__coupon-form form-row">
                                         <div class="form-group mb-0 col flex-grow-1">
-                                            <input type="text" class="form-control form-control-sm" placeholder="Coupon Code">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Kod Rabatowy">
                                         </div>
                                         <div class="form-group mb-0 col-auto">
-                                            <button type="button" class="btn btn-sm btn-primary">Apply Coupon</button>
+                                            <button type="button" class="btn btn-sm btn-primary">Użyj rabatu</button>
                                         </div>
                                     </form>
                                     <div class="cart-table__update-button">
-                                        <a class="btn btn-sm btn-primary" href="">Update Cart</a>
+                                        <a class="btn btn-sm btn-primary" href="">Przelicz Koszyk</a>
                                     </div>
                                 </div>
                             </td>
@@ -94,35 +94,30 @@
                             <table class="cart__totals-table">
                                 <thead>
                                 <tr>
-                                    <th>Subtotal</th>
-                                    <td>${{total}}</td>
+                                    <th>Koszt</th>
+                                    <td>{{total}} zł</td>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <th>Shipping</th>
-                                    <td>
-                                        $25.00
-                                        <div>
-                                            <a href="">Calculate shipping</a>
-                                        </div>
-                                    </td>
+                                    <th>Dostawa</th>
+									<td>0.00 zł</td>
                                 </tr>
                                 <tr>
-                                    <th>Tax</th>
-                                    <td>$0.00</td>
+                                    <th>Podatek</th>
+                                    <td>0.00 zł</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Total</th>
+                                    <th>Razem</th>
                                     <td>${{total}}</td>
                                 </tr>
                                 </tfoot>
                             </table>
 
                             <a class="btn btn-primary btn-xl btn-block" href="">
-                                Proceed to checkout
+                                Złóż zamówienie
                             </a>
                         </div>
                     </div>
