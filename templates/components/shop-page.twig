@@ -49,11 +49,11 @@
                         <div class="{{ classnames('products-view__options view-options', 'view-options--offcanvas--'~offcanvas) }}">
 
                             <div class="view-options__body">
-                                <button type="button" class="view-options__filters-button filters-button">
+                                {# <button type="button" class="view-options__filters-button filters-button">
                                     <span class="filters-button__icon">{{ svg('filters-16.svg') }}</span>
                                     <span class="filters-button__title">Filters</span>
                                     <span class="filters-button__counter">3</span>
-                                </button>
+                                </button> #}
 
                                 <div class="view-options__layout layout-switcher">
                                     <div class="layout-switcher__list">
@@ -93,26 +93,26 @@
                                 </div>
 
                                 <div class="view-options__legend">
-                                    Showing 6 of 98 products
+                                    Wyświetlono 6 z 98 produktów
                                 </div>
 
                                 <div class="view-options__spring"></div>
 
                                 <div class="view-options__select">
-                                    <label for="view-option-sort">Sort:</label>
+                                    <label for="view-option-sort">Sortuj:</label>
                                     <select id="view-option-sort" class="form-control form-control-sm" name="">
-                                        <option value="">Price</option>
+                                        <option value="">Cena</option>
                                     </select>
                                 </div>
                                 <div class="view-options__select">
-                                    <label for="view-option-limit">Show:</label>
+                                    <label for="view-option-limit">Pokaż:</label>
                                     <select id="view-option-limit" class="form-control form-control-sm" name="">
                                         <option value="">16</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="view-options__body view-options__body--filters">
+                            {# <div class="view-options__body view-options__body--filters">
                                 <div class="view-options__label">Active Filters</div>
                                 <div class="applied-filters">
                                     <ul class="applied-filters__list">
@@ -133,22 +133,22 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> #}
                         </div>
                         <div class="{{ list_classes }}" data-layout="{{ layout }}" data-with-features="false">
                             <div class="products-list__head">
-                                <div class="products-list__column products-list__column--image">Image</div>
+                                <div class="products-list__column products-list__column--image">Zdjęcie</div>
                                 <div class="products-list__column products-list__column--meta">SKU</div>
-                                <div class="products-list__column products-list__column--product">Product</div>
+                                <div class="products-list__column products-list__column--product">Produkt</div>
                                 <div class="products-list__column products-list__column--rating">Rating</div>
-                                <div class="products-list__column products-list__column--price">Price</div>
+                                <div class="products-list__column products-list__column--price">Cena</div>
                             </div>
                             <div class="products-list__content">
                                 {% for product in productsB %}
                                     <div class="products-list__item">
                                         {% include '/components/product-card.twig' with {inputs: {
                                             product: product,
-											layout: 'list'
+											layout: 'table'
                                         }} %}
                                     </div>
                                 {% endfor %}
@@ -159,7 +159,7 @@
                                 {% include '/components/pagination.twig' %}
                             </nav>
                             <div class="products-view__pagination-legend">
-                                Showing 6 of 98 products
+                                Wyświetlono 6 z 98 produktów
                             </div>
                         </div>
                     </div>

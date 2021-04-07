@@ -13,11 +13,12 @@
 
 <div class="{{ root_classes }}" data-collapse data-collapse-opened-class="filter--opened">
     <div class="widget__header widget-filters__header">
-        <h4>Filters</h4>
+        <h4>Filtry</h4>
     </div>
 
     <div class="widget-filters__list">
         {% for filter in filters %}
+		{% if filter.type in ['categories', 'price']  %}
             <div class="widget-filters__item">
 
                 <div class="filter filter--opened" data-collapse-item>
@@ -44,7 +45,7 @@
                                 </div>
                             {% endif %}
 
-                            {% if filter.type in ['checkbox', 'radio'] %}
+                            {# {% if filter.type in ['checkbox', 'radio'] %}
                                 <div class="filter-list">
                                     <div class="filter-list__list">
                                         {% for item in filter.options.items %}
@@ -76,9 +77,9 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                            {% endif %}
+                            {% endif %} #}
 
-                            {% if filter.type == 'color' %}
+                            {# {% if filter.type == 'color' %}
                                 <div class="filter-color">
                                     <div class="filter-color__list">
                                         {% for item in filter.options.items %}
@@ -95,19 +96,19 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                            {% endif %}
+                            {% endif %} #}
 
                             {% if filter.type == 'price' %}
                                 <div class="filter-price" data-min="{{ filter.options.min }}" data-max="{{ filter.options.max }}" data-from="{{ filter.options.from }}" data-to="{{ filter.options.to }}">
                                     <div class="filter-price__slider"></div>
                                     <div class="filter-price__title-button">
-                                        <div class="filter-price__title">$<span class="filter-price__min-value"></span> – $<span class="filter-price__max-value"></span></div>
-                                        <button type="button" class="btn btn-xs btn-secondary filter-price__button">Filter</button>
+                                        <div class="filter-price__title"><span class="filter-price__min-value"></span> zł - <span class="filter-price__max-value"></span> zł</div>
+                                        <button type="button" class="btn btn-xs btn-secondary filter-price__button">Filtruj</button>
                                     </div>
                                 </div>
                             {% endif %}
 
-                            {% if filter.type == 'rating' %}
+                            {# {% if filter.type == 'rating' %}
 
                                 <div class="filter-rating">
                                     <ul class="filter-rating__list">
@@ -137,9 +138,9 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
-                            {% endif %}
+                            {% endif %} #}
 
-                            {% if filter.type == 'vehicle' %}
+                            {# {% if filter.type == 'vehicle' %}
                                 <div class="filter-vehicle">
                                     <ul class="filter-vehicle__list">
                                         {% for item in filter.options.items %}
@@ -166,18 +167,19 @@
                                         <button type="button" class="btn btn-xs btn-secondary">Add Vehicle</button>
                                     </div>
                                 </div>
-                            {% endif %}
+                            {% endif %} #}
 
                         </div>
                     </div>
                 </div>
 
             </div>
+			{% endif %}
         {% endfor %}
     </div>
 
     <div class="widget-filters__actions d-flex">
-        <button class="btn btn-primary btn-sm">Filter</button>
-        <button class="btn btn-secondary btn-sm">Reset</button>
+        <button class="btn btn-primary btn-sm">Filtruj</button>
+        <button class="btn btn-secondary btn-sm">Resetuj</button>
     </div>
 </div>

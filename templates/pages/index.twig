@@ -29,20 +29,21 @@
         category: {
             image: 'images/categories/category-overlay-1.jpg',
             image_mobile: 'images/categories/category-overlay-1-mobile.jpg',
-            name: 'Wheels & Tires',
+            name: 'Producenci',
             children: [
-                'Wheel Covers',
-                'Brake Kits',
-                'Tire Chains',
-                'Wheel disks',
-                'Tires',
-                'Sensors',
-                'Accessories',
+                'AGCO',
+                'Arbos',
+                'Braud',
+                'Case',
+                'Cat',
+                'Claas',
+                'Krone',
+				'Massey Ferguson',
             ]
         }
     }} %}
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-sm'}} %}
-    {% include '/blocks/block-zone.twig' with {inputs: {
+    {# {% include '/blocks/block-zone.twig' with {inputs: {
         category: {
             image: 'images/categories/category-overlay-2.jpg',
             image_mobile: 'images/categories/category-overlay-2-mobile.jpg',
@@ -75,9 +76,9 @@
             ]
         }
     }} %}
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %} #}
     {% include '/blocks/block-banners.twig' %}
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+    {# {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
     {% include '/blocks/block-products-carousel.twig' with {inputs: {
         title: 'New Arrivals',
         layout: 'horizontal',
@@ -89,8 +90,8 @@
             {title: 'Show All', url: ''},
         ],
     }} %}
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
-    {% include '/blocks/block-posts-carousel.twig' with {inputs: {
+    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %} #}
+    {# {% include '/blocks/block-posts-carousel.twig' with {inputs: {
         title: 'Latest News',
         layout: 'grid',
         links: [
@@ -98,10 +99,10 @@
             {title: 'New Arrivals', url: ''},
             {title: 'Reviews', url: ''},
         ],
-    }} %}
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
-    {% include '/blocks/block-brands.twig' %}
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl', classes: 'd-xl-block d-none'}} %}
-    {% include '/blocks/block-products-columns.twig' %}
+    }} %} #}
+    {# {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %} #}
+    {# {% include '/blocks/block-brands.twig' %} #}
+    {# {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl', classes: 'd-xl-block d-none'}} %} #}
+    {# {% include '/blocks/block-products-columns.twig' %} #}
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'before-footer'}} %}
 {% endblock %}

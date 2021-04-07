@@ -1,46 +1,23 @@
 [
   {
-    "title": "Home",
-    "url": "index"
+    "title": "Strona główna",
+    "url": "home"
   },
   {
-    "title": "Shop",
+    "title": "Sklep",
     "url": "shop",
     "submenu": {
       "type": "menu",
       "links": [
         {
-          "title": "Cart",
+          "title": "Koszyk",
           "url": "cart"
         }
       ]
     }
   },
   {
-    "title": "Account",
-    "url": "login"
-  },
-  {
-    "title": "Blog",
-    "url": "#",
-    "submenu": {
-      "type": "menu",
-      "links": [
-        {
-          "title": "Blog Classic",
-          "url": "#",
-          "submenu": [
-            {
-              "title": "Left Sidebar",
-              "url": "#"
-            },
-            {
-              "title": "Right Sidebar",
-              "url": "#"
-            }
-          ]
-        }
-      ]
-    }
+    "title": "Producenci",
+    "url": "#"
   }
 ]

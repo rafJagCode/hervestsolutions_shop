@@ -2,9 +2,7 @@
 // inputs:
 	isUserAuthenticated
 #}
-{% if inputs.isUserAuthenticated %}
-{{inputs.isUserAuthenticated}}
-{% endif %}
+
 {% set topbar %}
     {% set topbar_classes = classnames('topbar', {
         'topbar--spaceship-end': global_header_layout == 'spaceship',
@@ -13,23 +11,23 @@
 
     <div class="{{ topbar_classes }}">
         {% if global_header_layout == 'classic' %}
-            <div class="topbar__item-text"><a class="topbar__link" href="about-us.html">About Us</a></div>
-            <div class="topbar__item-text"><a class="topbar__link" href="contact-us-v1.html">Contacts</a></div>
+            <div class="topbar__item-text"><a class="topbar__link" href="about-us.html">O nas</a></div>
+            <div class="topbar__item-text"><a class="topbar__link" href="contact-us-v1.html">Kontakt</a></div>
             <div class="topbar__item-text"><a class="topbar__link" href="">Store Location</a></div>
             <div class="topbar__item-text"><a class="topbar__link" href="track-order.html">Track Order</a></div>
             <div class="topbar__item-text"><a class="topbar__link" href="blog-classic-right-sidebar.html">Blog</a></div>
             <div class="topbar__item-spring"></div>
         {% endif %}
-        <div class="topbar__item-button">
+        {# <div class="topbar__item-button">
             <a href="" class="topbar__button">
                 <span class="topbar__button-label">Compare:</span>
                 <span class="topbar__button-title">5</span>
             </a>
-        </div>
+        </div> #}
         <div class="topbar__item-button topbar__menu">
             <button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
-                <span class="topbar__button-label">Currency:</span>
-                <span class="topbar__button-title">USD</span>
+                <span class="topbar__button-label">Waluta:</span>
+                <span class="topbar__button-title">PLN</span>
                 <span class="topbar__button-arrow">{{ svg('arrow-down-sm-7x5.svg') }}</span>
             </button>
             <div class="topbar__menu-body">
@@ -41,8 +39,8 @@
         </div>
         <div class="topbar__menu">
             <button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
-                <span class="topbar__button-label">Language:</span>
-                <span class="topbar__button-title">EN</span>
+                <span class="topbar__button-label">Język:</span>
+                <span class="topbar__button-title">PL</span>
                 <span class="topbar__button-arrow">{{ svg('arrow-down-sm-7x5.svg') }}</span>
             </button>
             <div class="topbar__menu-body">
@@ -72,10 +70,10 @@
         <div class="header__topbar-start-bg"></div>
         <div class="header__topbar-start">
             <div class="topbar topbar--spaceship-start">
-                <div class="topbar__item-text d-none d-xxl-flex">Call Us: (800) 060-0730</div>
-                <div class="topbar__item-text"><a class="topbar__link" href="about-us.html">About Us</a></div>
-                <div class="topbar__item-text"><a class="topbar__link" href="contact-us-v1.html">Contacts</a></div>
-                <div class="topbar__item-text"><a class="topbar__link" href="track-order.html">Track Order</a></div>
+                <div class="topbar__item-text d-none d-xxl-flex">Zadzwoń: (800) 060-0730</div>
+                <div class="topbar__item-text"><a class="topbar__link" href="about-us.html">O nas</a></div>
+                <div class="topbar__item-text"><a class="topbar__link" href="contact-us-v1.html">Kontakt</a></div>
+                {# <div class="topbar__item-text"><a class="topbar__link" href="track-order.html">Track Order</a></div> #}
             </div>
         </div>
         <div class="header__topbar-end-bg"></div>
@@ -99,7 +97,7 @@
         {% if global_header_layout == 'classic' %}
             <div class="header__navbar-phone phone">
                 <a href="" class="phone__body">
-                    <div class="phone__title">Call Us:</div>
+                    <div class="phone__title">Zadzwoń:</div>
                     <div class="phone__number">800 060-0730</div>
                 </a>
             </div>
@@ -125,35 +123,35 @@
                     {{ svg('person-32.svg') }}
                 </span>
                 {% if global_header_layout == 'classic' or true %}
-                    <span class="indicator__title">Hello, Log In</span>
-                    <span class="indicator__value">My Account</span>
+                    <span class="indicator__title">Witaj, Zaloguj Się</span>
+                    <span class="indicator__value">Moje Konto</span>
                 {% endif %}
             </a>
             <div class="indicator__content">
                 <div class="account-menu">
 				{% if inputs.isUserAuthenticated is defined and not inputs.isUserAuthenticated %}
-                    <form class="account-menu__form">
+                    <form class="account-menu__form" action="sign-in" method="POST" >
                         <div class="account-menu__form-title">
-                            Log In to Your Account
+                            Zaloguj Się
                         </div>
                         <div class="form-group">
-                            <label for="header-signin-email" class="sr-only">Email address</label>
-                            <input id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Email address">
+                            <label for="header-signin-email" class="sr-only">Adres Email</label>
+                            <input name="username" id="header-signin-email" type="email" class="form-control form-control-sm" placeholder="Adress email">
                         </div>
                         <div class="form-group">
 
-                            <label for="header-signin-password" class="sr-only">Password</label>
+                            <label for="header-signin-password" class="sr-only">Hasło</label>
                             <div class="account-menu__form-forgot">
-                                <input id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Password">
-                                <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                                <input name="password" id="header-signin-password" type="password" class="form-control form-control-sm" placeholder="Hasło">
+                                <a href="" class="account-menu__form-forgot-link">Zapomniałeś?</a>
                             </div>
                         </div>
 
                         <div class="form-group account-menu__form-button">
-                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Zaloguj</button>
                         </div>
                         <div class="account-menu__form-link">
-                            <a href="account-login">Create An Account</a>
+                            <a href="account-login">Stwórz Konto</a>
                         </div>
                     </form>
 					{% endif %}
@@ -170,15 +168,13 @@
                     </a>
                     <div class="account-menu__divider"></div>
                     <ul class="account-menu__links">
-                        <li><a href="account-dashboard.html">Dashboard</a></li>
-                        <li><a href="account-dashboard.html">Garage</a></li>
-                        <li><a href="account-profile.html">Edit Profile</a></li>
-                        <li><a href="account-orders.html">Order History</a></li>
-                        <li><a href="account-addresses.html">Addresses</a></li>
+                        <li><a href="account-dashboard.html">Pulpit</a></li>
+                        <li><a href="account-orders.html">Historia Zamówień</a></li>
+                        <li><a href="account-addresses.html">Adresy</a></li>
                     </ul>
                     <div class="account-menu__divider"></div>
                     <ul class="account-menu__links">
-                        <li><a href="account-login">Logout</a></li>
+                        <li><a href="account-login">Wyloguj</a></li>
                     </ul>
 					{% endif %}
                 </div>
@@ -190,7 +186,7 @@
                     {{ svg('cart-32.svg') }}
                     <span class="indicator__counter">3</span>
                 </span>
-                <span class="indicator__title">Shopping Cart</span>
+                <span class="indicator__title">Koszyk</span>
                 <span class="indicator__value">$250.00</span>
             </a>
             <div class="indicator__content">

@@ -1,5 +1,5 @@
 index:
-  path: /index
+  path: /home
   controller: App\Controller\IndexController::index
 login:
   path: /login

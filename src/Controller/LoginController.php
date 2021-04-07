@@ -57,6 +57,7 @@ class LoginController extends AbstractController
         if ($statusCode === 200) {
             $cookieResponse = $this->render("/pages/account-dashboard.twig", [
                 "controller_name" => "LoginController",
+                "isUserAuthenticated" => $isUserAuthenticated,
             ]);
 
             $cookieResponse->headers->setCookie(
