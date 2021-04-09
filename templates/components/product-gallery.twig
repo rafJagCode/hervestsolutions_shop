@@ -2,6 +2,7 @@
 // inputs:
 // - classes: string - CSS classes (default: '')
 // - layout:  string - one of ['product-sidebar', 'product-full', 'quickview']
+// - image: href to img
 #}
 
 {% set classes = inputs.classes|default('') %}
@@ -27,7 +28,7 @@
                 -->
                 <a
                     class="image image--type--product"
-                    href="{{ image('images/products/product-'~i~'.jpg', {size: 700}) }}"
+                    href="{{image(inputs.image)}}"
                     target="_blank"
                     data-width="700"
                     data-height="700"
@@ -35,7 +36,7 @@
                     <div class="image__body">
                         <img
                             class="image__tag"
-                            src="{{ image('images/products/product-'~i~'.jpg', {size: size}) }}"
+                            src="{{image(inputs.image)}}"
                             alt=""
                         >
                     </div>

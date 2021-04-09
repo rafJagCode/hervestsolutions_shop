@@ -11,7 +11,7 @@ use App\Service\AuthChecker;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="index")
      */
     public function index(Request $request, AuthChecker $authChecker): Response
     {

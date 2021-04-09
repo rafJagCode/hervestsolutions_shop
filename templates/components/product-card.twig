@@ -33,7 +33,7 @@
 
     <div class="product-card__image">
         <div class="image image--type--product">
-            <a href="product-full.html" class="image__body">
+            <a href="{{ path('product', {'id': product.id})}}" class="image__body">
                 <img class="image__tag" {% if product.images[0] is defined %} src="{{ image(product.images[0], {size: 245}) }}" alt=""
 				{% else %} src="{{ image(product.image, {size: 245}) }}" alt="" {% endif %}>
             </a>
@@ -43,8 +43,8 @@
             {% include '/components/status-badge.twig' with {inputs: {
                 classes: 'product-card__fit',
                 style: 'success',
-                text: 'Part Fit for 2011 Ford Focus S',
-                tooltip: 'Part Fit for 2011 Ford Focus S',
+                text: "SKU: #{product.id}",
+                tooltip: "SKU: #{product.id}",
                 icon: 'success',
             }} %}
         {% endif %}
@@ -65,7 +65,7 @@
                     </div>
                 {% endif %} #}
 
-                <a href="product-full.html">{{ product.name }}</a>
+                <a href="{{ path('product', {'id': product.id})}}">{{ product.name }}</a>
             </div>
         </div>
 
@@ -100,14 +100,24 @@
             {% endif %}
         </div>
         {% if not ('buttons' in exclude) %}
-            <button class="product-card__addtocart-icon" type="button" aria-label="Add to cart">
+		<form action="/cart-add-product" method="POST">
+		<input type="hidden" name="quantity" value="1">
+		<input type="hidden" name="user" value="2">
+		<input type="hidden" name="product" value={{product.id}}>
+            <button class="product-card__addtocart-icon" type="submit" aria-label="Add to cart">
                 {{ svg('cart-20.svg') }}
             </button>
+		</form>
             {% if not ('list-buttons' in exclude) %}
-                <button class="product-card__addtocart-full" type="button">
+				<form action="/cart-add-product" method="POST">
+				<input type="hidden" name="quantity" value="1">
+				<input type="hidden" name="user" value="2">
+				<input type="hidden" name="product" value={{product.id}}>
+                <button class="product-card__addtocart-full" type="submit">
                     Dodaj do koszyka
                 </button>
-                <button class="product-card__wishlist" type="button">
+				</form>
+                <button class="product-card__wishlist" type="submit">
                     {{ svg('wishlist-16.svg') }}
                     <span>Dodaj do ulubionych</span>
                 </button>

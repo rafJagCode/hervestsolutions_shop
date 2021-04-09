@@ -58,29 +58,27 @@ class LoginController extends AbstractController
                 "controller_name" => "LoginController",
                 "isUserAuthenticated" => true,
             ]);
-
             $cookieResponse->headers->setCookie(
                 new Cookie(
                     "X-AUTH-TOKEN", // cookie name, should be the same as in JWT settings
                     $token, // the cookie value, e.g. the generated JWT token
                     new \DateTime("+1 day"), // the expiration
                     "/", // the path
-                    null, // the domain, null means that Symfony will generate it on its own
+                    ".redparts.test", // the domain, null means that Symfony will generate it on its own
                     false, // secure, e.g. only via https
                     false, // http only cookie, which is the default so no need to specify
                     false, // raw
-                    "none" // the same-site parameter, can be 'lax' or 'strict'
+                    "lax" // the same-site parameter, can be 'lax' or 'strict'
                 )
             );
-
             return $cookieResponse;
-        } else {
-            return $this->render("/pages/account-login.twig", [
-                "controller_name" => "LoginController",
-                "loginMessage" => $message,
-                "isUserAuthenticated" => false,
-            ]);
         }
+
+        return $this->render("/pages/account-login.twig", [
+            "controller_name" => "LoginController",
+            "loginMessage" => $message,
+            "isUserAuthenticated" => false,
+        ]);
     }
 
     /**
@@ -104,13 +102,15 @@ class LoginController extends AbstractController
         $message = $this->getStatusCodeMessage($statusCode);
 
         if ($statusCode === 200) {
-            return $this->render("/pages/account-dashboard.twig", [
-                "controller_name" => "LoginController",
-            ]);
+            $email = $request->request->get("email");
+            $request->request->set("username", $email);
+            $loginResponse = $this->signIn($request);
+            return $loginResponse;
         } else {
             return $this->render("/pages/account-login.twig", [
                 "controller_name" => "LoginController",
                 "registerMessage" => $message,
+                "isUserAuthenticated" => false,
             ]);
         }
     }

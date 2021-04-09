@@ -88,9 +88,9 @@
         </div>
     {% endif %}
     <div class="header__navbar">
-        <div class="header__navbar-departments">
+        {# <div class="header__navbar-departments">
             {% include '/header/departments.twig' %}
-        </div>
+        </div> #}
         <div class="header__navbar-menu">
             {% include '/header/main-menu.twig' %}
         </div>
@@ -151,7 +151,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Zaloguj</button>
                         </div>
                         <div class="account-menu__form-link">
-                            <a href="account-login">Stwórz Konto</a>
+                            <a href="/account-login">Stwórz Konto</a>
                         </div>
                     </form>
 					{% endif %}
@@ -168,13 +168,13 @@
                     </a>
                     <div class="account-menu__divider"></div>
                     <ul class="account-menu__links">
-                        <li><a href="dashboard">Pulpit</a></li>
+                        <li><a href="/dashboard">Pulpit</a></li>
                         <li><a href="account-orders.html">Historia Zamówień</a></li>
                         <li><a href="account-addresses.html">Adresy</a></li>
                     </ul>
                     <div class="account-menu__divider"></div>
                     <ul class="account-menu__links">
-                        <li><a class="logout-btn" onClick="logout()" href="home">Wyloguj</a></li>
+                        <li><a class="logout-btn" onClick="logout(event)" href="/">Wyloguj</a></li>
                     </ul>
 					{% endif %}
                 </div>

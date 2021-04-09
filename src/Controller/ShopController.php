@@ -36,16 +36,12 @@ class ShopController extends AbstractController
         $statusCode = $response->getStatusCode();
         $products = $response->toArray();
 
-        $productsWithImgs = array_map(
-            function ($product, $key) {
-                $productArray = (array) $product;
-                $productArray["image"] =
-                    "images/parts/part" . $key + 2 . ".jpg";
-                return (object) $productArray;
-            },
-            $products,
-            array_keys($products)
-        );
+        $productsWithImgs = array_map(function ($product) {
+            $productArray = (array) $product;
+            $productArray["image"] =
+                "images/parts/part" . $product["id"] . ".jpg";
+            return (object) $productArray;
+        }, $products);
 
         if ($statusCode === 200) {
             return $this->render("pages/shop-grid-4-columns-full.twig", [

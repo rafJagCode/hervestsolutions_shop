@@ -31,7 +31,7 @@
                             <tr class="cart-table__row">
                                 <td class="cart-table__column cart-table__column--image">
                                     <div class="image image--type--product">
-                                        <a href="product-full.html" class="image__body">
+                                        <a href="{{ path('product', {'id': product.id})}}" class="image__body">
                                             <img class="image__tag" src="{{ image(product.image, {size: 160}) }}" alt="">
                                         </a>
                                     </div>
@@ -58,9 +58,12 @@
                                 {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
 								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}} zł</td>
                                 <td class="cart-table__column cart-table__column--remove">
-                                    <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted">
+								<form action="/cart-remove-product" method="POST">
+									<input type="hidden" name="id" value={{product.id}}></input>
+                                    <button type="submit" class="cart-table__remove btn btn-sm btn-icon btn-muted">
                                         {{ svg('cross-12.svg') }}
                                     </button>
+								<form>
                                 </td>
                             </tr>
                         {% endfor %}
