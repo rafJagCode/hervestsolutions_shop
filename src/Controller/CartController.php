@@ -45,10 +45,10 @@ class CartController extends AbstractController
         });
 
         $productsWithImgs = array_map(
-            function ($product, $key) {
+            function ($product) {
                 $productArray = (array) $product;
                 $productArray["image"] =
-                    "images/parts/part" . $key + 2 . ".jpg";
+                    "images/parts/part" . $product["product"]["id"] . ".jpg";
                 return (object) $productArray;
             },
             $products,
@@ -62,6 +62,58 @@ class CartController extends AbstractController
                 "total" => $totalCost,
                 "isUserAuthenticated" => $isUserAuthenticated,
             ]);
+        }
+    }
+
+    /**
+     * @Route("/cart-remove-product", name="cart-remove-product")
+     */
+    public function cartRemoveProduct(
+        Request $request,
+        AuthChecker $authChecker
+    ): Response {
+        try {
+            $response = $this->client->request(
+                "POST",
+                $_ENV["API_URL"] . "cartRemoveProduct",
+                [
+                    "json" => $request->request->all(),
+                ]
+            );
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode === 200) {
+            return $this->index($request, $authChecker);
+        }
+    }
+
+    /**
+     * @Route("/cart-add-product", name="cart-add-product")
+     */
+    public function cartAddProduct(
+        Request $request,
+        AuthChecker $authChecker
+    ): Response {
+        try {
+            $response = $this->client->request(
+                "POST",
+                $_ENV["API_URL"] . "cartAddProduct",
+                [
+                    "json" => $request->request->all(),
+                ]
+            );
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode === 200) {
+            return $this->index($request, $authChecker);
         }
     }
 }
