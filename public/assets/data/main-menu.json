@@ -1,23 +1,23 @@
 [
   {
     "title": "Strona główna",
-    "url": "home"
+    "url": "/"
   },
   {
     "title": "Sklep",
-    "url": "shop",
+    "url": "/shop",
     "submenu": {
       "type": "menu",
       "links": [
         {
           "title": "Koszyk",
-          "url": "cart"
+          "url": "/cart"
         }
       ]
     }
   },
   {
     "title": "Producenci",
-    "url": "#"
+    "url": "/producers"
   }
 ]
