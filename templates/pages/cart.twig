@@ -2,7 +2,7 @@
 {% set global_page_title = 'Shopping Cart — Red Parts' %}
 {% set global_page_description = '' %}
 
-{% set cart = data('shop-cart.json') %}
+{# {% set cart = data('shop-cart.json') %} #}
 
 {% extends '/layouts/default.twig' %}
 
@@ -58,12 +58,9 @@
                                 {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
 								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}} zł</td>
                                 <td class="cart-table__column cart-table__column--remove">
-								<form action="/cart-remove-product" method="POST">
-									<input type="hidden" name="id" value={{product.id}}></input>
-                                    <button type="submit" class="cart-table__remove btn btn-sm btn-icon btn-muted">
+                                    <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted" onClick="cartRemoveProduct({{product.id}})">
                                         {{ svg('cross-12.svg') }}
                                     </button>
-								<form>
                                 </td>
                             </tr>
                         {% endfor %}

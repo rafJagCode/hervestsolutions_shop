@@ -21,8 +21,10 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(Request $request, AuthChecker $authChecker): Response
-    {
+    public function index(
+        Request $request,
+        AuthChecker $authChecker,
+    ): Response {
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         try {
             $response = $this->client->request(
@@ -44,16 +46,12 @@ class CartController extends AbstractController
             return $sum + $productStackCost;
         });
 
-        $productsWithImgs = array_map(
-            function ($product) {
-                $productArray = (array) $product;
-                $productArray["image"] =
-                    "images/parts/part" . $product["product"]["id"] . ".jpg";
-                return (object) $productArray;
-            },
-            $products,
-            array_keys($products)
-        );
+        $productsWithImgs = array_map(function ($product) {
+            $productArray = (array) $product;
+            $productArray["image"] =
+                "images/parts/part" . $product["product"]["id"] . ".jpg";
+            return (object) $productArray;
+        }, $products);
 
         if ($statusCode === 200) {
             return $this->render("pages/cart.twig", [
@@ -61,6 +59,7 @@ class CartController extends AbstractController
                 "products" => $productsWithImgs,
                 "total" => $totalCost,
                 "isUserAuthenticated" => $isUserAuthenticated,
+                "cart" => $productsWithImgs,
             ]);
         }
     }
@@ -116,4 +115,74 @@ class CartController extends AbstractController
             return $this->index($request, $authChecker);
         }
     }
+
+	 /**
+     * @Route("/cart-items", name="cart-items")
+     */
+	public function cartItems()
+	{
+		        try {
+            $response = $this->client->request(
+                "POST",
+                $_ENV["API_URL"] . "cart",
+                [
+                    "json" => ["user" => 2],
+                ]
+            );
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        $statusCode = $response->getStatusCode();
+        $products = $response->toArray();
+
+
+        $productsWithImgs = array_map(function ($product) {
+            $productArray = (array) $product;
+            $productArray["image"] =
+                "images/parts/part" . $product["product"]["id"] . ".jpg";
+            return (object) $productArray;
+        }, $products);
+        if ($statusCode === 200) {
+            return $this->render("components/cart-items.twig", [
+                "controller_name" => "CartController",
+                "cartItems" => $productsWithImgs,
+            ]);
+        }
+	}
+
+	 /**
+     * @Route("/cart-dropdown-items", name="cart-dropdown-items")
+     */
+	public function cartDropdownItems()
+	{
+		        try {
+            $response = $this->client->request(
+                "POST",
+                $_ENV["API_URL"] . "cart",
+                [
+                    "json" => ["user" => 2],
+                ]
+            );
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        $statusCode = $response->getStatusCode();
+        $products = $response->toArray();
+
+
+        $productsWithImgs = array_map(function ($product) {
+            $productArray = (array) $product;
+            $productArray["image"] =
+                "images/parts/part" . $product["product"]["id"] . ".jpg";
+            return (object) $productArray;
+        }, $products);
+        if ($statusCode === 200) {
+            return $this->render("components/cart-dropdown-items.twig", [
+                "controller_name" => "CartController",
+                "cart" => $productsWithImgs,
+            ]);
+        }
+	}
 }
