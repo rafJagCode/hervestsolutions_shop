@@ -8,15 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\AuthChecker;
+use App\Service\CartGetter;
 use Exception;
 
 class ProductController extends AbstractController
 {
     private $client;
-
-    public function __construct(HttpClientInterface $client)
-    {
+    private $cartGetter;
+    public function __construct(
+        HttpClientInterface $client,
+        CartGetter $cartGetter
+    ) {
         $this->client = $client;
+        $this->cartGetter = $cartGetter;
     }
 
     /**
@@ -28,6 +32,7 @@ class ProductController extends AbstractController
         $id
     ): Response {
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
+        $cart = $this->cartGetter->getProducts();
         try {
             $response = $this->client->request(
                 "POST",
@@ -59,6 +64,7 @@ class ProductController extends AbstractController
                 "controller_name" => "ProductController",
                 "product" => $chosenProduct,
                 "isUserAuthenticated" => $isUserAuthenticated,
+                "cart" => $cart,
             ]);
         }
     }

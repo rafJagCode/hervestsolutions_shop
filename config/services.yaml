@@ -32,8 +32,15 @@ services:
   App\Service\AuthChecker:
     public: false
 
-  app.mailer:
+  app.auth.checker:
     alias: App\Service\AuthChecker
+    public: true
+
+  App\Service\CartGetter:
+    public: false
+
+  app.cart.getter:
+    alias: App\Service\CartGetter
     public: true
 
   # add more service definitions when explicit configuration is needed

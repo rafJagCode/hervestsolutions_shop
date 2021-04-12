@@ -7,18 +7,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\AuthChecker;
+use App\Service\CartGetter;
 
 class DashboardController extends AbstractController
 {
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function index(Request $request, AuthChecker $authChecker): Response
-    {
+    public function index(
+        Request $request,
+        AuthChecker $authChecker,
+        CartGetter $cartGetter
+    ): Response {
+        $cart = $cartGetter->getProducts();
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
-        return $this->render("pages/account-dashboard.twig", [
+        if ($isUserAuthenticated) {
+            return $this->render("pages/account-dashboard.twig", [
+                "controller_name" => "DashboardController",
+                "isUserAuthenticated" => $isUserAuthenticated,
+                "cart" => $cart,
+            ]);
+        }
+
+        return $this->render("pages/account-login.twig", [
             "controller_name" => "DashboardController",
             "isUserAuthenticated" => $isUserAuthenticated,
+            "cart" => $cart,
         ]);
     }
 }

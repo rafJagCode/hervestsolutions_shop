@@ -17,7 +17,7 @@
 
 <div class="{{ root_classes }}">
     <div class="product-card__actions-list">
-        <button class="product-card__action product-card__action--quickview" type="button" aria-label="Quick view">
+        <button class="product-card__action product-card__action--quickview" type="button" aria-label="Quick view" data-id="{{product.id}}">
             {{ svg('quickview-16.svg') }}
         </button>
         {% if not ('actions' in exclude) %}
@@ -100,23 +100,13 @@
             {% endif %}
         </div>
         {% if not ('buttons' in exclude) %}
-		<form action="/cart-add-product" method="POST">
-		<input type="hidden" name="quantity" value="1">
-		<input type="hidden" name="user" value="2">
-		<input type="hidden" name="product" value={{product.id}}>
-            <button class="product-card__addtocart-icon" type="submit" aria-label="Add to cart">
+            <button class="product-card__addtocart-icon" type="button" aria-label="Add to cart" onclick="cartAddProduct({{product.id}})">
                 {{ svg('cart-20.svg') }}
             </button>
-		</form>
             {% if not ('list-buttons' in exclude) %}
-				<form action="/cart-add-product" method="POST">
-				<input type="hidden" name="quantity" value="1">
-				<input type="hidden" name="user" value="2">
-				<input type="hidden" name="product" value={{product.id}}>
-                <button class="product-card__addtocart-full" type="submit">
+                <button class="product-card__addtocart-full" type="button" onClick="cartAddProduct({{product.id}})">
                     Dodaj do koszyka
                 </button>
-				</form>
                 <button class="product-card__wishlist" type="submit">
                     {{ svg('wishlist-16.svg') }}
                     <span>Dodaj do ulubionych</span>

@@ -54,6 +54,7 @@
     <header class="site__header">
         {% include '/header/header.twig' with {inputs: {
             isUserAuthenticated: isUserAuthenticated,
+			cart: cart is defined ? cart : []
         }} %}
     </header>
     <!-- site__header / end -->
@@ -94,6 +95,8 @@
 
 <!-- scripts -->
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script>
@@ -104,6 +107,6 @@
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/logout.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script>
 </body>
 </html>

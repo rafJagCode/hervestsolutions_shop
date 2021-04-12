@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
 use App\Service\AuthChecker;
+use App\Service\CartGetter;
 use Symfony\Component\HttpFoundation\Request;
 
 class ShopController extends AbstractController
@@ -21,8 +22,12 @@ class ShopController extends AbstractController
     /**
      * @Route("/shop", name="shop")
      */
-    public function index(Request $request, AuthChecker $authChecker): Response
-    {
+    public function index(
+        Request $request,
+        AuthChecker $authChecker,
+        CartGetter $cartGetter
+    ): Response {
+        $cart = $cartGetter->getProducts();
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         try {
             $response = $this->client->request(
@@ -48,6 +53,7 @@ class ShopController extends AbstractController
                 "controller_name" => "ShopController",
                 "productsB" => $productsWithImgs,
                 "isUserAuthenticated" => $isUserAuthenticated,
+                "cart" => $cart,
             ]);
         }
     }

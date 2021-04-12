@@ -37,20 +37,20 @@
                 class="block-sale__image"
                 style="background-image: url('{{ image('images/big/many-parts.jpg', {size: [1903, 640]}) }}');"
             ></div>
-            <div class="container">
+            {# <div class="container">
                 <div class="block-sale__carousel">
                     <div class="owl-carousel">
                         {% for product in products[:8] %}
                             <div class="block-sale__item">
-                                {# {% include '/components/product-card.twig' with {inputs: {
+                                {% include '/components/product-card.twig' with {inputs: {
                                     product: product,
                                     exclude: ['features', 'list-buttons'],
-                                }} %} #}
+                                }} %}
                             </div>
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </div> #}
         </div>
     </div>
 </div>

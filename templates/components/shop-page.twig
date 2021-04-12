@@ -148,7 +148,8 @@
                                     <div class="products-list__item">
                                         {% include '/components/product-card.twig' with {inputs: {
                                             product: product,
-											layout: 'table'
+											layout: 'table',
+											exclude: 'status-badge'
                                         }} %}
                                     </div>
                                 {% endfor %}

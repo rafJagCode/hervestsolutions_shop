@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Cookie;
 use App\Service\AuthChecker;
+use App\Service\CartGetter;
 
 class LoginController extends AbstractController
 {
@@ -23,20 +24,26 @@ class LoginController extends AbstractController
     /**
      * @Route("/account-login", name="account-login")
      */
-    public function index(Request $request, AuthChecker $authChecker): Response
-    {
+    public function index(
+        Request $request,
+        AuthChecker $authChecker,
+        CartGetter $cartGetter
+    ): Response {
+        $cart = $cartGetter->getProducts();
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         return $this->render("/pages/account-login.twig", [
             "controller_name" => "LoginController",
             "isUserAuthenticated" => $isUserAuthenticated,
+            "cart" => $cart,
         ]);
     }
 
     /**
      * @Route("/sign-in", name="sign-in")
      */
-    public function signIn(Request $request): Response
+    public function signIn(Request $request, CartGetter $cartGetter): Response
     {
+        $cart = $cartGetter->getProducts();
         try {
             $response = $this->client->request(
                 "POST",
@@ -57,6 +64,7 @@ class LoginController extends AbstractController
             $cookieResponse = $this->render("/pages/account-dashboard.twig", [
                 "controller_name" => "LoginController",
                 "isUserAuthenticated" => true,
+                "cart" => $cart,
             ]);
             $cookieResponse->headers->setCookie(
                 new Cookie(
