@@ -29,5 +29,25 @@ services:
     resource: "../src/Controller/"
     tags: ["controller.service_arguments"]
 
+  App\Service\AuthChecker:
+    public: false
+
+  app.auth.checker:
+    alias: App\Service\AuthChecker
+    public: true
+
+  App\Service\CartGetter:
+    public: false
+
+  app.cart.getter:
+    alias: App\Service\CartGetter
+    public: true
+
+  App\Service\ProductsCategoriesGetter:
+    public: false
+
+  app.products.categories.getter:
+    alias: App\Service\ProductsCategoriesGetter
+    public: true
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones

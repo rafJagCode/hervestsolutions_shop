@@ -10,3 +10,6 @@ signIn:
 register:
   path: /register
   controller: App\Controller\LoginController::register
+product:
+  path: /product/{id}
+  controller: App\Controller\ProductController::index

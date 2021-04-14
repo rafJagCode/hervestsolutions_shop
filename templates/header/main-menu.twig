@@ -9,9 +9,9 @@
 
 		{% for item in menu|filter(item => not item.ignore_in is defined or global_header_layout not in item.ignore_in) %}
              {% set item_classes = classnames('main-menu__item', {
-                'main-menu__item--has-submenu': item.submenu,
-                'main-menu__item--submenu--menu': item.submenu.type == 'menu',
-                'main-menu__item--submenu--megamenu': item.submenu.type == 'megamenu'
+                'main-menu__item--has-submenu': item.submenu is defined,
+                'main-menu__item--submenu--menu': item.submenu is defined and item.submenu.type == 'menu',
+                'main-menu__item--submenu--megamenu': item.submenu is defined and item.submenu.type == 'megamenu'
             }) %}
 
             <li class="{{ item_classes }}">

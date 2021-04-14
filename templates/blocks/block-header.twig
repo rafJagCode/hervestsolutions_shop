@@ -5,11 +5,7 @@
 #}
 
 {% set title = inputs.title %}
-{% set breadcrumb = inputs.breadcrumb|default([
-    {title: 'Home', url: 'index.html'},
-    {title: 'Breadcrumb', url: ''},
-    {title: 'Current Page', url: ''},
-]) %}
+{% set breadcrumb = breadcrumbs() %}
 
 {% set root_classes = classnames('block-header', {
     'block-header--has-title': title,

@@ -8,31 +8,44 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Cookie;
+use App\Service\AuthChecker;
+use App\Service\CartGetter;
 
 class LoginController extends AbstractController
 {
     private $client;
+	private $cartGetter;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, CartGetter $cartGetter)
     {
         $this->client = $client;
+		$this->cartGetter = $cartGetter;
     }
 
     /**
      * @Route("/account-login", name="account-login")
      */
-    public function index(): Response
-    {
+    public function index(
+        Request $request,
+        AuthChecker $authChecker,
+        CartGetter $cartGetter
+    ): Response {
+        $cart = $this->cartGetter->getProducts();
+        $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         return $this->render("/pages/account-login.twig", [
             "controller_name" => "LoginController",
+            "isUserAuthenticated" => $isUserAuthenticated,
+            "cart" => $cart,
         ]);
     }
 
     /**
      * @Route("/sign-in", name="sign-in")
      */
-    public function signIn(Request $request): Response
+    public function signIn(Request $request, ): Response
     {
+        $cart = $this->cartGetter->getProducts();
         try {
             $response = $this->client->request(
                 "POST",
@@ -46,18 +59,36 @@ class LoginController extends AbstractController
         }
 
         $statusCode = $statusCode = $response->getStatusCode();
+        $token = $response->toArray()["token"];
         $message = $this->getStatusCodeMessage($statusCode);
 
         if ($statusCode === 200) {
-            return $this->render("/pages/account-dashboard.twig", [
+            $cookieResponse = $this->render("/pages/account-dashboard.twig", [
                 "controller_name" => "LoginController",
+                "isUserAuthenticated" => true,
+                "cart" => $cart,
             ]);
-        } else {
-            return $this->render("/pages/account-login.twig", [
-                "controller_name" => "LoginController",
-                "loginMessage" => $message,
-            ]);
+            $cookieResponse->headers->setCookie(
+                new Cookie(
+                    "X-AUTH-TOKEN", // cookie name, should be the same as in JWT settings
+                    $token, // the cookie value, e.g. the generated JWT token
+                    new \DateTime("+1 day"), // the expiration
+                    "/", // the path
+                    ".redparts.test", // the domain, null means that Symfony will generate it on its own
+                    false, // secure, e.g. only via https
+                    false, // http only cookie, which is the default so no need to specify
+                    false, // raw
+                    "lax" // the same-site parameter, can be 'lax' or 'strict'
+                )
+            );
+            return $cookieResponse;
         }
+
+        return $this->render("/pages/account-login.twig", [
+            "controller_name" => "LoginController",
+            "loginMessage" => $message,
+            "isUserAuthenticated" => false,
+        ]);
     }
 
     /**
@@ -81,13 +112,15 @@ class LoginController extends AbstractController
         $message = $this->getStatusCodeMessage($statusCode);
 
         if ($statusCode === 200) {
-            return $this->render("/pages/account-dashboard.twig", [
-                "controller_name" => "LoginController",
-            ]);
+            $email = $request->request->get("email");
+            $request->request->set("username", $email);
+            $loginResponse = $this->signIn($request);
+            return $loginResponse;
         } else {
             return $this->render("/pages/account-login.twig", [
                 "controller_name" => "LoginController",
                 "registerMessage" => $message,
+                "isUserAuthenticated" => false,
             ]);
         }
     }

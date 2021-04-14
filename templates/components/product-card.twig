@@ -17,23 +17,25 @@
 
 <div class="{{ root_classes }}">
     <div class="product-card__actions-list">
-        <button class="product-card__action product-card__action--quickview" type="button" aria-label="Quick view">
+        <button class="product-card__action product-card__action--quickview" type="button" aria-label="Quick view" data-id="{{product.id}}">
             {{ svg('quickview-16.svg') }}
         </button>
         {% if not ('actions' in exclude) %}
             <button class="product-card__action product-card__action--wishlist" type="button" aria-label="Add to wish list">
                 {{ svg('wishlist-16.svg') }}
             </button>
-            <button class="product-card__action product-card__action--compare" type="button" aria-label="Add to compare">
+            {# <button class="product-card__action product-card__action--compare" type="button" aria-label="Add to compare">
                 {{ svg('compare-16.svg') }}
-            </button>
+            </button> #}
         {% endif %}
     </div>
 
+
     <div class="product-card__image">
         <div class="image image--type--product">
-            <a href="product-full.html" class="image__body">
-                <img class="image__tag" src="{{ image(product.images[0], {size: 245}) }}" alt="">
+            <a href="{{ path('product', {'id': product.id})}}" class="image__body">
+                <img class="image__tag" {% if product.Images[0] is defined %} src="{{ image(product.Images[0], {size: 245}) }}" alt=""
+				{% endif %}>
             </a>
         </div>
 
@@ -41,8 +43,8 @@
             {% include '/components/status-badge.twig' with {inputs: {
                 classes: 'product-card__fit',
                 style: 'success',
-                text: 'Part Fit for 2011 Ford Focus S',
-                tooltip: 'Part Fit for 2011 Ford Focus S',
+                text: "SKU: #{product.product_number}",
+                tooltip: "SKU: #{product.product_number}",
                 icon: 'success',
             }} %}
         {% endif %}
@@ -50,39 +52,37 @@
 
     <div class="product-card__info">
         {% if not ('meta' in exclude) %}
-            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.sku }}</div>
+            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.product_number }}</div>
         {% endif %}
 
         <div class="product-card__name">
             <div>
-                {% if product.badges %}
+                {# {% if product.badges %}
                     <div class="product-card__badges">
                         {% for badge in product.badges %}
                             <div class="{{ classnames('tag-badge', 'tag-badge--'~badge) }}">{{ badge }}</div>
                         {% endfor %}
                     </div>
-                {% endif %}
+                {% endif %} #}
 
-                <a href="product-full.html">{{ product.name }}</a>
+                <a href="{{ path('product', {'id': product.id})}}">{{ product.name }}</a>
             </div>
         </div>
 
-        <div class="product-card__rating">
+        {# <div class="product-card__rating">
             {% include '/components/rating.twig' with {inputs: {
                 classes: 'product-card__rating-stars',
                 rating: product.rating
             }} %}
             <div class="product-card__rating-label">{{ product.rating }} on {{ product.reviews }} reviews</div>
-        </div>
+        </div> #}
 
         {% if not ('features' in exclude) %}
             <div class="product-card__features">
                 <ul>
-                    <li>Speed: 750 RPM</li>
-                    <li>Power Source: Cordless-Electric</li>
-                    <li>Battery Cell Type: Lithium</li>
-                    <li>Voltage: 20 Volts</li>
-                    <li>Battery Capacity: 2 Ah</li>
+				{% for item in product.features %}
+                    <li>{{item}}</li>
+				{% endfor %}
                 </ul>
             </div>
         {% endif %}
@@ -90,29 +90,29 @@
 
     <div class="product-card__footer">
         <div class="product-card__prices">
-            {% if product.compareAtPrice %}
-                {# <div class="product-card__price product-card__price--new">{{ product.price|currency }}</div> #}
-                {# <div class="product-card__price product-card__price--old">{{ product.compareAtPrice|currency }}</div> #}
+            {% if product.compareAtPrice is defined and product.compareAtPrice != null %}
+                <div class="product-card__price product-card__price--new">{{ product.price }} zł</div>
+                <div class="product-card__price product-card__price--old">{{ product.compareAtPrice }} zł</div>
             {% else %}
-                {# <div class="product-card__price product-card__price--current">{{ product.price|currency }}</div> #}
+                <div class="product-card__price product-card__price--current">{{ product.price }} zł</div>
             {% endif %}
         </div>
         {% if not ('buttons' in exclude) %}
-            <button class="product-card__addtocart-icon" type="button" aria-label="Add to cart">
+            <button class="product-card__addtocart-icon" type="button" aria-label="Add to cart" onclick="cartAddProduct({{product.id}})">
                 {{ svg('cart-20.svg') }}
             </button>
             {% if not ('list-buttons' in exclude) %}
-                <button class="product-card__addtocart-full" type="button">
-                    Add to cart
+                <button class="product-card__addtocart-full" type="button" onClick="cartAddProduct({{product.id}})">
+                    Dodaj do koszyka
                 </button>
-                <button class="product-card__wishlist" type="button">
+                <button class="product-card__wishlist" type="submit">
                     {{ svg('wishlist-16.svg') }}
-                    <span>Add to wishlist</span>
+                    <span>Dodaj do ulubionych</span>
                 </button>
-                <button class="product-card__compare" type="button">
+                {# <button class="product-card__compare" type="button">
                     {{ svg('compare-16.svg') }}
                     <span>Add to compare</span>
-                </button>
+                </button> #}
             {% endif %}
         {% endif %}
     </div>
