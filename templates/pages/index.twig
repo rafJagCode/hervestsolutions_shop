@@ -21,6 +21,7 @@
             {title: 'Hand Tools', active: false},
             {title: 'Plumbing', active: false},
         ],
+		selectedFourProducts: newest,
     }} %}
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
     {% include '/blocks/block-sale.twig' %}
@@ -40,7 +41,8 @@
                 'Krone',
 				'Massey Ferguson',
             ]
-        }
+        },
+		newest: newest
     }} %}
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-sm'}} %}
     {# {% include '/blocks/block-zone.twig' with {inputs: {

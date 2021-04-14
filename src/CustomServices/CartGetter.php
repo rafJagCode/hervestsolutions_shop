@@ -27,14 +27,7 @@ class CartGetter
         }
         $products = $response->toArray();
 
-        $productsWithImgs = array_map(function ($product) {
-            $productArray = (array) $product;
-            $productArray["image"] =
-                "images/parts/part" . $product["product"]["id"] . ".jpg";
-            return (object) $productArray;
-        }, $products);
-
-        return $productsWithImgs;
+        return $products;
     }
 }
 ?>

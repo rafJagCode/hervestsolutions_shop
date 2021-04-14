@@ -8,17 +8,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Exception;
 
 class ProducersController extends AbstractController
 {
-    public function getProducer($name, $image)
+    private $client;
+    public function __construct(HttpClientInterface $client)
     {
-        $producer = (object) [
-            "name" => $name,
-            "image" => $image,
-        ];
-        return $producer;
+        $this->client = $client;
     }
+
     /**
      * @Route("/producers", name="producers")
      */
@@ -28,26 +28,26 @@ class ProducersController extends AbstractController
         CartGetter $cartGetter
     ): Response {
         $cart = $cartGetter->getProducts();
-
-        $producers = [
-            $this->getProducer("AGCO", "images/producers/agco.png"),
-            $this->getProducer("Arbos", "images/producers/arbos.png"),
-            $this->getProducer("Case", "images/producers/case.png"),
-            $this->getProducer("Cat", "images/producers/cat.png"),
-            $this->getProducer("Claas", "images/producers/claas.png"),
-            $this->getProducer("Krone", "images/producers/krone.png"),
-            $this->getProducer(
-                "Massey Ferguson",
-                "images/producers/massey_ferguson.png"
-            ),
-        ];
-
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
-        return $this->render("pages/producers.twig", [
-            "controller_name" => "ProducersController",
-            "isUserAuthenticated" => $isUserAuthenticated,
-            "producers" => $producers,
-            "cart" => $cart,
-        ]);
+        try {
+            $response = $this->client->request(
+                "POST",
+                $_ENV["API_URL"] . "manufacturers"
+            );
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        $statusCode = $response->getStatusCode();
+        $producers = $response->toArray();
+
+        if ($statusCode === 200) {
+            return $this->render("pages/producers.twig", [
+                "controller_name" => "ProducersController",
+                "isUserAuthenticated" => $isUserAuthenticated,
+                "producers" => $producers,
+                "cart" => $cart,
+            ]);
+        }
     }
 }

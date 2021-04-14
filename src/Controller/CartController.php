@@ -46,20 +46,13 @@ class CartController extends AbstractController
             return $sum + $productStackCost;
         });
 
-        $productsWithImgs = array_map(function ($product) {
-            $productArray = (array) $product;
-            $productArray["image"] =
-                "images/parts/part" . $product["product"]["id"] . ".jpg";
-            return (object) $productArray;
-        }, $products);
-
         if ($statusCode === 200) {
             return $this->render("pages/cart.twig", [
                 "controller_name" => "CartController",
-                "products" => $productsWithImgs,
+                "products" => $products,
                 "total" => $totalCost,
                 "isUserAuthenticated" => $isUserAuthenticated,
-                "cart" => $productsWithImgs,
+                "cart" => $products,
             ]);
         }
     }
@@ -136,17 +129,10 @@ class CartController extends AbstractController
         $statusCode = $response->getStatusCode();
         $products = $response->toArray();
 
-
-        $productsWithImgs = array_map(function ($product) {
-            $productArray = (array) $product;
-            $productArray["image"] =
-                "images/parts/part" . $product["product"]["id"] . ".jpg";
-            return (object) $productArray;
-        }, $products);
         if ($statusCode === 200) {
             return $this->render("components/cart-items.twig", [
                 "controller_name" => "CartController",
-                "cartItems" => $productsWithImgs,
+                "cartItems" => $products,
             ]);
         }
 	}
@@ -171,17 +157,10 @@ class CartController extends AbstractController
         $statusCode = $response->getStatusCode();
         $products = $response->toArray();
 
-
-        $productsWithImgs = array_map(function ($product) {
-            $productArray = (array) $product;
-            $productArray["image"] =
-                "images/parts/part" . $product["product"]["id"] . ".jpg";
-            return (object) $productArray;
-        }, $products);
         if ($statusCode === 200) {
             return $this->render("components/cart-dropdown-items.twig", [
                 "controller_name" => "CartController",
-                "cart" => $productsWithImgs,
+                "cart" => $products,
             ]);
         }
 	}

@@ -15,9 +15,10 @@ const getCartItems = () => {
   });
 };
 const cartAddProduct = async (id) => {
+	let quantity = $(".input-number__input").val();
   await axios.post(
     "http://apiagro.amelen.pl/public/index.php/api/cartAddProduct",
-    { product: id, user: 2, quantity: 1 }
+    { product: id, user: 2, quantity: quantity ? quantity : 1}
   );
   getCartItems();
 };

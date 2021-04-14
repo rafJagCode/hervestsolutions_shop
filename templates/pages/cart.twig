@@ -32,7 +32,7 @@
                                 <td class="cart-table__column cart-table__column--image">
                                     <div class="image image--type--product">
                                         <a href="{{ path('product', {'id': product.id})}}" class="image__body">
-                                            <img class="image__tag" src="{{ image(product.image, {size: 160}) }}" alt="">
+                                            <img class="image__tag" src="{{ image(product.product.Images[0], {size: 160}) }}" alt="">
                                         </a>
                                     </div>
                                 </td>

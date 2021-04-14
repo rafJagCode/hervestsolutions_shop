@@ -15,10 +15,12 @@ use App\Service\CartGetter;
 class LoginController extends AbstractController
 {
     private $client;
+	private $cartGetter;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, CartGetter $cartGetter)
     {
         $this->client = $client;
+		$this->cartGetter = $cartGetter;
     }
 
     /**
@@ -29,7 +31,7 @@ class LoginController extends AbstractController
         AuthChecker $authChecker,
         CartGetter $cartGetter
     ): Response {
-        $cart = $cartGetter->getProducts();
+        $cart = $this->cartGetter->getProducts();
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         return $this->render("/pages/account-login.twig", [
             "controller_name" => "LoginController",
@@ -41,9 +43,9 @@ class LoginController extends AbstractController
     /**
      * @Route("/sign-in", name="sign-in")
      */
-    public function signIn(Request $request, CartGetter $cartGetter): Response
+    public function signIn(Request $request, ): Response
     {
-        $cart = $cartGetter->getProducts();
+        $cart = $this->cartGetter->getProducts();
         try {
             $response = $this->client->request(
                 "POST",

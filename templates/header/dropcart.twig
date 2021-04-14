@@ -10,13 +10,13 @@
         {% for product in cart %}
             <li class="dropcart__item">
                 <div class="dropcart__item-image image image--type--product">
-                    <a class="image__body" href="product-full.html">
-                        <img class="image__tag" src="{{ image(product.image) }}" alt="">
+                    <a class="image__body" href="/product/{{product.product.id}}">
+                        <img class="image__tag" src="{{ image(product.product.Images[0]) }}" alt="">
                     </a>
                 </div>
                 <div class="dropcart__item-info">
                     <div class="dropcart__item-name">
-                        <a href="product-full.html">{{ product.product.name }}</a>
+                        <a href="/product/{{product.product.id}}">{{ product.product.name }}</a>
                     </div>
                     {% if item.options is defined %}
                         <ul class="dropcart__item-features">

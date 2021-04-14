@@ -1,11 +1,13 @@
 {#
 // inputs:
 // - category: object - category data object
+// - newest: array of products from index - newest
 #}
 
 {% set category = inputs.category %}
 
 {% set products = data('shop-products.json') %}
+{% set newest = inputs.newest %}
 
 <div class="block block-zone">
     <div class="container">
@@ -56,7 +58,7 @@
                     <div class="block-zone__carousel">
                         <div class="block-zone__carousel-loader"></div>
                         <div class="owl-carousel">
-                            {% for product in products[:8] %}
+                            {% for product in newest %}
                                 <div class="block-zone__carousel-item">
                                     {% include '/components/product-card.twig' with {inputs: {
                                         product: product,

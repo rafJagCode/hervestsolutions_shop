@@ -34,8 +34,8 @@
     <div class="product-card__image">
         <div class="image image--type--product">
             <a href="{{ path('product', {'id': product.id})}}" class="image__body">
-                <img class="image__tag" {% if product.images[0] is defined %} src="{{ image(product.images[0], {size: 245}) }}" alt=""
-				{% else %} src="{{ image(product.image, {size: 245}) }}" alt="" {% endif %}>
+                <img class="image__tag" {% if product.Images[0] is defined %} src="{{ image(product.Images[0], {size: 245}) }}" alt=""
+				{% endif %}>
             </a>
         </div>
 
@@ -43,8 +43,8 @@
             {% include '/components/status-badge.twig' with {inputs: {
                 classes: 'product-card__fit',
                 style: 'success',
-                text: "SKU: #{product.id}",
-                tooltip: "SKU: #{product.id}",
+                text: "SKU: #{product.product_number}",
+                tooltip: "SKU: #{product.product_number}",
                 icon: 'success',
             }} %}
         {% endif %}
@@ -52,7 +52,7 @@
 
     <div class="product-card__info">
         {% if not ('meta' in exclude) %}
-            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.id }}</div>
+            <div class="product-card__meta"><span class="product-card__meta-title">SKU:</span> {{ product.product_number }}</div>
         {% endif %}
 
         <div class="product-card__name">
@@ -80,11 +80,9 @@
         {% if not ('features' in exclude) %}
             <div class="product-card__features">
                 <ul>
-                    <li>Speed: 750 RPM</li>
-                    <li>Power Source: Cordless-Electric</li>
-                    <li>Battery Cell Type: Lithium</li>
-                    <li>Voltage: 20 Volts</li>
-                    <li>Battery Capacity: 2 Ah</li>
+				{% for item in product.features %}
+                    <li>{{item}}</li>
+				{% endfor %}
                 </ul>
             </div>
         {% endif %}

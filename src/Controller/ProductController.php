@@ -9,18 +9,22 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\AuthChecker;
 use App\Service\CartGetter;
+use App\Service\ProductsCategoriesGetter;
 use Exception;
 
 class ProductController extends AbstractController
 {
     private $client;
     private $cartGetter;
+	private $productsCategoriesGetter;
     public function __construct(
         HttpClientInterface $client,
-        CartGetter $cartGetter
+        CartGetter $cartGetter,
+		ProductsCategoriesGetter $productsCategoriesGetter,
     ) {
         $this->client = $client;
         $this->cartGetter = $cartGetter;
+		$this->productsCategoriesGetter = $productsCategoriesGetter;
     }
 
     /**
@@ -33,38 +37,29 @@ class ProductController extends AbstractController
     ): Response {
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
         $cart = $this->cartGetter->getProducts();
+		$newest = $this->productsCategoriesGetter->getNewest();
         try {
             $response = $this->client->request(
                 "POST",
-                $_ENV["API_URL"] . "getproducts"
+                $_ENV["API_URL"] . "getproduct",
+                [
+                    "json" => ["id" => $id],
+                ]
             );
         } catch (Exception $exception) {
             throw $exception;
         }
 
         $statusCode = $response->getStatusCode();
-        $products = $response->toArray();
-
-        $productsWithImgs = array_map(
-            function ($product, $key) {
-                $productArray = (array) $product;
-                $productArray["image"] =
-                    "images/parts/part" . $key + 2 . ".jpg";
-                return (object) $productArray;
-            },
-            $products,
-            array_keys($products)
-        );
-        $ids = array_column($productsWithImgs, "id");
-        $chosenProductKey = array_search($id, $ids);
-        $chosenProduct = $productsWithImgs[$chosenProductKey];
+        $product = $response->toArray()[0];
 
         if ($statusCode === 200) {
             return $this->render("pages/product-full.twig", [
                 "controller_name" => "ProductController",
-                "product" => $chosenProduct,
+                "product" => $product,
                 "isUserAuthenticated" => $isUserAuthenticated,
                 "cart" => $cart,
+				"selectedFourProducts" => $newest
             ]);
         }
     }

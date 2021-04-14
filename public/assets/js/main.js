@@ -360,11 +360,14 @@
     */
   $(function () {
     $(".indicator").on("click", function (event) {
-      event.preventDefault();
+      //   event.preventDefault();
 
-      const dropdown = $(this).closest(".indicator");
+      const dropdown = $(event.target).closest(".indicator");
 
-      if (dropdown.is(".indicator--open")) {
+      if (
+        dropdown.is(".indicator--open") &&
+        $(event.target).closest(".indicator__content").length === 0
+      ) {
         dropdown.removeClass("indicator--open");
       } else {
         dropdown.addClass("indicator--open");
@@ -372,10 +375,21 @@
     });
 
     $(document).on("click", function (event) {
+      if (!($(event.target).closest(".indicator__content").length === 0)) {
+        return;
+      }
       $(".indicator")
         .not($(event.target).closest(".indicator"))
         .removeClass("indicator--open");
     });
+
+    // $(document).on("click", function (event) {
+    //   $(".indicator")
+    //     .not($(event.target).closest(".indicator"))
+    //     .removeClass("indicator--open");
+    // 			console.log('docum')
+
+    // });
   });
 
   /*
@@ -1101,7 +1115,7 @@
         rtl: isRTL(),
         responsive: {
           1400: { items: 4, margin: 20 },
-          992: { items: 3, margin: 16 },
+          992: { items: 4, margin: 16 },
           460: { items: 2, margin: 16 },
           0: { items: 1 },
         },
@@ -1123,6 +1137,27 @@
       $(this)
         .find(".block-zone__tabs-button")
         .on("click", function () {
+          let carouselM = $(".block-zone__carousel .owl-carousel");
+          $.ajax({
+            url: "/carousel-newest",
+            success: function (data) {
+              carouselM.html(data);
+              carouselM.owlCarousel(Object.assign({
+                dots: false,
+                margin: 20,
+                loop: true,
+                items: 4,
+                rtl: isRTL(),
+                responsive: {
+                  1400: { items: 4, margin: 20 },
+                  992: { items: 3, margin: 16 },
+                  460: { items: 2, margin: 16 },
+                  0: { items: 1 },
+                },
+              }));
+            },
+          });
+
           const block = $(this).closest(".block-zone");
           const carousel = block.find(".block-zone__carousel");
 
@@ -1140,32 +1175,32 @@
 
           carousel.addClass("block-zone__carousel--loading");
 
-          // timeout ONLY_FOR_DEMO! you can replace it with an ajax request
+          //   // timeout ONLY_FOR_DEMO! you can replace it with an ajax request
           let timer;
           timer = setTimeout(function () {
-            let items = block.find(
-              '.owl-carousel .owl-item:not(".cloned") .block-zone__carousel-item'
-            );
+            // let items = block.find(
+            //   '.owl-carousel .owl-item:not(".cloned") .block-zone__carousel-item'
+            // );
 
             /*** this is ONLY_FOR_DEMO! / start */
-            /**/ const itemsArray = items.get();
-            /**/ const newItemsArray = [];
-            /**/
-            /**/ while (itemsArray.length > 0) {
-              /**/ const randomIndex = Math.floor(
-                Math.random() * itemsArray.length
-              );
-              /**/ const randomItem = itemsArray.splice(randomIndex, 1)[0];
-              /**/
-              /**/ newItemsArray.push(randomItem);
-              /**/
-            }
-            /**/ items = $(newItemsArray);
+            // /**/ const itemsArray = items.get();
+            // /**/ const newItemsArray = [];
+            // /**/
+            // /**/ while (itemsArray.length > 0) {
+            //   /**/ const randomIndex = Math.floor(
+            //     Math.random() * itemsArray.length
+            //   );
+            //   /**/ const randomItem = itemsArray.splice(randomIndex, 1)[0];
+            //   /**/
+            //   /**/ newItemsArray.push(randomItem);
+            //   /**/
+            // }
+            // /**/ items = $(newItemsArray);
             /*** this is ONLY_FOR_DEMO! / end */
 
             block
               .find(".owl-carousel")
-              .trigger("replace.owl.carousel", [items])
+              //   .trigger("replace.owl.carousel", [items])
               .trigger("refresh.owl.carousel")
               .trigger("to.owl.carousel", [0, 0]);
 

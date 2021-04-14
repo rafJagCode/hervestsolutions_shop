@@ -1,0 +1,9 @@
+{% for product in selected %}
+	<div class="block-zone__carousel-item">
+		{% include '/components/product-card.twig' with {inputs: {
+			product: product,
+			layout: 'grid',
+			exclude: ['features', 'list-buttons', 'status-badge'],
+		}} %}
+	</div>
+{% endfor %}

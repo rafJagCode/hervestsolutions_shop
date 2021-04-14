@@ -1,255 +1,296 @@
-{#
-// inputs:
-// - layout:  string - one of [sidebar, full] (default: 'sidebar')
+{# // inputs: // - layout: string - one of [sidebar, full] (default: 'sidebar')
 // - sidebar: string - sidebar position, one of [start, end] (default: 'start')
 // - product:
+// - selectedFourProducts
 #}
-
 {% set layout = inputs.layout|default('classic') %}
-{% set sidebar = inputs.sidebar|default('start') %}
+{% set
+sidebar = inputs.sidebar|default('start') %}
 {% set product = inputs.product %}
-
 {% extends '/layouts/default.twig' %}
-
-{% set products = data('shop-products.json') %}
-{% set categories = data('shop-widget-categories.json') %}
-
-{% set root_classes = classnames('block-split', {
-    'block-split--has-sidebar': layout == 'sidebar',
-}) %}
-
+{% set products =
+data('shop-products.json') %}
+{% set categories =
+data('shop-widget-categories.json') %}
+{% set root_classes =
+classnames('block-split', { 'block-split--has-sidebar': layout == 'sidebar', })
+%}
 {% set product_classes = classnames('product', 'product--layout--'~layout) %}
-
 {% set sidebar_template %}
-    <div class="block-split__item block-split__item-sidebar col-auto">
-        {# {% include '/widgets/widget-categories.twig' with {inputs: {
-            categories: categories,
-        }} %} #}
-        {# {% include '/widgets/widget-products.twig' with {inputs: {}} %} #}
-    </div>
+{% set selectedFourProducts = inputs.selectedFourProducts %}
+<div class="block-split__item block-split__item-sidebar col-auto">{# {% include '/widgets/widget-categories.twig' with {inputs: { categories:
+	  categories, }} %} #}
+	{# {% include '/widgets/widget-products.twig' with
+	  {inputs: {}} %} #}
+</div>
 {% endset %}
-
 {% block site_body %}
-    {% include '/blocks/block-header.twig' with {inputs: { title: 'Latest News' }} %}
+	{% include '/blocks/block-header.twig' with
+{inputs: { title: 'Latest News' }} %}
 
-    <div class="{{ root_classes }}">
-        <div class="container">
-            <div class="block-split__row row no-gutters">
-                {% if layout == 'sidebar' and sidebar == 'start' %}
-                    {{ sidebar_template }}
-                {% endif %}
-                <div class="block-split__item block-split__item-content col-auto">
-                    <div class="{{ product_classes }}">
-                        <div class="product__body">
-                            <div class="product__card product__card--one"></div>
-                            <div class="product__card product__card--two"></div>
+	<div class="{{ root_classes }}">
+		<div class="container">
+			<div class="block-split__row row no-gutters">
+				{% if layout == 'sidebar' and sidebar == 'start' %}
+					{{ sidebar_template }}
+				{% endif %}
+				<div class="block-split__item block-split__item-content col-auto">
+					<div class="{{ product_classes }}">
+						<div class="product__body">
+							<div class="product__card product__card--one"></div>
+							<div class="product__card product__card--two"></div>
 
-                            {% include '/components/product-gallery.twig' with {inputs: {
-                                classes: 'product__gallery',
-                                layout: 'product-'~layout,
-								image: product.image,
-                            }} %}
+							{% include '/components/product-gallery.twig' with {inputs: {
+            classes: 'product__gallery', layout: 'product-'~layout, image:
+            product.Images[0], }} %}
 
-                            <div class="product__header">
-                                <h1 class="product__title">{{product.name}}</h1>
+							<div class="product__header">
+								<h1 class="product__title">{{ product.name }}</h1>
 
-                                <div class="product__subtitle">
-                                    {# <div class="product__rating">
-                                        <div class="product__rating-stars">
-                                            {% include '/components/rating.twig' with {inputs: {
-                                                rating: 4,
-                                            }} %}
-                                        </div>
-                                        <div class="product__rating-label"><a href="">3.5 on 7 reviews</a></div>
-                                    </div> #}
-                                    {% include '/components/status-badge.twig' with {inputs: {
-                                        classes: 'product__fit',
-                                        style: 'success',
-                                        text: "SKU: #{product.id}",
-                                        tooltip: "SKU: #{product.id}",
-                                        icon: 'success',
-                                    }} %}
-                                </div>
-                            </div>
+								<div
+									class="product__subtitle">
+									{#
+									                <div class="product__rating">
+									                  <div class="product__rating-stars">
+									                    {% include '/components/rating.twig' with {inputs: { rating:
+									                    4, }} %}
+									                  </div>
+									                  <div class="product__rating-label">
+									                    <a href="">3.5 on 7 reviews</a>
+									                  </div>
+									                </div>
+									                #}
+									{% include '/components/status-badge.twig' with {inputs: {
+                classes: 'product__fit', style: 'success', text: "SKU:
+                #{product.product_number}", tooltip: "SKU: #{product.product_number}", icon: 'success',
+                }} %}
+								</div>
+							</div>
 
-                            {% if layout == 'full' %}
-                                <div class="product__main">
-                                    <div class="product__excerpt">
-                                        Many philosophical debates that began in ancient times are still debated today.
-                                        In one general sense, philosophy is associated with wisdom, intellectual culture and a search for knowledge.
-                                    </div>
+							{% if layout == 'full' %}
+								<div class="product__main">
+									<div class="product__excerpt">
+										Many philosophical debates that began in ancient times are still
+										                debated today. In one general sense, philosophy is associated
+										                with wisdom, intellectual culture and a search for knowledge.
+									</div>
 
-                                    <div class="product__features">
-                                        <div class="product__features-title">Key Features:</div>
-                                        <ul>
-                                            <li>Speed: <span>750 RPM</span></li>
-                                            <li>Power Source: <span>Cordless-Electric</span></li>
-                                            <li>Battery Cell Type: <span>Lithium</span></li>
-                                            <li>Voltage: <span>20 Volts</span></li>
-                                            <li>Battery Capacity: <span>2 Ah</span></li>
-                                        </ul>
-                                        <div class="product__features-link">
-                                            <a href="">See Full Specification</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
+									<div class="product__features">
+										<div class="product__features-title">Key Features:</div>
+										<ul>
+											{% for item in product.features %}
+												<li>{{ item }}</li>
+											{% endfor %}
+										</ul>
+										<div class="product__features-link">
+											<a href="">See Full Specification</a>
+										</div>
+									</div>
+								</div>
+							{% endif %}
 
-                            <div class="product__info">
-                                <div class="product__info-card">
-                                    <div class="product__info-body">
-                                        <div class="product__badge tag-badge tag-badge--sale">Promocja</div>
-                                        <div class="product__prices-stock">
-                                            <div class="product__prices">
-{#                                                <div class="product__price product__price--old">$2,149.00</div>#}
-{#                                                <div class="product__price product__price--new">$1,499.00</div>#}
-                                                <div class="product__price product__price--current">{{product.price}} zł</div>
-                                            </div>
-                                            {% include '/components/status-badge.twig' with {inputs: {
-                                                classes: 'product__stock',
-                                                style: 'success',
-                                                text: 'In Stock',
-                                                tooltip: 'In Stock',
-												icon: 'success'
-                                            }} %}
-                                        </div>
+							<div class="product__info">
+								<div class="product__info-card">
+									<div class="product__info-body">
+										<div class="product__badge tag-badge tag-badge--sale">
+											Promocja
+										</div>
+										<div class="product__prices-stock">
+											<div class="product__prices">
+												{#
+												                      <div class="product__price product__price--old">
+												                        $2,149.00
+												                      </div>
+												                      #}
+												{#
+												                      <div class="product__price product__price--new">
+												                        $1,499.00
+												                      </div>
+												                      #}
+													<div class="product__price product__price--current"> {{ product.price }}
+													zł
+												</div>
+											</div>
+											{% include '/components/status-badge.twig' with {inputs: {
+                    classes: 'product__stock', style: 'success', text: 'In
+                    Stock', tooltip: 'In Stock', icon: 'success' }} %}
+										</div>
 
-                                        <div class="product__meta">
-                                            <table>
-                                                <tr>
-                                                    <th>SKU</th>
-                                                    <td>{{product.id}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Producent</th>
-                                                    <td><a href="">Brandix</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Numer sprzedawcy</th>
-                                                    <td>BDX-750Z370-S</td>
-                                                </tr>
-		                                         <tr>
-                                                    <th>Na stanie</th>
-                                                    <td>{{product.quantity}} szt</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
+										<div class="product__meta">
+											<table>
+												<tr>
+													<th>SKU</th>
+													<td>{{ product.product_number }}</td>
+												</tr>
+												<tr>
+													<th>Producent</th>
+													<td>
+														<a href="">Brandix</a>
+													</td>
+												</tr>
+												<tr>
+													<th>Numer sprzedawcy</th>
+													<td>BDX-750Z370-S</td>
+												</tr>
+												<tr>
+													<th>Na stanie</th>
+													<td>{{ product.quantity }}
+														szt</td>
+												</tr>
+											</table>
+										</div>
+									</div>
 
-                                    {# {% include '/components/product-form.twig' with {inputs: {
-                                        classes: 'product__form',
-                                    }} %} #}
+									{# {% include '/components/product-form.twig' with {inputs: {
+									                classes: 'product__form', }} %} #}
 
-                                    <div class="product__actions">
-                                        <div class="product__actions-item product__actions-item--quantity">
-                                            <div class="input-number">
-                                                <input class="input-number__input form-control form-control-lg" type="number" min="1" value="1">
-                                                <div class="input-number__add"></div>
-                                                <div class="input-number__sub"></div>
-                                            </div>
-                                        </div>
-                                        <div class="product__actions-item product__actions-item--addtocart">
-                                            <button onClick="cartAddProduct({{product.id}})" class="btn btn-primary btn-lg btn-block" style="padding-left: 10px; padding-right: 10px">Dodaj do koszyka</button>
-                                        </div>
-                                        <div class="product__actions-divider"></div>
-                                        <button class="product__actions-item product__actions-item--wishlist" type="button">
-                                            {{ svg('wishlist-16.svg') }}
-                                            <span>Dodaj do ulubionych</span>
-                                        </button>
-                                        {# <button class="product__actions-item product__actions-item--compare" type="button">
-                                            {{ svg('compare-16.svg') }}
-                                            <span>Add to compare</span>
-                                        </button> #}
-                                    </div>
+									<div class="product__actions">
+										<div class="product__actions-item product__actions-item--quantity">
+											<div class="input-number">
+												<input class="input-number__input form-control form-control-lg" type="number" min="1" max="4" value="1"/>
+												<div class="input-number__add"></div>
+												<div class="input-number__sub"></div>
+											</div>
+										</div>
+										<div class="product__actions-item product__actions-item--addtocart">
+											<button onclick="cartAddProduct({{ product.id }})" class="btn btn-primary btn-lg btn-block" style="padding-left: 10px; padding-right: 10px">
+												Dodaj do koszyka
+											</button>
+										</div>
+										<div class="product__actions-divider"></div>
+										<button class="product__actions-item product__actions-item--wishlist" type="button">
+											{{ svg("wishlist-16.svg") }}
+											<span>Dodaj do ulubionych</span>
+										</button>
+										{#
+										                  <button
+										                    class="product__actions-item product__actions-item--compare"
+										                    type="button"
+										                  >
+										                    {{ svg("compare-16.svg") }}
+										                    <span>Add to compare</span>
+										                  </button>
+										                  #}
+									</div>
 
-                                    {# <div class="product__tags-and-share-links">
-                                        <div class="product__tags tags tags--sm">
-                                            <div class="tags__list">
-                                                <a href="">Brake Kit</a>
-                                                <a href="">Brandix</a>
-                                                <a href="">Filter</a>
-                                                <a href="">Bumper</a>
-                                                <a href="">Transmission</a>
-                                                <a href="">Hood</a>
-                                            </div>
-                                        </div>
-                                        <div class="product__share-links share-links">
-                                            <ul class="share-links__list">
-                                                <li class="share-links__item share-links__item--type--like"><a href="">Like</a></li>
-                                                <li class="share-links__item share-links__item--type--tweet"><a href="">Tweet</a></li>
-                                                <li class="share-links__item share-links__item--type--pin"><a href="">Pin It</a></li>
-                                                <li class="share-links__item share-links__item--type--counter"><a href="">4K</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> #}
-                                </div>
+									{#
+									                <div class="product__tags-and-share-links">
+									                  <div class="product__tags tags tags--sm">
+									                    <div class="tags__list">
+									                      <a href="">Brake Kit</a>
+									                      <a href="">Brandix</a>
+									                      <a href="">Filter</a>
+									                      <a href="">Bumper</a>
+									                      <a href="">Transmission</a>
+									                      <a href="">Hood</a>
+									                    </div>
+									                  </div>
+									                  <div class="product__share-links share-links">
+									                    <ul class="share-links__list">
+									                      <li
+									                        class="share-links__item share-links__item--type--like"
+									                      >
+									                        <a href="">Like</a>
+									                      </li>
+									                      <li
+									                        class="share-links__item share-links__item--type--tweet"
+									                      >
+									                        <a href="">Tweet</a>
+									                      </li>
+									                      <li
+									                        class="share-links__item share-links__item--type--pin"
+									                      >
+									                        <a href="">Pin It</a>
+									                      </li>
+									                      <li
+									                        class="share-links__item share-links__item--type--counter"
+									                      >
+									                        <a href="">4K</a>
+									                      </li>
+									                    </ul>
+									                  </div>
+									                </div>
+									                #}
+								</div>
 
-                                <div class="product__shop-features shop-features">
-                                    <ul class="shop-features__list">
-                                        <li class="shop-features__item">
-                                            <div class="shop-features__item-icon">
-                                                {{ svg('fi-free-delivery-48.svg') }}
-                                            </div>
-                                            <div class="shop-features__info">
-                                                <div class="shop-features__item-title">Darmowa Dostawa</div>
-                                                <div class="shop-features__item-subtitle">Przy zamówieniach powyżej 200 zł</div>
-                                            </div>
-                                        </li>
-                                        <li class="shop-features__divider" role="presentation"></li>
-                                        <li class="shop-features__item">
-                                            <div class="shop-features__item-icon">
-                                                {{ svg('fi-24-hours-48.svg') }}
-                                            </div>
-                                            <div class="shop-features__info">
-                                                <div class="shop-features__item-title">Całodobowa Pomoc</div>
-                                                <div class="shop-features__item-subtitle">Dzwoń kiedy chcesz</div>
-                                            </div>
-                                        </li>
-                                        <li class="shop-features__divider" role="presentation"></li>
-                                        <li class="shop-features__item">
-                                            <div class="shop-features__item-icon">
-                                                {{ svg('fi-payment-security-48.svg') }}
-                                            </div>
-                                            <div class="shop-features__info">
-                                                <div class="shop-features__item-title">Bezpieczeństwo</div>
-                                                <div class="shop-features__item-subtitle">Jedynie bezpieczne metody płatności</div>
-                                            </div>
-                                        </li>
-                                        <li class="shop-features__divider" role="presentation"></li>
-                                        <li class="shop-features__item">
-                                            <div class="shop-features__item-icon">
-                                                {{ svg('fi-tag-48.svg') }}
-                                            </div>
-                                            <div class="shop-features__info">
-                                                <div class="shop-features__item-title">Gorące Oferty</div>
-                                                <div class="shop-features__item-subtitle">Nawet 70% upustu</div>
-                                            </div>
-                                        </li>
-                                        <li class="shop-features__divider" role="presentation"></li>
-                                    </ul>
-                                </div>
-                            </div>
+								<div class="product__shop-features shop-features">
+									<ul class="shop-features__list">
+										<li class="shop-features__item">
+											<div class="shop-features__item-icon">
+												{{ svg("fi-free-delivery-48.svg") }}
+											</div>
+											<div class="shop-features__info">
+												<div class="shop-features__item-title">
+													Darmowa Dostawa
+												</div>
+												<div class="shop-features__item-subtitle">
+													Przy zamówieniach powyżej 200 zł
+												</div>
+											</div>
+										</li>
+										<li class="shop-features__divider" role="presentation"></li>
+										<li class="shop-features__item">
+											<div class="shop-features__item-icon">
+												{{ svg("fi-24-hours-48.svg") }}
+											</div>
+											<div class="shop-features__info">
+												<div class="shop-features__item-title">
+													Całodobowa Pomoc
+												</div>
+												<div class="shop-features__item-subtitle">
+													Dzwoń kiedy chcesz
+												</div>
+											</div>
+										</li>
+										<li class="shop-features__divider" role="presentation"></li>
+										<li class="shop-features__item">
+											<div class="shop-features__item-icon">
+												{{ svg("fi-payment-security-48.svg") }}
+											</div>
+											<div class="shop-features__info">
+												<div class="shop-features__item-title">
+													Bezpieczeństwo
+												</div>
+												<div class="shop-features__item-subtitle">
+													Jedynie bezpieczne metody płatności
+												</div>
+											</div>
+										</li>
+										<li class="shop-features__divider" role="presentation"></li>
+										<li class="shop-features__item">
+											<div class="shop-features__item-icon">
+												{{ svg("fi-tag-48.svg") }}
+											</div>
+											<div class="shop-features__info">
+												<div class="shop-features__item-title">Gorące Oferty</div>
+												<div class="shop-features__item-subtitle">
+													Nawet 70% upustu
+												</div>
+											</div>
+										</li>
+										<li class="shop-features__divider" role="presentation"></li>
+									</ul>
+								</div>
+							</div>
 
-                            {% include '/components/product-tabs.twig' with {inputs: {
-                                layout: layout,
-                                classes: 'product__tabs',
-                            }} %}
-                        </div>
-                    </div>
+							{% include '/components/product-tabs.twig' with {inputs: { layout:
+            layout, classes: 'product__tabs', }} %}
+						</div>
+					</div>
 
-                    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+					{% include '/blocks/block-space.twig' with {inputs: {layout:
+        'divider-nl'}} %}
+					{% include '/blocks/block-products-carousel.twig' with
+        {inputs: { title: 'Related Products', layout: layout == 'sidebar' ?
+        'grid-4-sidebar' : 'grid-5', selectedFourProducts: selectedFourProducts}} %}
+				</div>
+				{% if layout == 'sidebar' and sidebar == 'end' %}
+					{{ sidebar_template }}
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
-                    {% include '/blocks/block-products-carousel.twig' with {inputs: {
-                        title: 'Related Products',
-                        layout: layout == 'sidebar' ? 'grid-4-sidebar' : 'grid-5',
-                    }} %}
-                </div>
-                {% if layout == 'sidebar' and sidebar == 'end' %}
-                    {{ sidebar_template }}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'before-footer'}} %}
+	{% include '/blocks/block-space.twig' with {inputs: {layout: 'before-footer'}}
+%}
 {% endblock %}
