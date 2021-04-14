@@ -2,16 +2,16 @@
 
 {% block site_body %}
     {% set account_pages = [
-        {type: 'link', label: 'Dashboard', url: 'account-dashboard.html'},
-        {type: 'link', label: 'Garage', url: 'account-garage.html'},
-        {type: 'link', label: 'Edit Profile', url: 'account-profile.html'},
-        {type: 'link', label: 'Order History', url: 'account-orders.html'},
-        {type: 'link', label: 'Order Details', url: 'account-order-details.html'},
-        {type: 'link', label: 'Addresses', url: 'account-addresses.html'},
-        {type: 'link', label: 'Edit Address', url: 'account-edit-address.html'},
-        {type: 'link', label: 'Password', url: 'account-password.html'},
+        {type: 'link', label: 'Dashboard', url: 'account-dashboard'},
+        {type: 'link', label: 'Garage', url: 'account-garage'},
+        {type: 'link', label: 'Edit Profile', url: 'account-profile'},
+        {type: 'link', label: 'Order History', url: 'account-orders'},
+        {type: 'link', label: 'Order Details', url: 'account-order-details'},
+        {type: 'link', label: 'Addresses', url: 'account-addresses'},
+        {type: 'link', label: 'Edit Address', url: 'account-edit-address'},
+        {type: 'link', label: 'Password', url: 'account-password'},
         {type: 'divider'},
-        {type: 'link', label: 'Logout', url: 'account-login.html'}
+        {type: 'link', label: 'Logout', url: '/account-login'}
     ] %}
 
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'after-header'}} %}

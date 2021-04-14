@@ -15,16 +15,15 @@ class SvgFunctionExtension extends AbstractExtension
 
     public function getFunctions()
     {
-        return [
-            new TwigFunction('svg', [$this, 'returnPath']),
-        ];
+        return [new TwigFunction("svg", [$this, "returnPath"])];
     }
 
     public function returnPath(string $name)
     {
-        $path=$this->projectDir . '/assets/svg/' . $name;
-        $svg = include($path);
-        return $svg;
+        $path = $this->projectDir . "/public/assets/svg/" . $name;
+        $svg = include $path;
+        $final = substr($svg, 0, -1);
+        return $final;
     }
 }
 ?>

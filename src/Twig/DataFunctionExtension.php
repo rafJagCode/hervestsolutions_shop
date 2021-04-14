@@ -15,14 +15,12 @@ class DataFunctionExtension extends AbstractExtension
 
     public function getFunctions()
     {
-        return [
-            new TwigFunction('data', [$this, 'returnData']),
-        ];
+        return [new TwigFunction("data", [$this, "returnData"])];
     }
 
     public function returnData($name)
     {
-        $path=$this->projectDir . '/assets/data/' . $name;
+        $path = $this->projectDir . "/public/assets/data/" . $name;
         $json = file_get_contents($path);
         $variable = json_decode($json);
         return $variable;

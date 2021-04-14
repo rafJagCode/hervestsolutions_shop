@@ -5,6 +5,7 @@
 // - rows:   number - number of rows (default: 1)
 // - links:  array  - array of {title: string, url: string} (default: [])
 // - groups: array  - array of {name: string, active: boolean} (default: [])
+// - selectedFourProducts - array 4 selected products
 #}
 
 {% set title = inputs.title %}
@@ -12,6 +13,7 @@
 {% set rows = inputs.rows|default(1) %}
 {% set links = inputs.links|default([]) %}
 {% set groups = inputs.groups|default([]) %}
+{% set selectedFourProducts = inputs.selectedFourProducts %}
 
 {% set products = data('shop-products.json')[:10] %}
 
@@ -25,23 +27,23 @@
 }[layout] %}
 
 {% set product_card_exclude = {
-    'grid': ['features', 'list-buttons'],
+    'grid': ['features', 'list-buttons','status-badge'],
     'horizontal': ['actions', 'status-badge', 'features', 'buttons', 'meta'],
 }[product_card_layout] %}
 
 <div class="block block-products-carousel" data-layout="{{ layout }}">
     <div class="container">
-        {% include '/components/section-header.twig' with {inputs: {
+        {# {% include '/components/section-header.twig' with {inputs: {
             title: title,
             arrows: true,
             links: links,
             groups: groups,
-        }} %}
+        }} %} #}
 
         <div class="block-products-carousel__carousel">
             <div class="block-products-carousel__carousel-loader"></div>
             <div class="owl-carousel">
-                {% for column in products|batch(rows) %}
+                {% for column in selectedFourProducts|batch(rows) %}
                     <div class="block-products-carousel__column">
                         {% for product in column %}
                             <div class="block-products-carousel__cell">

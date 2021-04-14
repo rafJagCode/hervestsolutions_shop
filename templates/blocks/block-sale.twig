@@ -7,8 +7,8 @@
 <div class="block block-sale">
     <div class="block-sale__content">
         <div class="block-sale__header">
-            <div class="block-sale__title">Attention! Deal Zone</div>
-            <div class="block-sale__subtitle">Hurry up! Discounts up to 70%</div>
+            <div class="block-sale__title">Uwaga! Strefa Ofert</div>
+            <div class="block-sale__subtitle">Pośpiesz się! Upusty nawet do 70%</div>
             <div class="block-sale__timer">
                 {% include '/components/timer.twig' %}
             </div>
@@ -17,7 +17,7 @@
                     classes: 'block-sale__arrow block-sale__arrow--prev',
                     direction: 'prev',
                 }} %}
-                <div class="block-sale__link"><a href="">View All Available Offers</a></div>
+                <div class="block-sale__link"><a href="">Zobacz wszystkie dostępne oferty</a></div>
                 {% include '/components/arrow.twig' with {inputs: {
                     classes: 'block-sale__arrow block-sale__arrow--next',
                     direction: 'next',
@@ -35,9 +35,9 @@
             }} %}
             <div
                 class="block-sale__image"
-                style="background-image: url('{{ image('images/sale.jpg', {size: [1903, 640]}) }}');"
+                style="background-image: url('{{ image('images/big/many-parts.jpg', {size: [1903, 640]}) }}');"
             ></div>
-            <div class="container">
+            {# <div class="container">
                 <div class="block-sale__carousel">
                     <div class="owl-carousel">
                         {% for product in products[:8] %}
@@ -50,7 +50,7 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </div> #}
         </div>
     </div>
 </div>

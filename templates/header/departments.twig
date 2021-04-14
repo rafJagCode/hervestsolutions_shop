@@ -17,18 +17,18 @@
                 <li class="departments__list-padding" role="presentation"></li>
                 {% for department in departments %}
                     {% set classes = classnames('departments__item',{
-                        'departments__item--has-submenu': department.submenu,
-                        'departments__item--submenu--megamenu': department.submenu.type == 'megamenu'
+                        'departments__item--has-submenu': department.submenu is defined,
+                        'departments__item--submenu--megamenu': departmen.submenu is defined and department.submenu.type == 'megamenu'
                     }) %}
 
                     <li class="{{ classes }}">
                         <a href="" class="departments__item-link">
                             {{ department.title }}
-                            {% if department.submenu %}
+                            {% if department.submenu is defined %}
                                 <span class="departments__item-arrow">{{ svg('arrow-rounded-right-7x11.svg') }}</span>
                             {% endif %}
                         </a>
-                        {% if department.submenu %}
+                        {% if department.submenu is defined %}
                             <div class="departments__item-menu">
                                 {% include '/header/megamenu.twig' with {inputs: {
                                     megamenu: department.submenu,

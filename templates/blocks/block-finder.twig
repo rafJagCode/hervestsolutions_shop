@@ -9,42 +9,35 @@
     }} %}
     <div
         class="block-finder__image"
-        style="background-image: url('{{ image('images/finder.jpg', {size: [1903, 500]}) }}');"
+        style="background-image: url('{{ image('images/big/combain.jpg', {size: [1903, 500]}) }}');"
     ></div>
     <div class="block-finder__body container container--max--xl">
-        <div class="block-finder__title">Find Parts For Your Vehicle</div>
-        <div class="block-finder__subtitle">Over hundreds of brands and tens of thousands of parts</div>
+        <div class="block-finder__title">Znajdź To Czego Szukasz Do Swojej Maszyny</div>
+        <div class="block-finder__subtitle">Dziesiątki marek i tysiące produktów</div>
         <form class="block-finder__form">
             <div class="block-finder__form-control block-finder__form-control--select">
                 <select name="year" aria-label="Vehicle Year">
-                    <option value="none">Select Year</option>
-                    <option>2010</option>
-                    <option>2011</option>
-                    <option>2012</option>
-                    <option>2013</option>
-                    <option>2014</option>
-                    <option>2015</option>
-                    <option>2016</option>
-                    <option>2017</option>
-                    <option>2018</option>
-                    <option>2019</option>
-                    <option>2020</option>
+                    <option value="none">Wybierz Producenta</option>
+                    <option>AGCO</option>
+                    <option>Arbos</option>
+                    <option>Case</option>
+                    <option>Cat</option>
+                    <option>Claas</option>
+                    <option>Krone</option>
+                    <option>Massey Ferguson</option>
                 </select>
             </div>
             <div class="block-finder__form-control block-finder__form-control--select">
                 <select name="make" aria-label="Vehicle Make" disabled>
-                    <option value="none">Select Make</option>
-                    <option>Audi</option>
-                    <option>BMW</option>
-                    <option>Ferrari</option>
-                    <option>Ford</option>
-                    <option>KIA</option>
-                    <option>Nissan</option>
-                    <option>Tesla</option>
-                    <option>Toyota</option>
+                    <option value="none">Wybierz Kategorie</option>
+                    <option>Rozsiewacze</option>
+                    <option>Sadzarki</option>
+                    <option>Paszowozy</option>
+                    <option>Opryskiwacze</option>
+                    <option>Pługi</option>
                 </select>
             </div>
-            <div class="block-finder__form-control block-finder__form-control--select">
+            {# <div class="block-finder__form-control block-finder__form-control--select">
                 <select name="model" aria-label="Vehicle Model" disabled>
                     <option value="none">Select Model</option>
                     <option>Explorer</option>
@@ -60,9 +53,9 @@
                     <option>Diesel 2.5L 200 hp AT/L5</option>
                     <option>Diesel 3.0L 250 hp MT/L5</option>
                 </select>
-            </div>
+            </div> #}
 
-            <button class="block-finder__form-control block-finder__form-control--button" type="submit">Search</button>
+            <button class="block-finder__form-control block-finder__form-control--button" type="submit">Szukaj</button>
         </form>
     </div>
 </div>
