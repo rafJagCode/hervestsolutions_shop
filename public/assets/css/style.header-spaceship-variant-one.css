@@ -2059,23 +2059,33 @@
 }
 
 .search__input::-webkit-input-placeholder {
-  color: #999;
+  color: #006847;
+  opacity: 1;
+  font-weight: 500;
 }
 
 .search__input::-moz-placeholder {
-  color: #999;
+  color: #006847;
+  opacity: 1;
+  font-weight: 500;
 }
 
 .search__input:-ms-input-placeholder {
-  color: #999;
+  color: #006847;
+  opacity: 1;
+  font-weight: 500;
 }
 
 .search__input::-ms-input-placeholder {
-  color: #999;
+  color: #006847;
+  opacity: 1;
+  font-weight: 500;
 }
 
 .search__input::placeholder {
-  color: #999;
+  color: #006847;
+  opacity: 1;
+  font-weight: 500;
 }
 
 .search__input::-ms-clear {
@@ -2173,7 +2183,7 @@
   z-index: 1;
   pointer-events: none;
   position: relative;
-  color: rgba(0, 0, 0, 0.3);
+  color: #81ad3e;
 }
 
 .search__button:after {

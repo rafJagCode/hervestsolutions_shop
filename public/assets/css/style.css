@@ -16076,6 +16076,7 @@ select.form-control::-ms-expand {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .product-card--layout--grid .product-card__rating-stars,
@@ -16831,6 +16832,7 @@ select.form-control::-ms-expand {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .products-list[data-layout="grid"] .product-card .product-card__rating-stars,
@@ -17219,6 +17221,7 @@ select.form-control::-ms-expand {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .products-list[data-layout="list"] .product-card .product-card__rating-stars,

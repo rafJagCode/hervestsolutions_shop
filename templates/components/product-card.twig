@@ -69,13 +69,13 @@
             </div>
         </div>
 
-        {# <div class="product-card__rating">
+        <div class="product-card__rating">
             {% include '/components/rating.twig' with {inputs: {
-                classes: 'product-card__rating-stars',
-                rating: product.rating
+				rating: product.quantity
             }} %}
-            <div class="product-card__rating-label">{{ product.rating }} on {{ product.reviews }} reviews</div>
-        </div> #}
+
+            <div class="product-card__rating-label">Stan: {{ product.quantity }} szt</div>
+        </div>
 
         {% if not ('features' in exclude) %}
             <div class="product-card__features">
