@@ -53,7 +53,7 @@
     <!-- site__header -->
     <header class="site__header">
         {% include '/header/header.twig' with {inputs: {
-            isUserAuthenticated: isUserAuthenticated,
+            isUserAuthenticated: isUserAuthenticated is defined ? isUserAuthenticated : false,
 			cart: cart is defined ? cart : []
         }} %}
     </header>

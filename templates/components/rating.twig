@@ -1,22 +1,28 @@
 {#
 // inputs:
-// - classes: string - CSS classes
 // - rating:  number - rating value
 #}
 
-{# {% set classes = inputs.classes %}
+{% set classes = 'product-card__rating-stars' %}
 {% set rating = inputs.rating %}
 
 {% set root_classes = classnames('rating', classes) %}
 
 <div class="{{ root_classes }}">
     <div class="rating__body">
-        {% for i in 1..5 %}
+        {# {% for i in 1..5 %}
             {% set star_classes = classnames('rating__star', {
                 'rating__star--active': rating >= i
-            }) %}
-
-            <div class="{{ star_classes }}"></div>
-        {% endfor %}
+            }) %} #}
+			{% if rating <= 3 %}
+				<span style="color: red;"><i class="fas fa-battery-empty fa-2x"></i></span>
+			{% endif %}
+			{% if rating > 3 and rating <= 6 %}
+				<span style="color: orange;"><i class="fas fa-battery-quarter fa-2x"></i></span>
+			{% endif %}
+			{% if rating > 6 %}
+				<span style="color: green;"><i class="fas fa-battery-full fa-2x"></i></span>
+			{% endif %}
+        {# {% endfor %} #}
     </div>
-</div> #}
+</div>

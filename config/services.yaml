@@ -49,5 +49,12 @@ services:
   app.products.categories.getter:
     alias: App\Service\ProductsCategoriesGetter
     public: true
+
+  App\Service\JwtDecoder:
+    public: false
+
+  app.jwt.decoder:
+    alias: App\Service\JwtDecoder
+    public: true
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones

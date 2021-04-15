@@ -6,10 +6,10 @@ global_header_layout == 'classic', }) %}
 <div class="{{ topbar_classes }}">
   {% if global_header_layout == 'classic' %}
   <div class="topbar__item-text">
-    <a class="topbar__link" href="about-us.html">O nas</a>
+    <a class="topbar__link" href="/about">O nas</a>
   </div>
   <div class="topbar__item-text">
-    <a class="topbar__link" href="contact-us-v1.html">Kontakt</a>
+    <a class="topbar__link" href="/contact">Kontakt</a>
   </div>
   <div class="topbar__item-text">
     <a class="topbar__link" href="">Store Location</a>
@@ -59,7 +59,7 @@ global_header_layout == 'classic', }) %}
       }}</span>
     </button>
     <div class="topbar__menu-body">
-      <a class="topbar__menu-item" href="#">
+      {# <a class="topbar__menu-item" href="#">
         <img src="images/languages/language-1.png" alt="" /><span>English</span>
       </a>
       <a class="topbar__menu-item" href="#">
@@ -73,7 +73,7 @@ global_header_layout == 'classic', }) %}
       </a>
       <a class="topbar__menu-item" href="#">
         <img src="images/languages/language-5.png" alt="" /><span>Italian</span>
-      </a>
+      </a> #}
     </div>
   </div>
 </div>
@@ -89,10 +89,13 @@ global_header_layout == 'classic', }) %}
         Zadzwoń: (800) 060-0730
       </div>
       <div class="topbar__item-text">
-        <a class="topbar__link" href="about-us.html">O nas</a>
+        <a class="topbar__link" href="/about">O nas</a>
       </div>
       <div class="topbar__item-text">
-        <a class="topbar__link" href="contact-us-v1.html">Kontakt</a>
+        <a class="topbar__link" href="/contact">Kontakt</a>
+      </div>
+      <div class="topbar__item-text">
+        <a class="topbar__link" href="/admin-dashboard">Admin</a>
       </div>
       {#
       <div class="topbar__item-text">
@@ -153,7 +156,8 @@ global_header_layout == 'classic', }) %}
         <div class="account-menu">
           {% if inputs.isUserAuthenticated is defined and not
           inputs.isUserAuthenticated %}
-          <form class="account-menu__form" action="sign-in" method="POST">
+
+          <form class="account-menu__form" action="/sign-in" method="POST">
             <div class="account-menu__form-title">Zaloguj Się</div>
             <div class="form-group">
               <label for="header-signin-email" class="sr-only"
@@ -171,7 +175,7 @@ global_header_layout == 'classic', }) %}
               <label for="header-signin-password" class="sr-only">Hasło</label>
               <div class="account-menu__form-forgot">
                 <input
-                  name="password"
+                  name="password
                   id="header-signin-password"
                   type="password"
                   class="form-control form-control-sm"
@@ -197,7 +201,7 @@ global_header_layout == 'classic', }) %}
           <div class="account-menu__divider"></div>
           <a href="" class="account-menu__user">
             <div class="account-menu__user-avatar">
-              <img src="images/avatars/avatar-4.jpg" alt="" />
+              <img src="{{image('images/avatars/avatar-4.png')}}" alt="" />
             </div>
             <div class="account-menu__user-info">
               <div class="account-menu__user-name">Ryan Ford</div>
@@ -221,7 +225,7 @@ global_header_layout == 'classic', }) %}
       </div>
     </div>
     <div class="indicator indicator--trigger--click" id="cart-dropdown">
-      {% if cart is not empty %}
+      {% if cart is defined and cart is not empty %}
       <a class="indicator__button">
         <span class="indicator__icon">
           {{ svg("cart-32.svg") }}

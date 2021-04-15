@@ -1106,6 +1106,7 @@
   $(function () {
     $(".block-zone").each(function () {
       const owlCarousel = $(this).find(".owl-carousel");
+	  const carouselChangingContainer = $(this).find(".block-zone__carousel");
 
       owlCarousel.owlCarousel({
         dots: false,
@@ -1115,7 +1116,7 @@
         rtl: isRTL(),
         responsive: {
           1400: { items: 4, margin: 20 },
-          992: { items: 4, margin: 16 },
+          992: { items: 3, margin: 16 },
           460: { items: 2, margin: 16 },
           0: { items: 1 },
         },
@@ -1137,85 +1138,85 @@
       $(this)
         .find(".block-zone__tabs-button")
         .on("click", function () {
-          let carouselM = $(".block-zone__carousel .owl-carousel");
-          $.ajax({
-            url: "/carousel-newest",
-            success: function (data) {
-              carouselM.html(data);
-              carouselM.owlCarousel(Object.assign({
-                dots: false,
-                margin: 20,
-                loop: true,
-                items: 4,
-                rtl: isRTL(),
-                responsive: {
-                  1400: { items: 4, margin: 20 },
-                  992: { items: 3, margin: 16 },
-                  460: { items: 2, margin: 16 },
-                  0: { items: 1 },
-                },
-              }));
-            },
-          });
+			const block = $(this).closest(".block-zone");
+			const carousel = block.find(".block-zone__carousel");
 
-          const block = $(this).closest(".block-zone");
-          const carousel = block.find(".block-zone__carousel");
 
-          if ($(this).is(".block-zone__tabs-button--active")) {
-            return;
-          }
+			if ($(this).is(".block-zone__tabs-button--active")) {
+				return;
+			}
 
-          cancelPreviousTabChange();
+			cancelPreviousTabChange();
 
-          $(this)
+			$(this)
             .closest(".block-zone__tabs")
             .find(".block-zone__tabs-button")
             .removeClass("block-zone__tabs-button--active");
-          $(this).addClass("block-zone__tabs-button--active");
+			$(this).addClass("block-zone__tabs-button--active");
 
-          carousel.addClass("block-zone__carousel--loading");
 
-          //   // timeout ONLY_FOR_DEMO! you can replace it with an ajax request
-          let timer;
-          timer = setTimeout(function () {
-            // let items = block.find(
-            //   '.owl-carousel .owl-item:not(".cloned") .block-zone__carousel-item'
-            // );
+			carousel.addClass("block-zone__carousel--loading");
+			$.ajax({url: '/carousel-newest'}).done((data)=>{
+				carouselChangingContainer.html(data);
+			})
+			.done(()=>{
+				$(".owl-carousel").owlCarousel({
+					dots: false,
+					margin: 20,
+					loop: true,
+					items: 4,
+					rtl: isRTL(),
+					responsive: {
+					1400: { items: 4, margin: 20 },
+					992: { items: 3, margin: 16 },
+					460: { items: 2, margin: 16 },
+					0: { items: 1 },
+					},
+				});
 
-            /*** this is ONLY_FOR_DEMO! / start */
-            // /**/ const itemsArray = items.get();
-            // /**/ const newItemsArray = [];
-            // /**/
-            // /**/ while (itemsArray.length > 0) {
-            //   /**/ const randomIndex = Math.floor(
-            //     Math.random() * itemsArray.length
-            //   );
-            //   /**/ const randomItem = itemsArray.splice(randomIndex, 1)[0];
-            //   /**/
-            //   /**/ newItemsArray.push(randomItem);
-            //   /**/
-            // }
-            // /**/ items = $(newItemsArray);
-            /*** this is ONLY_FOR_DEMO! / end */
+				block
+				.find(".owl-carousel")
+					// .trigger("replace.owl.carousel", [items])
+				.trigger("refresh.owl.carousel")
+				.trigger("to.owl.carousel", [0, 0]);
 
-            block
-              .find(".owl-carousel")
-              //   .trigger("replace.owl.carousel", [items])
-              .trigger("refresh.owl.carousel")
-              .trigger("to.owl.carousel", [0, 0]);
-
-            $(".product-card__action--quickview", block).on(
-              "click",
-              function () {
-                quickview.clickHandler.apply(this, arguments);
-              }
-            );
+				$(".product-card__action--quickview", block).on(
+				"click",
+				function () {
+					quickview.clickHandler.apply(this, arguments);
+				}
+				);
 
             carousel.removeClass("block-zone__carousel--loading");
-          }, 1000);
+			});
+          //   // timeout ONLY_FOR_DEMO! you can replace it with an ajax request
+        //   let timer;
+        //   timer = setTimeout(function () {
+        //     let items = block.find(
+        //       '.owl-carousel .owl-item:not(".cloned") .block-zone__carousel-item'
+        //     );
+
+        //     /*** this is ONLY_FOR_DEMO! / start */
+        //     /**/ const itemsArray = items.get();
+        //     /**/ const newItemsArray = [];
+        //     /**/
+        //     /**/ while (itemsArray.length > 0) {
+        //       /**/ const randomIndex = Math.floor(
+        //         Math.random() * itemsArray.length
+        //       );
+        //       /**/ const randomItem = itemsArray.splice(randomIndex, 1)[0];
+        //       /**/
+        //       /**/ newItemsArray.push(randomItem);
+        //       /**/
+        //     }
+        //     /**/ items = $(newItemsArray);
+        //     /*** this is ONLY_FOR_DEMO! / end */
+
+
+        //   }, 1000);
           cancelPreviousTabChange = function () {
             // timeout ONLY_FOR_DEMO!
-            clearTimeout(timer);
+            // clearTimeout(timer);
             cancelPreviousTabChange = function () {};
           };
         });

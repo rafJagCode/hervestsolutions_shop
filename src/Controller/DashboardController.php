@@ -21,6 +21,7 @@ class DashboardController extends AbstractController
     ): Response {
         $cart = $cartGetter->getProducts();
         $isUserAuthenticated = $authChecker->isUserAuthenticated($request);
+        $role = $authChecker->getRole($request);
         if ($isUserAuthenticated) {
             return $this->render("pages/account-dashboard.twig", [
                 "controller_name" => "DashboardController",
