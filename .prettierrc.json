@@ -1,3 +1,5 @@
 {
-  "formatOnSave": true
+  "formatOnSave": true,
+  "prettier.printWidth": 200,
+  "proseWrap": "never"
 }
