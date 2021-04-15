@@ -1,0 +1,33 @@
+{% set global_page_title = 'Shop Grid 4 Columns Full — Red Parts' %}
+{% set global_page_description = '' %}
+
+{% extends '/layouts/default.twig' %}
+
+{% block site_body %}
+
+{% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-sm'}} %}
+
+<div class="products-view__list products-list products-list--grid--4" data-layout="table" data-with-features="false">
+	<div class="products-list__head">
+		<div class="products-list__column products-list__column--image">Zdjęcie</div>
+		<div class="products-list__column products-list__column--meta">SKU</div>
+		<div class="products-list__column products-list__column--product">Produkt</div>
+		<div class="products-list__column products-list__column--rating">Rating</div>
+		<div class="products-list__column products-list__column--price">Cena</div>
+	</div>
+	<div class="products-list__content">
+		{% for product in products %}
+			<div class="products-list__item">
+				{% include '/components/product-card.twig' with {inputs: {
+					product: product,
+					layout: 'table',
+					exclude: 'status-badge'
+				}} %}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-sm'}} %}
+
+{% endblock %}
