@@ -14,7 +14,8 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 {
     public function supports(Request $request)
     {
-        return $request->cookies->has("X-AUTH-TOKEN");
+        return false;
+        // return $request->cookies->has("X-AUTH-TOKEN");
     }
 
     public function getCredentials(Request $request)

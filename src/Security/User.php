@@ -10,11 +10,6 @@ class User implements UserInterface
 
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    private $password;
-
     public function getEmail(): ?string
     {
         return $this->email;
@@ -44,7 +39,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = "ROLE_USER";
 
         return array_unique($roles);
     }
