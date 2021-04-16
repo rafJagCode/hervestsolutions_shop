@@ -9,7 +9,6 @@
 {% set grid = inputs.grid %}
 {% set sidebar = inputs.sidebar %}
 
-{% set products = data('shop-products.json') %}
 {% set offcanvas = grid in ['grid-4-full', 'grid-5-full', 'grid-6-full'] ? 'always' : 'mobile' %}
 
 {% set root_classes = classnames('block-split', {
@@ -39,6 +38,7 @@
                 <div class="block-split__item block-split__item-sidebar col-auto">
                     {% include '/components/shop-sidebar.twig' with {inputs: {
                         offcanvas: 'mobile',
+						products: productsB,
                     }} %}
                 </div>
             {% endif %}
@@ -171,6 +171,7 @@
                 <div class="block-split__item block-split__item-sidebar col-auto">
                     {% include '/components/shop-sidebar.twig' with {inputs: {
                         offcanvas: offcanvas,
+						products: productsB,
                     }} %}
                 </div>
             {% endif %}

@@ -15,8 +15,6 @@
 {% set groups = inputs.groups|default([]) %}
 {% set selectedFourProducts = inputs.selectedFourProducts %}
 
-{% set products = data('shop-products.json')[:10] %}
-
 {% set product_card_layout = {
     'grid-4': 'grid',
     'grid-4-sidebar': 'grid',
