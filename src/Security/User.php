@@ -7,8 +7,33 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     private $email;
-
+	private $password;
+	private $token;
     private $roles = [];
+	private $cart = [];
+
+    public function getCart(): ?array
+    {
+        return $this->cart;
+    }
+
+    public function setCart(array $cart): self
+    {
+        $this->cart = $cart;
+
+        return $this;
+    }
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
 
     public function getEmail(): ?string
     {

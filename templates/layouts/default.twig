@@ -52,10 +52,7 @@
 
     <!-- site__header -->
     <header class="site__header">
-        {% include '/header/header.twig' with {inputs: {
-            isUserAuthenticated: isUserAuthenticated is defined ? isUserAuthenticated : false,
-			cart: cart is defined ? cart : []
-        }} %}
+        {% include '/header/header.twig' %}
     </header>
     <!-- site__header / end -->
 

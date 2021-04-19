@@ -1,5 +1,7 @@
-{# // inputs: isUserAuthenticated cart #} {% set cart = inputs.cart %} {% set
-topbar %} {% set topbar_classes = classnames('topbar', {
+{% set topbar %}
+{% set cart = app.user != null ? app.user.cart : [] %}
+{% set user = app.user %}
+{% set topbar_classes = classnames('topbar', {
 'topbar--spaceship-end': global_header_layout == 'spaceship', 'topbar--classic':
 global_header_layout == 'classic', }) %}
 
@@ -154,8 +156,7 @@ global_header_layout == 'classic', }) %}
       </a>
       <div class="indicator__content">
         <div class="account-menu">
-          {% if inputs.isUserAuthenticated is defined and not
-          inputs.isUserAuthenticated %}
+          {% if user == null %}
 
           <form class="account-menu__form" action="/sign-in" method="POST">
             <div class="account-menu__form-title">Zaloguj Się</div>
@@ -175,7 +176,7 @@ global_header_layout == 'classic', }) %}
               <label for="header-signin-password" class="sr-only">Hasło</label>
               <div class="account-menu__form-forgot">
                 <input
-                  name="password
+                  name="password"
                   id="header-signin-password"
                   type="password"
                   class="form-control form-control-sm"
@@ -196,16 +197,15 @@ global_header_layout == 'classic', }) %}
               <a href="/account-login">Stwórz Konto</a>
             </div>
           </form>
-          {% endif %} {% if inputs.isUserAuthenticated is defined and
-          inputs.isUserAuthenticated %}
+          {% else %}
           <div class="account-menu__divider"></div>
           <a href="" class="account-menu__user">
             <div class="account-menu__user-avatar">
               <img src="{{image('images/avatars/avatar-4.png')}}" alt="" />
             </div>
             <div class="account-menu__user-info">
-              <div class="account-menu__user-name">Ryan Ford</div>
-              <div class="account-menu__user-email">red-parts@example.com</div>
+              <div class="account-menu__user-name">John</div>
+              <div class="account-menu__user-email">{{app.user.email}}</div>
             </div>
           </a>
           <div class="account-menu__divider"></div>
@@ -217,7 +217,7 @@ global_header_layout == 'classic', }) %}
           <div class="account-menu__divider"></div>
           <ul class="account-menu__links">
             <li>
-              <a class="logout-btn" onClick="logout(event)" href="/">Wyloguj</a>
+              <a class="logout-btn" href="/logout">Wyloguj</a>
             </li>
           </ul>
           {% endif %}
@@ -225,7 +225,7 @@ global_header_layout == 'classic', }) %}
       </div>
     </div>
     <div class="indicator indicator--trigger--click" id="cart-dropdown">
-      {% if cart is defined and cart is not empty %}
+      {% if user != null and cart is not empty %}
       <a class="indicator__button">
         <span class="indicator__icon">
           {{ svg("cart-32.svg") }}
@@ -238,7 +238,7 @@ global_header_layout == 'classic', }) %}
         >
       </a>
       <div class="indicator__content">
-        {% include '/header/dropcart.twig' with {inputs: { cart: cart }} %}
+        {% include '/header/dropcart.twig' with {inputs: { cart: app.user.cart }} %}
       </div>
       {% else %}
       <a class="indicator__button">
