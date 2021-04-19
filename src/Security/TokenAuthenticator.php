@@ -79,7 +79,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
 		$user = new User();
 		$user->setEmail('test@email');
-		$user->setRoles(['ADMIN_ROLE']);
+		$user->setRoles(['ROLE_ADMIN']);
 		$user->setToken($response->toArray()['token']);
 		$user->setCart($this->cartGetter->getProducts());
 

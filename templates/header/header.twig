@@ -150,7 +150,7 @@ global_header_layout == 'classic', }) %}
           {{ svg("person-32.svg") }}
         </span>
         {% if global_header_layout == 'classic' or true %}
-        <span class="indicator__title">Witaj, Zaloguj Się</span>
+        <span class="indicator__title">Witaj, {{ app.user == null ? 'Zaloguj Się' : app.user.email }}</span>
         <span class="indicator__value">Moje Konto</span>
         {% endif %}
       </a>
