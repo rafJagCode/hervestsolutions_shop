@@ -30,7 +30,7 @@ class ShopController extends AbstractController
 			$products = $response->toArray();
 			return $this->render("pages/shop-grid-4-columns-full.twig", [
 				"controller_name" => "ShopController",
-				"productsB" => $products,
+				"products" => $products,
 			]);
 		}
 	}
