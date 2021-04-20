@@ -72,7 +72,7 @@ class LoginController extends AbstractController
 
 		return $this->render("/pages/account-login.twig", [
 			"controller_name" => "LoginController",
-			"loginMessage" => $response->getContent(),
+			"registerMessage" => $response->getStatusCode(),
 		]);
 	}
 }
