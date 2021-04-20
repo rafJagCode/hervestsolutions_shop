@@ -12,3 +12,12 @@
   transform: scale(1, 1);
   transition: transform 50ms;
 }
+.far.fa-lightbulb {
+  cursor: pointer;
+  color: #006847;
+  padding: 0 5px;
+  font-size: 25px;
+}
+.far.fa-lightbulb:hover {
+  color: orange;
+}
