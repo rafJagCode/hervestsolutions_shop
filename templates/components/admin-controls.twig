@@ -2,12 +2,16 @@
 	<h4 class="account-nav__title">Sekcja Admina</h4>
 
 	<ul class="account-nav__list">
-			<li class="account-nav__item">
-				<a href="/customer-creator" class="">Stwórz użytkownika</a>
-			</li>
+		<li class="account-nav__item">
+			<a onClick="renderCustomerSearch()" class="">Wyszukaj użytkownika</a>
+		</li>
+		<li class="account-nav__item">
+			<a onClick="renderCustomerCreator()" class="">Stwórz użytkownika</a>
+		</li>
 		<li class="account-nav__item" onclick="openCsvSection()">
-			<a><i class="admin-section__arrow fas fa-chevron-right"></i>
-			CSV</a>
+			<a>
+				<i class="admin-section__arrow fas fa-chevron-right"></i>
+				CSV</a>
 		</li>
 		<div class="admin-section__csv-controls">
 			<li class="account-nav__item">
