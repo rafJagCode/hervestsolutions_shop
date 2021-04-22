@@ -20,6 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Exception;
 use App\Service\CartGetter;
+use App\Service\JwtDecoder;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
@@ -30,12 +31,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 	private $urlGenerator;
 	private $csrfTokenManager;
 	private $cartGetter;
-	public function __construct(HttpClientInterface $http, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, CartGetter $cartGetter)
+	private $jwtDecoder;
+	public function __construct(HttpClientInterface $http, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, CartGetter $cartGetter, JwtDecoder $jwtDecoder)
 	{
 		$this->http = $http;
 		$this->urlGenerator = $urlGenerator;
 		$this->csrfTokenManager = $csrfTokenManager;
 		$this->cartGetter = $cartGetter;
+		$this->jwtDecoder = $jwtDecoder;
 	}
 	public function supports(Request $request)
 	{
@@ -59,7 +62,21 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
 		return $credentials;
 	}
-
+	public function getTestUser($username)
+	{
+		$user = new User();
+		if ($username === 'admin@email.com') {
+			$user->setEmail('admin@email.com');
+			$user->setRoles(['ROLE_ADMIN']);
+			$user->setId(2);
+			$user->setCart($this->cartGetter->getProducts(2));
+			return $user;
+		}
+		$user->setEmail('customer@email.com');
+		$user->setId(3);
+		$user->setCart($this->cartGetter->getProducts(3));
+		return $user;
+	}
 	public function getUser($credentials, UserProviderInterface $userProvider)
 	{
 		// $token = new CsrfToken('authenticate', $credentials['csrf_token']);
@@ -76,13 +93,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 		if (!$response->getStatusCode() === 200) {
 			throw new CustomUserMessageAuthenticationException('There is no such user');
 		}
-
-		$user = new User();
-		$user->setEmail('test@email');
-		$user->setRoles(['ROLE_ADMIN']);
-		$user->setToken($response->toArray()['token']);
-		$user->setCart($this->cartGetter->getProducts());
-
+		$token = $response->toArray()['token'];
+		$userDetails = $this->jwtDecoder->getPayload($token);
+		// $user = new User();
+		// $user->setEmail('test@email');
+		// $user->setRoles(['ROLE_ADMIN']);
+		// $user->setToken($token);
+		// $user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
+		$user = $this->getTestUser($userDetails->username);
 		return $user;
 	}
 

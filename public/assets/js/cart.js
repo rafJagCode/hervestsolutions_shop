@@ -17,14 +17,14 @@ const getCartItems = () => {
 const cartAddProduct = async (id) => {
 	let quantity = $(".input-number__input").val();
   await axios.post(
-    "http://apiagro.amelen.pl/public/index.php/api/cartAddProduct",
-    { product: id, user: 2, quantity: quantity ? quantity : 1}
+    "/cart-add-product",
+    { product: id, quantity: quantity ? quantity : 1}
   );
   getCartItems();
 };
 const cartRemoveProduct = async (id) => {
   await axios.post(
-    "http://apiagro.amelen.pl/public/index.php/api/cartRemoveProduct",
+    "/cart-remove-product",
     { id: id }
   );
   getCartItems();

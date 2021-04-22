@@ -19,7 +19,7 @@ class SearchController extends AbstractController
      */
     public function searchProducts($input): Response
     {
-		$response = $this->http->request('GET', 'http://redpart.test/search-in-products/' . $input);
+		$response = $this->http->request('GET', 'http://redparts.test/search-in-products/' . $input);
 
 		if($response->getStatusCode()===200){
 			return $this->render('components/search-results.twig', [

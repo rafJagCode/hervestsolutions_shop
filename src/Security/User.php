@@ -2,16 +2,30 @@
 
 namespace App\Security;
 
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+	private $id;
     private $email;
 	private $password;
 	private $token;
     private $roles = [];
 	private $cart = [];
 
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     public function getCart(): ?array
     {
         return $this->cart;
