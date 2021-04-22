@@ -23,6 +23,9 @@ const cartAddProduct = async (id) => {
   getCartItems();
 };
 const cartRemoveProduct = async (id) => {
+	const loader = $('dropcart__remove-loader');
+
+	loader.removeClass('dropcart__remove-loader--hidden');
   await axios.post(
     "/cart-remove-product",
     { id: id }

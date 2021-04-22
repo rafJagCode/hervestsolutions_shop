@@ -41,12 +41,10 @@ class LoginController extends AbstractController
 	/**
 	 * @Route("/sign-in", name="sign-in")
 	 */
-	public function signIn(AuthenticationUtils $authenticationUtils): Response
+	public function signIn(): Response
 	{
-		$error = $authenticationUtils->getLastAuthenticationError();
 		return $this->render("/pages/account-login.twig", [
 			"controller_name" => "LoginController",
-			"loginMessage" => $error,
 		]);
 	}
 

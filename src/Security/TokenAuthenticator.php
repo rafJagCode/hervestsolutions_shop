@@ -18,9 +18,13 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Exception;
 use App\Service\CartGetter;
 use App\Service\JwtDecoder;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Psr\Container\ContainerInterface;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
@@ -32,13 +36,15 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 	private $csrfTokenManager;
 	private $cartGetter;
 	private $jwtDecoder;
-	public function __construct(HttpClientInterface $http, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, CartGetter $cartGetter, JwtDecoder $jwtDecoder)
+	private $templating;
+	public function __construct(HttpClientInterface $http, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, CartGetter $cartGetter, JwtDecoder $jwtDecoder, ContainerInterface $container)
 	{
 		$this->http = $http;
 		$this->urlGenerator = $urlGenerator;
 		$this->csrfTokenManager = $csrfTokenManager;
 		$this->cartGetter = $cartGetter;
 		$this->jwtDecoder = $jwtDecoder;
+		$this->templating = $container->get('templating');
 	}
 	public function supports(Request $request)
 	{
@@ -90,8 +96,13 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 				"json" => ['username' => $credentials['username'], 'password' => $credentials['password']]
 			]
 		);
-		if (!$response->getStatusCode() === 200) {
-			throw new CustomUserMessageAuthenticationException('There is no such user');
+		if ($response->getStatusCode() !== 200) {
+			// dump('lubie placki');
+			// exit();
+			// throw new AccessDeniedException();
+			throw new CustomUserMessageAuthenticationException('invalid credentials');
+			// return $this->getTestUser('admin@email.com');
+			return null;
 		}
 		$token = $response->toArray()['token'];
 		$userDetails = $this->jwtDecoder->getPayload($token);
@@ -113,7 +124,12 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 		Request $request,
 		AuthenticationException $exception
 	) {
-		return null;
+		$engine = $this->templating;
+		$view = $engine->render("/pages/account-login.twig", [
+			"controller_name" => "LoginController",
+			"loginMessage" => $exception
+		]);
+		return new Response($view);
 	}
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

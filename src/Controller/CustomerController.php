@@ -86,6 +86,7 @@ class CustomerController extends AbstractController
 	public function generatePassword()
 	{
 		$password = sha1(random_bytes(10));
-		return new Response($password);
+		$shortPassword = substr($password, 0, 6);
+		return new Response($shortPassword);
 	}
 }

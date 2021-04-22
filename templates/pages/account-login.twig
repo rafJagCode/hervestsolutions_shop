@@ -15,8 +15,8 @@
                     <div class="card flex-grow-1 mb-md-0 mr-0 mr-lg-3 ml-0 ml-lg-4">
                         <div class="card-body card-body--padding--2">
                             <h3 class="card-title">Logowanie</h3>
-							{% if loginMessage is defined %}
-							<h5 class="alert alert-danger">{{loginMessage}}</h5>
+							{% if loginMessage is defined and loginMessage != null %}
+							<h5 class="alert alert-danger">{{loginMessage.messageKey}}</h5>
 							{% endif %}
                             <form action="sign-in" method="POST">
                                 <div class="form-group">

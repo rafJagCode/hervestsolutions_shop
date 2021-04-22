@@ -58,3 +58,18 @@
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
+.form-group.form-group-password {
+  position: relative;
+}
+.password-eye-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, 50%);
+}
+.dropcart__remove-loader {
+  position: absolute;
+}
+.dropcart__remove-loader--hidden {
+  display: none;
+}
