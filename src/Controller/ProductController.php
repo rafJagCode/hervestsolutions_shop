@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ProductsCategoriesGetter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends AbstractController
 {
@@ -44,5 +45,18 @@ class ProductController extends AbstractController
 				"selectedFourProducts" => $newest
 			]);
 		}
+	}
+	/**
+	 * @Route("/search-in-products/{input}", name="search-in-products")
+	 */
+	public function searchInProducts($input)
+	{
+
+		$products = $this->productsCategoriesGetter->getNewest();
+		$regex = "/$input/";
+		$filtered = array_filter($products, function($product) use($regex){
+			return preg_match($regex, $product["name"]);
+		});
+		return new JsonResponse($filtered);
 	}
 }

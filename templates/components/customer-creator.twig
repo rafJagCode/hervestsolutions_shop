@@ -13,23 +13,23 @@
 						<form action="register" method="POST">
 							<div class="form-group">
 								<label for="signup-first-name">Imie</label>
-								<input name="firstName" id="signup-first-name" type="text" class="form-control" placeholder="Imie">
+								<input value="{{ user is defined ? user.firstName : '' }}" name="firstName" id="signup-first-name" type="text" class="form-control" placeholder="Imie">
 							</div>
 							<div class="form-group">
 								<label for="signup-lastName">Nazwisko</label>
-								<input name="lastName" id="signup-last-name" type="text" class="form-control" placeholder="Nazwisko">
+								<input value="{{ user is defined ? user.lastName : '' }}" name="lastName" id="signup-last-name" type="text" class="form-control" placeholder="Nazwisko">
 							</div>
 							<div class="form-group">
 								<label for="signup-address">Adres</label>
-								<input name="address" id="signup-address" type="text" class="form-control" placeholder="Adres">
+								<input value="{{ user is defined ? user.address : '' }}" name="address" id="signup-address" type="text" class="form-control" placeholder="Adres">
 							</div>
 							<div class="form-group">
 								<label for="signup-phone">Telefon</label>
-								<input name="phone" id="signup-phone" type="tel" class="form-control" placeholder="Telefon">
+								<input value="{{ user is defined ? user.telephone : '' }}" name="phone" id="signup-phone" type="tel" class="form-control" placeholder="Telefon">
 							</div>
 							<div class="form-group">
 								<label for="signup-email">Adres email</label>
-								<input name="email" id="signup-email" type="email" class="form-control" placeholder="przykładowy@email.com">
+								<input value="{{ user is defined ? user.email : '' }}" name="email" id="signup-email" type="email" class="form-control" placeholder="przykładowy@email.com">
 							</div>
 							<div class="form-group">
 								<label for="signup-password">

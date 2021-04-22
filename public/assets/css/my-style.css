@@ -23,3 +23,38 @@
 .far.fa-lightbulb:hover {
   color: orange;
 }
+.customer-search__icon {
+  margin-left: 5px;
+  color: #006847;
+}
+.customer-search__icon:hover {
+  color: orange;
+}
+.order-product-search__body {
+  position: relative;
+}
+
+.order-product-search__dropdown {
+  padding: 0;
+  height: 0;
+  width: 100%;
+  color: #262626;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 1.5px;
+  opacity: 0;
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+  visibility: hidden;
+}
+
+.order-product-search__dropdown--open {
+  height: auto;
+  opacity: 1;
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+  visibility: visible;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
