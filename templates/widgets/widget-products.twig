@@ -8,32 +8,48 @@
 {% set root_classes = classnames('card widget widget-products', classes) %}
 
 <div class="{{ root_classes }}">
-    <div class="widget__header">
-        <h4>Najnowsze Produkty</h4>
-    </div>
-    <div class="widget-products__list">
-
-       {% for product in products[:5] %}
-            <div class="widget-products__item">
-                <div class="widget-products__image image image--type--product">
-                    <a href="/product/{{product.id}}" class="image__body">
-                        <img class="image__tag" src="{{ image(product.Images[0], {size: 64}) }}" alt="">
-                    </a>
-                </div>
-                <div class="widget-products__info">
-                    <div class="widget-products__name">
-                        <a href="/product/{{product.id}}">{{ product.name }}</a>
-                    </div>
-                    <div class="widget-products__prices">
-                        {% if product.compareAtPrice is defined  %}
-                            <div class="widget-products__price widget-products__price--new">{{ product.price }}</div>
-                            <div class="widget-products__price widget-products__price--old">{{ product.compareAtPrice }}</div>
-                        {% else %}
-                            <div class="widget-products__price widget-products__price--current">{{ product.price }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+  <div class="widget__header">
+    <h4>
+      Najnowsze Produkty
+    </h4>
+  </div>
+  <div class="widget-products__list">
+    {% for product in products[:5] %}
+      <div class="widget-products__item">
+        <div class="widget-products__image image image--type--product">
+          <a href="/product/{{ product.id }}" class="image__body">
+            <img class="image__tag"
+              src="{{
+              image(
+                product.images[0],
+                {
+                  size: 64
+                }
+              )
+              }}"
+              alt="" />
+          </a>
+        </div>
+        <div class="widget-products__info">
+          <div class="widget-products__name">
+            <a href="/product/{{ product.id }}">{{ product.name }}</a>
+          </div>
+          <div class="widget-products__prices">
+            {% if product.compareAtPrice is defined %}
+              <div class="widget-products__price widget-products__price--new">
+                {{ product.price }}
+              </div>
+              <div class="widget-products__price widget-products__price--old">
+                {{ product.compareAtPrice }}
+              </div>
+            {% else %}
+              <div class="widget-products__price widget-products__price--current">
+                {{ product.price }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>

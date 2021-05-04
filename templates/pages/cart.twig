@@ -5,124 +5,195 @@
 {% extends '/layouts/default.twig' %}
 
 {% block site_body %}
-    {% include '/blocks/block-header.twig' with {inputs: {
-        title: 'Koszyk',
-    }} %}
-    <div class="block">
-        <div class="container">
-            <div class="cart">
-                <div class="cart__table cart-table">
-                    <table class="cart-table__table">
-                        <thead class="cart-table__head">
-                        <tr class="cart-table__row">
-                            <th class="cart-table__column cart-table__column--image">Zdjęcie</th>
-                            <th class="cart-table__column cart-table__column--product">Produkt</th>
-                            <th class="cart-table__column cart-table__column--price">Cena</th>
-                            <th class="cart-table__column cart-table__column--quantity">Ilość</th>
-                            <th class="cart-table__column cart-table__column--total">Razem</th>
-                            <th class="cart-table__column cart-table__column--remove"></th>
-                        </tr>
-                        </thead>
-                        <tbody class="cart-table__body">
-                        {# {% for item in cart.items %} #}
-						{% for product in products %}
-                            <tr class="cart-table__row">
-                                <td class="cart-table__column cart-table__column--image">
-                                    <div class="image image--type--product">
-                                        <a href="{{ path('product', {'id': product.id})}}" class="image__body">
-                                            <img class="image__tag" src="{{ image(product.product.Images[0], {size: 160}) }}" alt="">
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="cart-table__column cart-table__column--product">
-                                    <a href="" class="cart-table__product-name">{{ product.product.name }}</a>
-                                    {# {% if item.options %}
+  {% include '/blocks/block-header.twig' with {
+    inputs: {
+      title: 'Koszyk'
+    }
+  } %}
+  <div class="block">
+    <div class="container">
+      <div class="cart">
+        <div class="cart__table cart-table">
+          <table class="cart-table__table">
+            <thead class="cart-table__head">
+              <tr class="cart-table__row">
+                <th class="cart-table__column cart-table__column--image">
+                  Zdjęcie
+                </th>
+                <th class="cart-table__column cart-table__column--product">
+                  Produkt
+                </th>
+                <th class="cart-table__column cart-table__column--price">
+                  Cena
+                </th>
+                <th class="cart-table__column cart-table__column--quantity">
+                  Ilość
+                </th>
+                <th class="cart-table__column cart-table__column--total">
+                  Razem
+                </th>
+                <th class="cart-table__column cart-table__column--remove"></th>
+              </tr>
+            </thead>
+            <tbody class="cart-table__body">
+              {# {% for item in cart.items %} #}
+              {% for product in products %}
+                <tr class="cart-table__row">
+                  <td class="cart-table__column cart-table__column--image">
+                    <div class="image image--type--product">
+                      <a href="{{
+                        path(
+                          'product',
+                          {
+                            id: product.id
+                          }
+                        )
+                        }}"
+                        class="image__body">
+                        <img class="image__tag"
+                          src="{{
+                          image(
+                            product.product.images[0],
+                            {
+                              size: 160
+                            }
+                          )
+                          }}"
+                          alt="" />
+                      </a>
+                    </div>
+                  </td>
+                  <td class="cart-table__column cart-table__column--product">
+                    <a href="" class="cart-table__product-name">
+                      {{ product.product.name }}
+                    </a>
+                    {# {% if item.options %}
                                         <ul class="cart-table__options">
                                             {% for option in item.options %}
                                                 <li>{{ option.name }}: {{ option.value }}</li>
                                             {% endfor %}
                                         </ul>
                                     {% endif %} #}
-                                </td>
-                                {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
-								<td class="cart-table__column cart-table__column--price" data-title="Price">{{ product.product.price }} zł</td>
-                                <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
-                                    <div class="cart-table__quantity input-number">
-                                        <input class="form-control input-number__input" type="number" min="1" value="{{ product.product.quantity }}">
-                                        <div class="input-number__add"></div>
-                                        <div class="input-number__sub"></div>
-                                    </div>
-                                </td>
-                                {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
-								<td class="cart-table__column cart-table__column--total" data-title="Total">{{ product.product.price * product.product.quantity}} zł</td>
-                                <td class="cart-table__column cart-table__column--remove">
-                                    <button type="button" class="cart-table__remove btn btn-sm btn-icon btn-muted" onClick="cartRemoveProduct({{product.id}})">
-                                        {{ svg('cross-12.svg') }}
-                                    </button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot class="cart-table__foot">
-                        <tr>
-                            <td colspan="6">
-                                <div class="cart-table__actions">
-                                    <form class="cart-table__coupon-form form-row">
-                                        <div class="form-group mb-0 col flex-grow-1">
-                                            <input type="text" class="form-control form-control-sm" placeholder="Kod Rabatowy">
-                                        </div>
-                                        <div class="form-group mb-0 col-auto">
-                                            <button type="button" class="btn btn-sm btn-primary">Użyj rabatu</button>
-                                        </div>
-                                    </form>
-                                    <div class="cart-table__update-button">
-                                        <a class="btn btn-sm btn-primary" href="">Przelicz Koszyk</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div class="cart__totals">
-                    <div class="card">
-                        <div class="card-body card-body--padding--2">
-                            <h3 class="card-title">Cart Totals</h3>
-
-                            <table class="cart__totals-table">
-                                <thead>
-                                <tr>
-                                    <th>Koszt</th>
-                                    <td>{{total}} zł</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th>Dostawa</th>
-									<td>0.00 zł</td>
-                                </tr>
-                                <tr>
-                                    <th>Podatek</th>
-                                    <td>0.00 zł</td>
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Razem</th>
-                                    <td>${{total}}</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-
-                            <a class="btn btn-primary btn-xl btn-block" href="">
-                                Złóż zamówienie
-                            </a>
-                        </div>
+                  </td>
+                  {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
+                  <td class="cart-table__column cart-table__column--price"
+                    data-title="Price">
+                    {{ product.product.price }} zł
+                  </td>
+                  <td class="cart-table__column cart-table__column--quantity"
+                    data-title="Quantity">
+                    <div class="cart-table__quantity input-number">
+                      <input class="form-control input-number__input"
+                        type="number"
+                        min="1"
+                        value="{{ product.product.quantity }}" />
+                      <div class="input-number__add"></div>
+                      <div class="input-number__sub"></div>
                     </div>
-                </div>
-            </div>
+                  </td>
+                  {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
+                  <td class="cart-table__column cart-table__column--total"
+                    data-title="Total">
+                    {{ product.product.price * product.product.quantity }} zł
+                  </td>
+                  <td class="cart-table__column cart-table__column--remove">
+                    <button type="button"
+                      class="cart-table__remove btn btn-sm btn-icon btn-muted"
+                      onClick="cartRemoveProduct({{ product.id }})">
+                      {{ svg('cross-12.svg') }}
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot class="cart-table__foot">
+              <tr>
+                <td colspan="6">
+                  <div class="cart-table__actions">
+                    <form class="cart-table__coupon-form form-row">
+                      <div class="form-group mb-0 col flex-grow-1">
+                        <input type="text"
+                          class="form-control form-control-sm"
+                          placeholder="Kod Rabatowy" />
+                      </div>
+                      <div class="form-group mb-0 col-auto">
+                        <button type="button" class="btn btn-sm btn-primary">
+                          Użyj rabatu
+                        </button>
+                      </div>
+                    </form>
+                    <div class="cart-table__update-button">
+                      <a class="btn btn-sm btn-primary" href="">
+                        Przelicz Koszyk
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-    </div>
+        <div class="cart__totals">
+          <div class="card">
+            <div class="card-body card-body--padding--2">
+              <h3 class="card-title">
+                Cart Totals
+              </h3>
 
-    {% include '/blocks/block-space.twig' with {inputs: {layout: 'before-footer'}} %}
+              <table class="cart__totals-table">
+                <thead>
+                  <tr>
+                    <th>
+                      Koszt
+                    </th>
+                    <td>
+                      {{ total }} zł
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>
+                      Dostawa
+                    </th>
+                    <td>
+                      0.00 zł
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      Podatek
+                    </th>
+                    <td>
+                      0.00 zł
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>
+                      Razem
+                    </th>
+                    <td>
+                      ${{ total }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+
+              <a class="btn btn-primary btn-xl btn-block" href="">
+                Złóż zamówienie
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include '/blocks/block-space.twig' with {
+    inputs: {
+      layout: 'before-footer'
+    }
+  } %}
 {% endblock %}

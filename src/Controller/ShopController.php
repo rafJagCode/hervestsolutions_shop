@@ -33,5 +33,10 @@ class ShopController extends AbstractController
 				"products" => $products,
 			]);
 		}
+
+			return $this->render("pages/shop-grid-4-columns-full.twig", [
+				"controller_name" => "ShopController",
+				"products" => $products,
+			]);
 	}
 }
