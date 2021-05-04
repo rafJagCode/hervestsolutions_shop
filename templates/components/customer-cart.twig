@@ -135,7 +135,7 @@
                 <td class="cart-table__column cart-table__column--remove">
                   <button type="button"
                     class="cart-table__remove btn btn-sm btn-icon btn-muted"
-                    onclick="cartRemoveProduct({{ product.id }})">
+                    onclick="cartRemoveProduct(this, {{ product.id }})">
                     {{ svg('cross-12.svg') }}
                   </button>
                 </td>
