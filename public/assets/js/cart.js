@@ -28,7 +28,7 @@ const cartRemoveProduct = async (button, id) => {
 	  console.log('loading');
 	  return;
   }
-  console.log('starting loading');
+  console.log('starting loading1');
   loader.removeClass("dropcart__remove-loader--hidden");
   await axios.post("/cart-remove-product", { id: id });
   getCartItems();
