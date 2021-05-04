@@ -4,6 +4,7 @@
   height: 30px;
   width: 100px;
 }
+/* ADMIN SECTION */
 .admin-section__csv-controls {
   height: 0;
   transform: scale(1, 0);
@@ -14,6 +15,7 @@
   transform: scale(1, 1);
   transition: transform;
 }
+/* CREATING ACCOUNT FOR CUSTOMER */
 .far.fa-lightbulb {
   cursor: pointer;
   color: #006847;
@@ -23,6 +25,16 @@
 .far.fa-lightbulb:hover {
   color: orange;
 }
+.form-group.form-group-password {
+  position: relative;
+}
+.password-eye-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, 50%);
+}
+/* CUSTOMERS TABLE FOR ADMIN */
 .customer-search__icon {
   margin-left: 5px;
   color: #006847;
@@ -33,7 +45,7 @@
 .order-product-search__body {
   position: relative;
 }
-
+/* ORDERING PRODUCTS FOR CUSTOMER BY ADMIN */
 .order-product-search__dropdown {
   padding: 0;
   height: 0;
@@ -58,15 +70,61 @@
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
 }
-.form-group.form-group-password {
-  position: relative;
+/* PRODUCT SEARCH RESULTS */
+.search-result__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
 }
-.password-eye-icon {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(-50%, 50%);
+.search-result__link:hover {
+  background-color: #d6fff2;
 }
+.search-result__image {
+  height: 40px;
+}
+.search-result__name {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-result__number {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-result__availability {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+.search-result__availability-text {
+  margin-right: 5px;
+}
+.search-result__price {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.add-to-cart-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: flex;
+  justify-content: center;
+}
+.add-to-cart-btn__icon {
+  color: #006847;
+}
+.add-to-cart-btn__icon:hover {
+  color: orange;
+}
+/* DROPCART LOADER */
 .dropcart__remove-loader {
   position: absolute;
 }

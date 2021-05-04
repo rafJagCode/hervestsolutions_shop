@@ -1,24 +1,43 @@
-<div class="suggestions__group-content">
-	{% for product in searchResults %}
-		<a
-			class="suggestions__item suggestions__product" href="">
-			{# <div class="suggestions__product-image image image--type--product">
-															                                <div class="image__body">
-															                                    <img class="image__tag" src="{{ image(product.images|first, {size: 40}) }}" alt="">
-															                                </div>
-															                            </div> #}
-			<div class="suggestions__product-info">
-				<div class="suggestions__product-name">{{ product.name }}</div>
-				{# <div class="suggestions__product-rating">
-																			                                    <div class="suggestions__product-rating-stars">
-																			                                        {% include '/components/rating.twig' with {inputs: {
-																			                                            rating: product.rating,
-																			                                        }} %}
-																			                                    </div>
-																			                                    <div class="suggestions__product-rating-label">{{ product.rating }} on {{ product.reviews }} reviews</div>
-																			                                </div> #}
-			</div>
-			{# <div class="suggestions__product-price">{{ product.price|currency }}</div> #}
-		</a>
-	{% endfor %}
+<div class="search-results">
+  {% for product in searchResults %}
+    <a class="search-result__link" href="/product/{{ product.id }}">
+      <img class="search-result__image"
+        src="{{
+        image(
+          product.images[0],
+          {
+            size: 40
+          }
+        )
+        }}"
+        alt="" />
+      <div class="search-result__name">
+        {{ product.name }}
+      </div>
+      <div class="search-result__number">
+        {{ product.product_number }}
+      </div>
+      <div class="search-result__availability">
+        <div class="search-result__availability-text">
+          {{ product.quantity }} szt
+        </div>
+        <div class="search-result__availability-icon">
+          {% include '/components/rating.twig' with {
+            inputs: {
+              rating: product.quantity
+            }
+          } %}
+        </div>
+      </div>
+      <div class="search-result__price">
+        {{ product.price }} zł
+      </div>
+      <button class="add-to-cart-btn"
+        type="button"
+        aria-label="Add to cart"
+        onclick="cartAddProduct({{ product.id }})">
+        <i class="add-to-cart-btn__icon fas fa-2x fa-shopping-cart"></i>
+      </button>
+    </a>
+  {% endfor %}
 </div>
