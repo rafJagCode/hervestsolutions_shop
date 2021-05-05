@@ -1,0 +1,62 @@
+<table id="example" class="table table-bordered table-hover" style="width:100%">
+	<thead>
+		<tr>
+			<th>Imie</th>
+			<th>Nazwisko</th>
+			<th>Adres</th>
+			<th>Telefon</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+			<tr>
+				<td>{{user.firstName}}</td>
+				<td>{{user.lastName}}</td>
+				<td>{{user.address}}</td>
+				<td>{{user.telephone}}</td>
+				<td>
+					{{user.email}}
+					<a href="/customer-editor/{{user.id}}"><i class="customer-search__icon fas fa-user-edit"></i></a>
+					<a href="/customer-order-creator/{{user.id}}"><i class="customer-search__icon fas fa-shopping-cart"></i></a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th>Imie</th>
+			<th>Nazwisko</th>
+			<th>Adres</th>
+			<th>Telefon</th>
+			<th>Email</th>
+		</tr>
+	</tfoot>
+</table>
+<script>
+	$(document).ready(function () {
+		$('#example').DataTable({
+			"language": {
+				"processing":     "Przetwarzanie...",
+				"search":         "Szukaj:",
+				"lengthMenu":     "Pokaż _MENU_ pozycji",
+				"info":           "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+				"infoEmpty":      "Pozycji 0 z 0 dostępnych",
+				"infoFiltered":   "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+				"loadingRecords": "Wczytywanie...",
+				"zeroRecords":    "Nie znaleziono pasujących pozycji",
+				"emptyTable":     "Brak danych",
+				"paginate": {
+					"first":      "Pierwsza",
+					"previous":   "Poprzednia",
+					"next":       "Następna",
+					"last":       "Ostatnia"
+				},
+				"aria": {
+					"sortAscending": ": aktywuj, by posortować kolumnę rosnąco",
+					"sortDescending": ": aktywuj, by posortować kolumnę malejąco"
+				}
+			}
+		});
+	});
+</script>

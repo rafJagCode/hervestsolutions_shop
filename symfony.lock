@@ -103,6 +103,9 @@
     "nikic/php-parser": {
         "version": "v4.10.4"
     },
+    "php": {
+        "version": "8.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -431,6 +434,9 @@
         "version": "v2.2.0"
     },
     "symfony/stopwatch": {
+        "version": "v4.4.20"
+    },
+    "symfony/templating": {
         "version": "v4.4.20"
     },
     "symfony/test-pack": {

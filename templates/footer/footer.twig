@@ -12,25 +12,25 @@
     <div class="site-footer__widgets">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-xl-4">
+                <div class="col-12 col-md-10 col-xl-4">
                     {% include '/footer/contacts.twig' %}
                 </div>
-                <div class="col-6 col-md-3 col-xl-2">
+                <div class="col-12 col-md-2 col-xl-2">
                     {% include '/footer/links.twig' with {inputs: {
-                        title: 'Information',
+                        title: 'Informacje',
                         links: [
-                            {'title': 'About Us'},
-                            {'title': 'Delivery Information'},
-                            {'title': 'Privacy Policy'},
-                            {'title': 'Brands'},
-                            {'title': 'Contact Us'},
-                            {'title': 'Returns'},
-                            {'title': 'Site Map'},
+                            {'title': 'O nas'},
+                            {'title': 'Dostawa'},
+
+                            {'title': 'Producenci'},
+                            {'title': 'Kontakt'},
+
+                            {'title': 'Lokalizacja'},
                         ],
                     }} %}
                 </div>
-                <div class="col-6 col-md-3 col-xl-2">
-                    {% include '/footer/links.twig' with {inputs: {
+                <div class="col-0 col-md-0 col-xl-2">
+                    {# {% include '/footer/links.twig' with {inputs: {
                         title: 'My Account',
                         links: [
                             {'title': 'Store Location'},
@@ -41,9 +41,9 @@
                             {'title': 'Gift Certificates'},
                             {'title': 'Affiliate'},
                         ],
-                    }} %}
+                    }} %} #}
                 </div>
-                <div class="col-12 col-md-6 col-xl-4">
+                <div class="col-12 col-md-12 col-xl-4">
                     {% include '/footer/newsletter.twig' %}
                 </div>
             </div>
@@ -57,9 +57,9 @@
                     Powered by HTML — Designed by <a href="{{ theme.author.profile_url }}" target="_blank">{{ theme.author.name }}</a>
                     <!-- copyright / end -->
                 </div>
-                <div class="site-footer__payments">
+                {# <div class="site-footer__payments">
                     <img src="images/payments.png" alt="">
-                </div>
+                </div> #}
             </div>
         </div>
     </div>

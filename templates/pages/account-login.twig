@@ -14,17 +14,20 @@
                 <div class="col-md-6 d-flex">
                     <div class="card flex-grow-1 mb-md-0 mr-0 mr-lg-3 ml-0 ml-lg-4">
                         <div class="card-body card-body--padding--2">
-                            <h3 class="card-title">Login</h3>
-                            <form>
+                            <h3 class="card-title">Logowanie</h3>
+							{% if loginMessage is defined and loginMessage != null %}
+							<h5 class="alert alert-danger">{{loginMessage.messageKey}}</h5>
+							{% endif %}
+                            <form action="sign-in" method="POST">
                                 <div class="form-group">
-                                    <label for="signin-email">Email address</label>
-                                    <input id="signin-email" type="email" class="form-control" placeholder="customer@example.com">
+                                    <label for="signin-email">Adres email</label>
+                                    <input name="username" id="signin-email" type="email" class="form-control" placeholder="przykładowy@email.com">
                                 </div>
                                 <div class="form-group">
-                                    <label for="signin-password">Password</label>
-                                    <input id="signin-password" type="password" class="form-control" placeholder="Secret word">
+                                    <label for="signin-password">Hasło</label>
+                                    <input name="password" id="signin-password" type="password" class="form-control" placeholder="Hasło">
                                     <small class="form-text text-muted">
-                                        <a href="">Forgot password?</a>
+                                        <a href="">Zapomniałeś hasła?</a>
                                     </small>
                                 </div>
                                 <div class="form-group">
@@ -33,11 +36,11 @@
                                             classes: 'form-check-input',
                                             id: 'signin-remember',
                                         }) }}
-                                        <label class="form-check-label" for="signin-remember">Remember Me</label>
+                                        <label class="form-check-label" for="signin-remember">Zapamiętaj mnie</label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <button type="submit" class="btn btn-primary mt-3">Login</button>
+                                    <button type="submit" class="btn btn-primary mt-3">Zaloguj</button>
                                 </div>
                             </form>
                         </div>
@@ -46,22 +49,25 @@
                 <div class="col-md-6 d-flex mt-4 mt-md-0">
                     <div class="card flex-grow-1 mb-0 ml-0 ml-lg-3 mr-0 mr-lg-4">
                         <div class="card-body card-body--padding--2">
-                            <h3 class="card-title">Register</h3>
-                            <form>
+                            <h3 class="card-title">Rejestracja</h3>
+							{% if registerMessage is defined %}
+							<h5 class="alert alert-danger">{{registerMessage}}</h5>
+							{% endif %}
+                            <form action="register" method="POST">
                                 <div class="form-group">
-                                    <label for="signup-email">Email address</label>
-                                    <input id="signup-email" type="email" class="form-control" placeholder="customer@example.com">
+                                    <label for="signup-email">Adres email</label>
+                                    <input name="email" id="signup-email" type="email" class="form-control" placeholder="przykładowy@email.com">
                                 </div>
                                 <div class="form-group">
-                                    <label for="signup-password">Password</label>
-                                    <input id="signup-password" type="password" class="form-control" placeholder="Secret word">
+                                    <label for="signup-password">Hasło</label>
+                                    <input name="password" id="signup-password" type="password" class="form-control" placeholder="Hasło">
                                 </div>
                                 <div class="form-group">
-                                    <label for="signup-confirm">Repeat password</label>
-                                    <input id="signup-confirm" type="password" class="form-control" placeholder="Secret word">
+                                    <label for="signup-confirm">Powtórz hasło</label>
+                                    <input id="signup-confirm" type="password" class="form-control" placeholder="Hasło">
                                 </div>
                                 <div class="form-group mb-0">
-                                    <button type="submit" class="btn btn-primary mt-3">Register</button>
+                                    <button type="submit" class="btn btn-primary mt-3">Zarejestruj</button>
                                 </div>
                             </form>
                         </div>

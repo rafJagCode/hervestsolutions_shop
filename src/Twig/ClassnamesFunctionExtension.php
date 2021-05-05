@@ -21,26 +21,33 @@ class ClassnamesFunctionExtension extends AbstractExtension
         ];
     }
 
-    public function returnClasses($name, $classTypesObject=null)
+	public function isEmpty($object)
+	{
+		foreach($object as $value) return false;
+		return true;
+	}
+
+    public function returnClasses($name, $classTypesObject=null, $class=null)
     {
         if($classTypesObject==null){
             return $name;
         }
         elseif(is_array($classTypesObject)){
             foreach(array_keys($classTypesObject) as $key){
-                if(!$classTypesObject[$key]->count()){
-                    $this->logger->emergency('ok');
-                }
-                if($classTypesObject[$key]===true){
+				if(is_object($classTypesObject[$key])){
+					if($this->isEmpty($classTypesObject[$key])){
+						$name .= ' ' . $key;
+					}
+				}
+                elseif($classTypesObject[$key]===true){
                     $name .= ' ' . $key;
                 }
             }
-            // $this->logger->emergency($name);
             return $name;
         }
         else{
             // $this->logger->emergency($name);
-            return $name . ' ' . $classTypesObject;
+            return $name . ' ' . $classTypesObject . ' ' . $class;
         }
     }
 }

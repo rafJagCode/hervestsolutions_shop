@@ -7,32 +7,28 @@ use Twig\TwigFunction;
 
 class ImageFunctionExtension extends AbstractExtension
 {
-    private $projectDir;
     private $baseUrl;
 
-    public function __construct(string $projectDir, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->projectDir = $projectDir;
-        if($requestStack->getCurrentRequest() === null){
+        if ($requestStack->getCurrentRequest() === null) {
             $this->baseUrl = null;
-        }
-        else{
-            $this->baseUrl = $requestStack->getCurrentRequest()->getSchemeAndHttpHost();
+        } else {
+            $this->baseUrl = $requestStack
+                ->getCurrentRequest()
+                ->getSchemeAndHttpHost();
         }
     }
-    
+
     public function getFunctions()
     {
-        return [
-            new TwigFunction('image', [$this, 'returnPath']),
-        ];
+        return [new TwigFunction("image", [$this, "returnPath"])];
     }
 
     public function returnPath(string $name)
     {
-        $path='@base_url/assets/' . $name;
-        $asset = `asset($path)`;
-        return $asset;
+        $path = $this->baseUrl . "/assets/" . $name;
+        return $path;
     }
 }
 ?>

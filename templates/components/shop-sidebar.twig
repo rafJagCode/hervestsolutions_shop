@@ -1,9 +1,11 @@
 {#
 // inputs:
 // - offcanvas: string - one of [none, mobile, always]
+// - products
 #}
 
 {% set offcanvas = inputs.offcanvas %}
+{% set products = inputs.products %}
 
 {% set root_classes = classnames('sidebar', 'sidebar--offcanvas--'~offcanvas) %}
 
@@ -11,7 +13,7 @@
     <div class="sidebar__backdrop"></div>
     <div class="sidebar__body">
         <div class="sidebar__header">
-            <div class="sidebar__title">Filters</div>
+            <div class="sidebar__title">Filtry</div>
             <button class="sidebar__close" type="button">{{ svg('cross-12.svg') }}</button>
         </div>
         <div class="sidebar__content">
@@ -22,6 +24,7 @@
             {% if offcanvas != 'always' %}
                 {% include '/widgets/widget-products.twig' with {inputs: {
                     classes: offcanvas == 'mobile' ? 'd-none d-lg-block' : '',
+					products: products,
                 }} %}
             {% endif %}
         </div>

@@ -6,12 +6,12 @@
 {% set panel = inputs.panel %}
 
 {% set root_classes = classnames('mobile-menu__panel', {
-    'mobile-menu__panel--hidden': not panel.root
+    'mobile-menu__panel--hidden': not panel.root is defined
 }) %}
 
 <div class="{{ root_classes }}">
     <div class="mobile-menu__panel-header">
-        {% if not panel.root %}
+        {% if not panel.root is defined %}
             <button class="mobile-menu__panel-back" type="button">
                 {{ svg('arrow-rounded-left-7x11.svg') }}
             </button>
@@ -33,7 +33,7 @@
                                     {% if item.type == 'currency' %}
                                         {{ item.value }}
                                     {% elseif item.type == 'language' %}
-                                        <img src="{{ item.value }}" alt="">
+                                        <img src="" alt="">
                                     {% endif %}
                                 </span>
                                 <span class="mobile-menu__setting-title">{{ item.label }}</span>
@@ -68,25 +68,25 @@
                     {% for item in item.items %}
                         <li data-mobile-menu-item>
                             {% set content %}
-                                {% if item.image %}
+                                {% if item.image is defined %}
                                     <div class="mobile-menu__links-image">
-                                        <img src="{{ item.image }}" alt="">
+                                        <img src="" alt="">
                                     </div>
                                 {% endif %}
                                 {{ item.title }}
-                                {% if item.panel %}
+                                {% if item.panel is defined %}
                                     {{ svg('arrow-rounded-right-7x11.svg') }}
                                 {% endif %}
                             {% endset %}
-                            {% set classes = classnames({'highlight': item.highlight}) %}
+                            {% set classes = classnames({'highlight': item.highlight is defined}) %}
 
-                            {% if item.url %}
-                                <a href="{{ item.url }}" class="{{ classes }}"{% if item.external %} target="_blank"{% endif %} data-mobile-menu-trigger>{{ content }}</a>
+                            {% if item.url is defined %}
+                                <a href="{{ item.url }}" class=""{% if item.external is defined %} target="_blank"{% endif %} data-mobile-menu-trigger>{{ content }}</a>
                             {% else %}
-                                <button type="button" class="{{ classes }}" data-mobile-menu-trigger>{{ content }}</button>
+                                <button type="button" class="" data-mobile-menu-trigger>{{ content }}</button>
                             {% endif %}
 
-                            {% if item.panel %}
+                            {% if item.panel is defined %}
                                 <div class="mobile-menu__links-panel" data-mobile-menu-panel>
                                     {% include '/mobile/mobile-menu-panel.twig' with {inputs: {
                                         panel: item.panel,
