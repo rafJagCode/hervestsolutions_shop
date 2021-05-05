@@ -7,7 +7,6 @@ $(document).ready(function () {
   searchInput.on("input focus", () => {
     const input = searchInput.val();
     if (!input.length) return;
-    console.log(searchIcon);
     searchIcon.removeClass("fa-search");
     searchIcon.addClass("fa-spinner fa-pulse");
     $.ajax({

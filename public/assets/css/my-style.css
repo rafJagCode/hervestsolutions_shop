@@ -141,3 +141,33 @@
 .dropcart__remove-loader--hidden {
   display: none;
 }
+.snackbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -100%);
+  width: 200px;
+  height: 50px;
+}
+.snackbar--show {
+}
+.product-card__addtocart-full {
+  position: relative;
+}
+.product-card__addtocart-icon {
+  position: relative;
+}
+.add-to-cart__spinner-border {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-110%, -50%);
+}
+.add-to-cart__spinner-border--show {
+  display: block;
+}
