@@ -31,7 +31,9 @@
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.css">
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/default-skin/default-skin.css">
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/css/select2.min.css">
+	<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.css">
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/style.css">
+    <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/my-style.css">
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_header_style }}" media="(min-width: 1200px)">
     <link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_mobile_header_style }}" media="(max-width: 1199px)">
 
@@ -52,10 +54,7 @@
 
     <!-- site__header -->
     <header class="site__header">
-        {% include '/header/header.twig' with {inputs: {
-            isUserAuthenticated: isUserAuthenticated is defined ? isUserAuthenticated : false,
-			cart: cart is defined ? cart : []
-        }} %}
+        {% include '/header/header.twig' %}
     </header>
     <!-- site__header / end -->
 
@@ -94,19 +93,24 @@
 <!-- photoswipe / end -->
 
 <!-- scripts -->
-<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/jquery/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{# <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/jquery/jquery.min.js"></script> #}
+{# <script href="https://code.jquery.com/jquery-3.5.1.js"></script> #}
+{# <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> #}
+
+<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script>
-<script src="{{ app.request.schemeAndHttpHost }}/assets/js/logout.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/customer-creator.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/admin-controls.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/order-product-search.js"></script>
 </body>
 </html>

@@ -12,14 +12,14 @@ class CartGetter
         $this->client = $client;
     }
 
-    public function getProducts()
+    public function getProducts($user)
     {
         try {
             $response = $this->client->request(
                 "POST",
                 $_ENV["API_URL"] . "cart",
                 [
-                    "json" => ["user" => 2],
+                    "json" => ["user" => $user],
                 ]
             );
         } catch (Exception $exception) {

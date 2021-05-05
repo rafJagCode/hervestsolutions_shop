@@ -1,0 +1,45 @@
+<div class="search-results">
+  {% for product in searchResults %}
+    <div class="search-result">
+      <a class="search-result__link" href="/product/{{ product.id }}">
+        <img class="search-result__image"
+          src="{{
+          image(
+            product.images[0],
+            {
+              size: 40
+            }
+          )
+          }}"
+          alt="" />
+        <div class="search-result__name">
+          {{ product.name }}
+        </div>
+        <div class="search-result__number">
+          {{ product.product_number }}
+        </div>
+        <div class="search-result__availability">
+          <div class="search-result__availability-text">
+            {{ product.quantity }} szt
+          </div>
+          <div class="search-result__availability-icon">
+            {% include '/components/rating.twig' with {
+              inputs: {
+                rating: product.quantity
+              }
+            } %}
+          </div>
+        </div>
+        <div class="search-result__price">
+          {{ product.price }} zł
+        </div>
+      </a>
+      <button class="add-to-cart-btn"
+        type="button"
+        aria-label="Add to cart"
+        onclick="cartAddProduct({{ product.id }})">
+        <i class="add-to-cart-btn__icon fas fa-2x fa-shopping-cart"></i>
+      </button>
+    </div>
+  {% endfor %}
+</div>

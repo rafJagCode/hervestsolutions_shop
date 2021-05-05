@@ -709,6 +709,7 @@
 }
 
 .dropcart__item-remove {
+  position: relative;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   width: 26px;
