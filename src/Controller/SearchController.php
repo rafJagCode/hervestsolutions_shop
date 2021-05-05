@@ -34,5 +34,11 @@ class SearchController extends AbstractController
                 "searchResults" => $products,
             ]);
         }
+        if ($response->getStatusCode() === 404) {
+            return $this->render("components/search-results.twig", [
+                "controller_name" => "SearchController",
+                "searchResults" => [],
+            ]);
+        }
     }
 }

@@ -71,6 +71,9 @@
   transition-delay: 0s;
 }
 /* PRODUCT SEARCH RESULTS */
+.search-result {
+  position: relative;
+}
 .search-result__link {
   display: flex;
   flex-wrap: wrap;
@@ -108,6 +111,10 @@
   justify-content: center;
 }
 .add-to-cart-btn {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translate(100%, -50%);
   background: none;
   color: inherit;
   border: none;
@@ -117,6 +124,9 @@
   outline: inherit;
   display: flex;
   justify-content: center;
+}
+.add-to-cart-btn:focus {
+  outline: 0;
 }
 .add-to-cart-btn__icon {
   color: #006847;

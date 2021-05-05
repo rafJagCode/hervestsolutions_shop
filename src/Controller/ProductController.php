@@ -69,5 +69,8 @@ class ProductController extends AbstractController
             }
             return new JsonResponse($products);
         }
+		if($response->getStatusCode() === 404){
+			return new JsonResponse([]);
+		}
     }
 }
