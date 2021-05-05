@@ -64,13 +64,16 @@ class LoginController extends AbstractController
 		if ($response->getStatusCode() === 200) {
 			$email = $request->request->get("email");
 			$request->request->set("username", $email);
+
 			$loginResponse = $this->signIn($authenticationUtils);
+;
 			return $loginResponse;
 		}
 
-		return $this->render("/pages/account-login.twig", [
-			"controller_name" => "LoginController",
-			"registerMessage" => $response->getStatusCode(),
-		]);
+        $this->addFlash(
+            'notice',
+            $response->getStatusCode()
+        );
+		return $this->redirectToRoute("account-login");
 	}
 }

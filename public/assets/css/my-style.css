@@ -142,19 +142,73 @@
   display: none;
 }
 .snackbar {
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 20;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 0;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, 50%);
   width: 200px;
   height: 50px;
+  background-color: red;
+  color: #fff;
+  border-radius: 2px;
+  padding: 16px;
+  min-width: 300px;
 }
 .snackbar--show {
+  transform: translate(-50%, 200%);
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+  animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
+@-webkit-keyframes fadein {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 200%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    transform: translate(-50%, 50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 200%);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    transform: translate(-50%, 200%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 50%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    transform: translate(-50%, 200%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 50%);
+    opacity: 0;
+  }
+}
+
 .product-card__addtocart-full {
   position: relative;
 }

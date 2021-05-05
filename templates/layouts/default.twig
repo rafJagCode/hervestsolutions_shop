@@ -17,175 +17,110 @@
 {% endapply %}
 <!DOCTYPE html>
 <html lang="en" dir="{{ direction|default('ltr') }}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="format-detection" content="telephone=no" />
-    {% if global_page_description %}
-      <meta name="description"
-        content="{{ global_page_description|escape('html_attr') }}" />
-    {% endif %}
-    <title>
-      {{ global_page_title }}
-    </title>
-    <link rel="icon"
-      type="image/png"
-      href="{{ app.request.schemeAndHttpHost }}/assets/images/favicon.png" />
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="format-detection" content="telephone=no"/>
+		{% if global_page_description %}
+			<meta name="description" content="{{ global_page_description|escape('html_attr') }}"/>
+		{% endif %}
+		<title>
+			{{ global_page_title }}
+		</title>
+		<link
+		rel="icon" type="image/png" href="{{ app.request.schemeAndHttpHost }}/assets/images/favicon.png"/>
 
-    <!-- fonts -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" />
+		<!-- fonts -->
+		<link
+		rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i"/>
 
-    <!-- css -->
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/owl-carousel/assets/owl.carousel.min.css" />
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/photoswipe/photoswipe.css" />
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/photoswipe/default-skin/default-skin.css" />
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/select2/css/select2.min.css" />
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/DataTables/datatables.min.css" />
-    <link rel="stylesheet"
-      href="{{ app.request.schemeAndHttpHost }}/assets/css/style.css" />
-    <link rel="stylesheet"
-      href="{{ app.request.schemeAndHttpHost }}/assets/css/my-style.css" />
-    <link rel="stylesheet"
-      href="{{ app.request.schemeAndHttpHost }}/assets/css/{{
-      global_header_style
-      }}"
-      media="(min-width: 1200px)" />
-    <link rel="stylesheet"
-      href="{{ app.request.schemeAndHttpHost }}/assets/css/{{
-      global_mobile_header_style
-      }}"
-      media="(max-width: 1199px)" />
+		<!-- css -->
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/assets/owl.carousel.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/default-skin/default-skin.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/css/select2.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/style.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/my-style.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_header_style }}" media="(min-width: 1200px)"/>
+		<link
+		rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_mobile_header_style }}" media="(max-width: 1199px)"/>
 
-    <!-- font - fontawesome -->
-    <link rel="stylesheet"
-      href="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/fontawesome/css/all.min.css" />
+		<!-- font - fontawesome -->
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/fontawesome/css/all.min.css"/>
 
-    {{ analytics|default('') }}
-  </head>
-  <body>
-    <div class="snackbar">
-      Snackbar
-    </div>
-    <!-- site -->
-    <div class="site">
-      <!-- site__mobile-header -->
-      <header class="site__mobile-header">
-        {% include '/mobile/mobile-header.twig' %}
-      </header>
-      <!-- site__mobile-header / end -->
+		{{ analytics|default('') }}
+	</head>
+	<body>
+		{% for message in app.flashes('notice') %}
+			<div class="snackbar">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<!-- site -->
+		<div
+			class="site">
+			<!-- site__mobile-header -->
+			<header class="site__mobile-header">
+				{% include '/mobile/mobile-header.twig' %}
+			</header>
+			<!-- site__mobile-header / end -->
 
-      <!-- site__header -->
-      <header class="site__header">
-        {% include '/header/header.twig' %}
-      </header>
-      <!-- site__header / end -->
+			<!-- site__header -->
+			<header class="site__header">
+				{% include '/header/header.twig' %}
+			</header>
+			<!-- site__header / end -->
 
-      <!-- site__body -->
-      <div class="site__body">
-        {% block site_body %}
-        {% endblock %}
-      </div>
-      <!-- site__body / end -->
+			<!-- site__body -->
+			<div class="site__body"> {% block site_body %}{% endblock %}
+				</div>
+				<!-- site__body / end -->
 
-      <!-- site__footer -->
-      <footer class="site__footer">
-        {% include '/footer/footer.twig' %}
-      </footer>
-      <!-- site__footer / end -->
-    </div>
-    <!-- site / end -->
+				<!-- site__footer -->
+				<footer class="site__footer">
+					{% include '/footer/footer.twig' %}
+				</footer>
+				<!-- site__footer / end -->
+			</div>
+			<!-- site / end -->
 
-    <!-- mobile-menu -->
-    {% include '/mobile/mobile-menu.twig' %}
-    <!-- mobile-menu / end -->
+			<!-- mobile-menu -->
+			{% include '/mobile/mobile-menu.twig' %}<!-- mobile-menu / end -->
 
-    <!-- quickview-modal -->
-    <div id="quickview-modal"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"></div>
-    <!-- quickview-modal / end -->
+			<!-- quickview-modal --><div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"> </div>
+			<!-- quickview-modal / end -->
 
-    <!-- add-vehicle-modal -->
-    {% include '/components/add-vehicle-modal.twig' %}
-    <!-- add-vehicle-modal / end -->
+			<!-- add-vehicle-modal -->
+			{% include '/components/add-vehicle-modal.twig' %}
+			<!-- add-vehicle-modal / end -->
 
-    <!-- vehicle-picker-modal -->
-    {% include '/components/vehicle-picker-modal.twig' %}
-    <!-- vehicle-picker-modal / end -->
+			<!-- vehicle-picker-modal -->
+			{% include '/components/vehicle-picker-modal.twig' %}
+			<!-- vehicle-picker-modal / end -->
 
-    <!-- photoswipe -->
-    {% include '/components/photoswipe.twig' %}
-    <!-- photoswipe / end -->
+			<!-- photoswipe -->
+			{% include '/components/photoswipe.twig' %}
+			<!-- photoswipe / end -->
 
-    <!-- scripts -->
-    {# <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/jquery/jquery.min.js"></script> #}
-    {# <script href="https://code.jquery.com/jquery-3.5.1.js"></script> #}
-    {# <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> #}
+			<!-- scripts -->
+			{# <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/jquery/jquery.min.js"></script> #}
+			{# <script href="https://code.jquery.com/jquery-3.5.1.js"></script> #}{# <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> #} <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script>
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/DataTables/datatables.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/nouislider/nouislider.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/photoswipe/photoswipe.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/vendor/select2/js/select2.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/number.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/main.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/cart.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/customer-creator.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/admin-controls.js"></script>
-    <script src="{{
-      app.request.schemeAndHttpHost
-      }}/assets/js/order-product-search.js"></script>
-  </body>
-</html>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/customer-creator.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/admin-controls.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/order-product-search.js"></script>
+			<script src="{{ app.request.schemeAndHttpHost }}/assets/js/snackbar.js"></script>
+		</body>
+	</html>
