@@ -80,6 +80,10 @@ class CartController extends AbstractController
 		Request $request
 	): Response {
 		$user = $this->getUser();
+		if($user===null){
+			dump('not auth');
+			exit();
+		}
 		$axiosRequest = json_decode($request->getContent(), true);
 		$response = $this->client->request(
 			"POST",

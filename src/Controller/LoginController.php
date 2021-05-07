@@ -72,7 +72,7 @@ class LoginController extends AbstractController
 
         $this->addFlash(
             'notice',
-            $response->getStatusCode()
+            $response->getContent(false)
         );
 		return $this->redirectToRoute("account-login");
 	}

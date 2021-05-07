@@ -29,158 +29,189 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-    use TargetPathTrait;
+	use TargetPathTrait;
 
-    private $LOGIN_ROUTE = "sign-in";
-    private $http;
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $cartGetter;
-    private $jwtDecoder;
-    private $templating;
-    private $flashBag;
+	private $LOGIN_ROUTE = "sign-in";
+	private $http;
+	private $urlGenerator;
+	private $csrfTokenManager;
+	private $cartGetter;
+	private $jwtDecoder;
+	private $templating;
+	private $flashBag;
+	private $security;
+	private $userProviderInterface;
 
-    public function __construct(
-        HttpClientInterface $http,
-        UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        CartGetter $cartGetter,
-        JwtDecoder $jwtDecoder,
-        ContainerInterface $container,
-        FlashBagInterface $flashBag
-    ) {
-        $this->http = $http;
-        $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->cartGetter = $cartGetter;
-        $this->jwtDecoder = $jwtDecoder;
-        $this->templating = $container->get("templating");
-        $this->flashBag = $flashBag;
-    }
-    public function supports(Request $request)
-    {
-        return $this->LOGIN_ROUTE === $request->attributes->get("_route") &&
-            $request->isMethod("POST");
-        // return false;
-        // return $request->cookies->has("X-AUTH-TOKEN");
-    }
+	public function __construct(
+		HttpClientInterface $http,
+		UrlGeneratorInterface $urlGenerator,
+		CsrfTokenManagerInterface $csrfTokenManager,
+		CartGetter $cartGetter,
+		JwtDecoder $jwtDecoder,
+		ContainerInterface $container,
+		FlashBagInterface $flashBag,
+		Security $security,
+		UserProviderInterface $userProviderInterface,
+	) {
+		$this->http = $http;
+		$this->urlGenerator = $urlGenerator;
+		$this->csrfTokenManager = $csrfTokenManager;
+		$this->cartGetter = $cartGetter;
+		$this->jwtDecoder = $jwtDecoder;
+		$this->templating = $container->get("templating");
+		$this->flashBag = $flashBag;
+		$this->security = $security;
+		$this->userProviderInterface = $userProviderInterface;
+	}
 
-    public function getCredentials(Request $request)
-    {
-        $credentials = [
-            "username" => $request->request->get("username"),
-            "password" => $request->request->get("password"),
-            "csrf_token" => $request->request->get("_csrf_token"),
-        ];
-        $request
-            ->getSession()
-            ->set(Security::LAST_USERNAME, $credentials["username"]);
 
-        return $credentials;
-    }
-    public function getTestUser($username)
-    {
-        $user = new User();
-        if ($username === "admin@email.com") {
-            $user->setEmail("admin@email.com");
-            $user->setRoles(["ROLE_ADMIN"]);
-            $user->setId(2);
-            $user->setCart($this->cartGetter->getProducts(2));
-            return $user;
-        }
-        $user->setEmail("customer@email.com");
-        $user->setId(3);
-        $user->setCart($this->cartGetter->getProducts(3));
-        return $user;
-    }
-    public function getUser($credentials, UserProviderInterface $userProvider)
-    {
-        // $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        // if (!$this->csrfTokenManager->isTokenValid($token)) {
-        // 	throw new InvalidCsrfTokenException();
-        // }
-        $response = $this->http->request(
-            "POST",
-            $_ENV["API_URL"] . "login_check",
-            [
-                "json" => [
-                    "username" => $credentials["username"],
-                    "password" => $credentials["password"],
-                ],
-            ]
-        );
-        if ($response->getStatusCode() !== 200) {
-            // dump('lubie placki');
-            // exit();
-            // throw new AccessDeniedException();
-            throw new CustomUserMessageAuthenticationException(
-                "invalid credentials"
-            );
-            // return $this->getTestUser('admin@email.com');
-            return null;
-        }
-        $token = $response->toArray()["token"];
-        $userDetails = $this->jwtDecoder->getPayload($token);
-        // $user = new User();
-        // $user->setEmail('test@email');
-        // $user->setRoles(['ROLE_ADMIN']);
-        // $user->setToken($token);
-        // $user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
-        $user = $this->getTestUser($userDetails->username);
-        return $user;
-    }
+	public function supports(Request $request)
+	{
+		return ($this->LOGIN_ROUTE === $request->attributes->get("_route") &&
+			$request->isMethod("POST"));
+	}
 
-    public function checkCredentials($credentials, UserInterface $user)
-    {
-        return true;
-    }
+	public function getCredentials(Request $request)
+	{
+		$loginData = [
+			'username' => $request->request->get('username'),
+			'password' => $request->request->get('password'),
+		];
 
-    public function onAuthenticationFailure(
-        Request $request,
-        AuthenticationException $exception
-    ) {
-        $engine = $this->templating;
-        $this->flashBag->add("notice", $exception->getMessage());
-        $view = $engine->render("/pages/account-login.twig", [
-            "controller_name" => "LoginController",
-        ]);
-        return new Response($view);
-    }
+		$response = $this->loginThroughApi($loginData);
 
-    public function onAuthenticationSuccess(
-        Request $request,
-        TokenInterface $token,
-        $providerKey
-    ) {
-        if (
-            $targetPath = $this->getTargetPath(
-                $request->getSession(),
-                $providerKey
-            )
-        ) {
-            return new RedirectResponse($targetPath);
-        }
-        return new RedirectResponse($this->urlGenerator->generate("dashboard"));
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception(
-            "TODO: provide a valid redirect inside " . __FILE__
-        );
-    }
+		if ($response->getStatusCode() !== 200) {
+			throw new CustomUserMessageAuthenticationException(
+				"Invalid Credentials"
+			);
+		}
 
-    protected function getLoginUrl()
-    {
-        return $this->urlGenerator->generate($this->LOGIN_ROUTE);
-    }
+		$request
+			->getSession()
+			->set(Security::LAST_USERNAME, $loginData['username']);
 
-    public function start(
-        Request $request,
-        AuthenticationException $authException = null
-    ) {
-        // todo
-    }
+		return $response->toArray()["token"];
+	}
+	public function getUser($credentials, UserProviderInterface $userProvider)
+	{
 
-    public function supportsRememberMe()
-    {
-        // todo
-    }
+		if($credentials === null){
+			throw new CustomUserMessageAuthenticationException(
+				"No Token Recived"
+			);
+		}
+		// $token = $response->toArray()["token"];
+		// $userDetails = $this->jwtDecoder->getPayload($token);
+		// $user = new User();
+		// $user->setEmail('test@email');
+		// $user->setRoles(['ROLE_ADMIN']);
+		// $user->setToken($token);
+		// $user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
+		// $user = $this->getTestUser($userDetails->username);
+		// $user->removeRole('ROLE_UNAUTHENTICATED');
+		$user = $this->getNormalUser();
+		return $user;
+	}
+
+	public function checkCredentials($credentials, UserInterface $user)
+	{
+		return true;
+	}
+
+	public function onAuthenticationFailure(
+		Request $request,
+		AuthenticationException $exception
+	) {
+		$engine = $this->templating;
+		$this->flashBag->add("notice", $exception->getMessage());
+		$view = $engine->render("/pages/account-login.twig", [
+			"controller_name" => "LoginController",
+		]);
+		return new Response($view);
+	}
+
+	public function onAuthenticationSuccess(
+		Request $request,
+		TokenInterface $token,
+		$providerKey
+	) {
+		if (
+			$targetPath = $this->getTargetPath(
+				$request->getSession(),
+				$providerKey
+			)
+		) {
+			return new RedirectResponse($targetPath);
+		}
+
+		return new RedirectResponse($this->urlGenerator->generate("dashboard"));
+
+		throw new \Exception(
+			"TODO: provide a valid redirect inside " . __FILE__
+		);
+	}
+
+	protected function getLoginUrl()
+	{
+		return $this->urlGenerator->generate($this->LOGIN_ROUTE);
+	}
+
+	public function start(
+		Request $request,
+		AuthenticationException $authException = null
+	) {
+	}
+
+	public function supportsRememberMe()
+	{
+		// todo
+	}
+	// public function getTestUser($username)
+	// {
+	// 	$user = new User();
+	// 	if ($username === "admin@email.com") {
+	// 		$user->setEmail("admin@email.com");
+	// 		$user->setRoles(["ROLE_ADMIN"]);
+	// 		$user->setId(2);
+	// 		$user->setCart($this->cartGetter->getProducts(2));
+	// 		return $user;
+	// 	}
+	// 	$user->setEmail("customer@email.com");
+	// 	$user->setId(3);
+	// 	$user->setCart($this->cartGetter->getProducts(3));
+	// 	return $user;
+	// }
+	function getUnauthenticatedUser()
+	{
+		$user = new User();
+		$user->removeAllRoles();
+		$user->setRoles(['ROLE_UNAUTHENTICATED']);
+		return $user;
+	}
+
+	public function getNormalUser()
+	{
+		$user = new User();
+		$user->removeAllRoles();
+		$user->setRoles(['ROLE_USER']);
+		$user->setId(1);
+		$user->setEmail('normal-user@test.com');
+		$user->setCart($this->cartGetter->getProducts(1));
+		return $user;
+	}
+
+	public function loginThroughApi($credentials)
+	{
+		$response = $this->http->request(
+			"POST",
+			$_ENV["API_URL"] . "login_check",
+			[
+				"json" => [
+					"username" => $credentials["username"],
+					"password" => $credentials["password"],
+				],
+			]
+		);
+		return $response;
+	}
 }

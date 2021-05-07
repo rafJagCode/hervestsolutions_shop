@@ -24,14 +24,7 @@ global_header_layout == 'classic', }) %}
 		</div>
 		<div class="topbar__item-spring"></div>
 	{% endif %}
-	{#
-	  <div class="topbar__item-button">
-	    <a href="" class="topbar__button">
-	      <span class="topbar__button-label">Compare:</span>
-	      <span class="topbar__button-title">5</span>
-	    </a>
-	  </div>
-	  #}
+
 	<div class="topbar__item-button topbar__menu">
 		<button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
 			<span class="topbar__button-label">Waluta:</span>
@@ -55,23 +48,7 @@ global_header_layout == 'classic', }) %}
         svg("arrow-down-sm-7x5.svg")
       }}</span>
 		</button>
-		<div
-			class="topbar__menu-body">{# <a class="topbar__menu-item" href="#">
-				        <img src="images/languages/language-1.png" alt="" /><span>English</span>
-				      </a>
-				      <a class="topbar__menu-item" href="#">
-				        <img src="images/languages/language-2.png" alt="" /><span>French</span>
-				      </a>
-				      <a class="topbar__menu-item" href="#">
-				        <img src="images/languages/language-3.png" alt="" /><span>German</span>
-				      </a>
-				      <a class="topbar__menu-item" href="#">
-				        <img src="images/languages/language-4.png" alt="" /><span>Russian</span>
-				      </a>
-				      <a class="topbar__menu-item" href="#">
-				        <img src="images/languages/language-5.png" alt="" /><span>Italian</span>
-				      </a> #}
-		</div>
+		<div class="topbar__menu-body"></div>
 	</div>
 </div>
 {% endset %}
@@ -96,11 +73,7 @@ global_header_layout == 'classic', }) %}
 						<a class="topbar__link" href="/dashboard">Admin</a>
 					</div>
 				{% endif %}
-				{#
-				      <div class="topbar__item-text">
-				        <a class="topbar__link" href="track-order.html">Track Order</a>
-				      </div>
-				      #}
+
 			</div>
 		</div>
 		<div class="header__topbar-end-bg"></div>
@@ -114,13 +87,8 @@ global_header_layout == 'classic', }) %}
 			{{ topbar }}
 		</div>
 	{% endif %}
-	<div
-		class="header__navbar">
-		{#
-		    <div class="header__navbar-departments">
-		      {% include '/header/departments.twig' %}
-		    </div>
-		    #}
+	<div class="header__navbar">
+
 		<div class="header__navbar-menu">
 			{% include '/header/main-menu.twig' %}
 		</div>
@@ -150,13 +118,16 @@ global_header_layout == 'classic', }) %}
 				</span>
 				{% if global_header_layout == 'classic' or true %}
 					<span class="indicator__title">Witaj,
-						{{ app.user == null ? 'Zaloguj Się' : app.user.email }}</span>
+						{{ app.user is null or is_granted('ROLE_UNAUTHENTICATED') ? 'Zaloguj Się' : app.user.email }}</span>
+
+
 					<span class="indicator__value">Moje Konto</span>
 				{% endif %}
 			</a>
 			<div class="indicator__content">
 				<div class="account-menu">
-					{% if user == null %}
+					{% if app.user is null or is_granted('ROLE_UNAUTHENTICATED') %}
+
 
 						<form class="account-menu__form" action="/sign-in" method="POST">
 							<div class="account-menu__form-title">Zaloguj Się</div>
@@ -189,7 +160,7 @@ global_header_layout == 'classic', }) %}
 							</div>
 							<div class="account-menu__user-info">
 								<div class="account-menu__user-name">John</div>
-								<div class="account-menu__user-email">{{app.user.email}}</div>
+								<div class="account-menu__user-email">{{ app.user.email }}</div>
 							</div>
 						</a>
 						<div class="account-menu__divider"></div>
