@@ -19,7 +19,7 @@ const cartAddProduct = async (button, id) => {
   const loader = $(button).children(".add-to-cart__spinner-border");
   let quantity = $(".input-number__input").val();
   loader.addClass("add-to-cart__spinner-border--show");
-  adminAddToCartIcon.removeClass("fa-shopping-cart");
+  adminAddToCartIcon.removeClass("fas-plus-circle");
   adminAddToCartIcon.addClass("fa-spinner fa-pulse");
   await axios.post("/cart-add-product", {
     product: id,
@@ -27,7 +27,7 @@ const cartAddProduct = async (button, id) => {
   });
   loader.removeClass("add-to-cart__spinner-border--show");
   adminAddToCartIcon.removeClass("fa-spinner fa-pulse");
-  adminAddToCartIcon.addClass("fa-shopping-cart");
+  adminAddToCartIcon.addClass("fa-plus-circle");
 
   getCartItems();
 };
