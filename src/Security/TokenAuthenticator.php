@@ -9,20 +9,15 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Exception;
 use App\Service\CartGetter;
 use App\Service\JwtDecoder;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -92,24 +87,28 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
 		return $response->toArray()["token"];
 	}
-	public function getUser($credentials, UserProviderInterface $userProvider)
+	public function getUser($token, UserProviderInterface $userProvider)
 	{
 
-		if($credentials === null){
+		if ($token=== null) {
 			throw new CustomUserMessageAuthenticationException(
 				"No Token Recived"
 			);
 		}
-		// $token = $response->toArray()["token"];
-		// $userDetails = $this->jwtDecoder->getPayload($token);
-		// $user = new User();
-		// $user->setEmail('test@email');
-		// $user->setRoles(['ROLE_ADMIN']);
-		// $user->setToken($token);
-		// $user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
-		// $user = $this->getTestUser($userDetails->username);
-		// $user->removeRole('ROLE_UNAUTHENTICATED');
-		$user = $this->getNormalUser();
+
+
+		$userDetails = $this->jwtDecoder->getPayload($token);
+		$user = new User();
+		$user->setToken($token);
+		$user->setEmail($userDetails->username);
+		$user->setRoles($userDetails->roles);
+		$user->setRoles(['ROLE_ADMIN']);
+		$user->setId(3);
+		$user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
+
+
+
+		// $user = $this->getNormalUser();
 		return $user;
 	}
 
@@ -165,28 +164,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 	public function supportsRememberMe()
 	{
 		// todo
-	}
-	// public function getTestUser($username)
-	// {
-	// 	$user = new User();
-	// 	if ($username === "admin@email.com") {
-	// 		$user->setEmail("admin@email.com");
-	// 		$user->setRoles(["ROLE_ADMIN"]);
-	// 		$user->setId(2);
-	// 		$user->setCart($this->cartGetter->getProducts(2));
-	// 		return $user;
-	// 	}
-	// 	$user->setEmail("customer@email.com");
-	// 	$user->setId(3);
-	// 	$user->setCart($this->cartGetter->getProducts(3));
-	// 	return $user;
-	// }
-	function getUnauthenticatedUser()
-	{
-		$user = new User();
-		$user->removeAllRoles();
-		$user->setRoles(['ROLE_UNAUTHENTICATED']);
-		return $user;
 	}
 
 	public function getNormalUser()
