@@ -54,10 +54,10 @@
 	</head>
 	<body>
 		{# {% if app.user is not null %}
-					<pre>
-					{{ dump(app.user) }}
-				</pre>
-				{% endif %} #}
+																	<pre>
+																	{{ dump(app.user) }}
+																</pre>
+																{% endif %} #}
 
 		{% for message in app.flashes('notice') %}
 			<div class="snackbar">
@@ -119,6 +119,7 @@ class="site">
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script>
@@ -128,4 +129,6 @@ class="site">
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/admin-controls.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/order-product-search.js"></script>
 <script src="{{ app.request.schemeAndHttpHost }}/assets/js/snackbar.js"></script>
-<script src="{{ app.request.schemeAndHttpHost }}/assets/js/user-product-search.js"></script></body></html>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/user-product-search.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition.js"></script>
+<script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition-gallery.js"></script></body></html>
