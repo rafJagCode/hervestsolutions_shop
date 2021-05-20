@@ -11,138 +11,112 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CartController extends AbstractController
 {
-	private $client;
-	private $cartGetter;
-	public function __construct(HttpClientInterface $client, CartGetter $cartGetter)
-	{
-		$this->client = $client;
-		$this->cartGetter = $cartGetter;
-	}
+    private $client;
+    private $cartGetter;
+    public function __construct(
+        HttpClientInterface $client,
+        CartGetter $cartGetter
+    ) {
+        $this->client = $client;
+        $this->cartGetter = $cartGetter;
+    }
 
-	/**
-	 * @Route("/cart", name="cart")
-	 */
-	public function getCart(): Response
-	{
-		$user = $this->getUser();
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "cart",
-			[
-				"json" => ["user" => $user->getId()],
-			]
-		);
+    /**
+     * @Route("/cart", name="cart")
+     */
+    public function getCart(): Response
+    {
+        $cart = $this->cartGetter->getCart();
 
+        $totalCost = array_reduce($cart, function ($sum, $product) {
+            $productStackCost =
+                $product["product"]["price"] * $product["product"]["quantity"];
+            return $sum + $productStackCost;
+        });
 
-		if ($response->getStatusCode() === 200) {
-			$products = $response->toArray();
-			$totalCost = array_reduce($products, function ($sum, $product) {
-				$productStackCost =
-					$product["product"]["price"] * $product["product"]["quantity"];
-				return $sum + $productStackCost;
-			});
-			return $this->render("pages/cart.twig", [
-				"controller_name" => "CartController",
-				"products" => $products,
-				"total" => $totalCost,
-				"cart" => $products,
-			]);
-		}
-	}
+        return $this->render("pages/cart.twig", [
+            "controller_name" => "CartController",
+            "products" => $cart,
+            "total" => $totalCost,
+            "cart" => $cart,
+        ]);
+    }
 
-	/**
-	 * @Route("/cart-remove-product", name="cart-remove-product")
-	 */
-	public function cartRemoveProduct(
-		Request $request
-	): Response {
-		$user = $this->getUser();
-		$axiosRequest = json_decode($request->getContent(), true);
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "cartRemoveProduct",
-			[
-				"json" => ['id' => $axiosRequest['id']]
-			]
-		);
+    /**
+     * @Route("/cart-remove-product", name="cart-remove-product")
+     */
+    public function cartRemoveProduct(Request $request): Response
+    {
+        $user = $this->getUser();
+        $axiosRequest = json_decode($request->getContent(), true);
+        $response = $this->client->request(
+            "POST",
+            $_ENV["API_URL"] . "cartRemoveProduct",
+            [
+                "json" => ["id" => $axiosRequest["id"]],
+            ]
+        );
 
+        $cart = $this->cartGetter->getCart();
 
-		if ($response->getStatusCode() === 200) {
-			$user->setCart($this->cartGetter->getProducts($user->getId()));
-			return new Response('product removed');
-		}
-	}
+        if ($response->getStatusCode() === 200) {
+            $user->setCart($cart);
+            return new Response("product removed");
+        }
+    }
 
-	/**
-	 * @Route("/cart-add-product", name="cart-add-product")
-	 */
-	public function cartAddProduct(
-		Request $request
-	): Response {
-		$user = $this->getUser();
-		if($user===null){
-			dump('not auth');
-			exit();
-		}
-		$axiosRequest = json_decode($request->getContent(), true);
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "cartAddProduct",
-			[
-				"json" => ['quantity' => $axiosRequest[ 'quantity' ], 'product' => $axiosRequest[ 'product' ], 'user' => $user->getId()]
-			]
-		);
+    /**
+     * @Route("/cart-add-product", name="cart-add-product")
+     */
+    public function cartAddProduct(Request $request): Response
+    {
+        $user = $this->getUser();
 
-		if ($response->getStatusCode() === 200) {
-			$user->setCart($this->cartGetter->getProducts($user->getId()));
-			return new Response('product added');
-			// return $this->getCart();
-		}
-	}
+        $axiosRequest = json_decode($request->getContent(), true);
 
-	/**
-	 * @Route("/cart-items", name="cart-items")
-	 */
-	public function cartItems()
-	{
-		$user = $this->getUser();
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "cart",
-			[
-				"json" => ["user" => $user->getId()],
-			]
-		);
+        $response = $this->client->request(
+            "POST",
+            $_ENV["API_URL"] . "cartAddProduct",
+            [
+                "json" => [
+                    "quantity" => $axiosRequest["quantity"],
+                    "product" => $axiosRequest["product"],
+                    "user" => $user->getId(),
+                ],
+            ]
+        );
 
-		if ($response->getStatusCode() === 200) {
-			$products = $response->toArray();
-			return $this->render("components/cart-items.twig", [
-				"controller_name" => "CartController",
-				"cartItems" => $products,
-			]);
-		}
-	}
+        $cart = $this->cartGetter->getCart();
 
-	/**
-	 * @Route("/cart-dropdown-items", name="cart-dropdown-items")
-	 */
-	public function cartDropdownItems()
-	{
-		$user = $this->getUser();
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "cart",
-			[
-				"json" => ["user" => $user->getId()],
-			]
-		);
+        if ($response->getStatusCode() === 200) {
+            $user->setCart($cart);
+            return new Response("product added");
+        }
+    }
 
-		if ($response->getStatusCode() === 200) {
-			$products = $response->toArray();
-			return $this->render("components/cart-dropdown-items.twig", [
-				"controller_name" => "CartController",
-				"cart" => $products,
-			]);
-		}
-	}
+    /**
+     * @Route("/cart-items", name="cart-items")
+     */
+    public function cartItems()
+    {
+        $cart = $this->cartGetter->getCart();
+
+        return $this->render("components/cart-items.twig", [
+            "controller_name" => "CartController",
+            "cartItems" => $cart,
+        ]);
+    }
+
+    /**
+     * @Route("/cart-dropdown-items", name="cart-dropdown-items")
+     */
+    public function cartDropdownItems()
+    {
+        $cart = $this->cartGetter->getCart();
+
+        return $this->render("components/cart-dropdown-items.twig", [
+            "controller_name" => "CartController",
+            "cart" => $cart,
+        ]);
+    }
 }
