@@ -3,14 +3,14 @@
 		<span class="h5 p-2">Przenieś zdjęcia, które chcesz wyświetlać do pola po prawej stronie</span>
 		<div class="row">
 			<div class="col col-sm-6">
-				<div id="modules" class="connectedSortable row"></div>
+				<div id="modules" class="connectedSortable"></div>
 			</div>
 
 
 			<div class="col col-sm-6">
-				<div id="dropzone" class="connectedSortable row">
-					<div class="product-edition-gallery__image-container"><img data-image-url="{{image(inputs.images)}}" class="product-edition-gallery__image drag" src="{{image(inputs.images)}}">
-						<i class="remove-image fas fa-trash-alt"></i>
+				<div id="dropzone" class="connectedSortable">
+					<div class="product-edition-gallery__image-container card shadow"><img data-image-url="{{image(inputs.images)}}" class="product-edition-gallery__image" src="{{image(inputs.images)}}">
+						<i class="remove-image fas fa-times"></i>
 					</div>
 				</div>
 			</div>

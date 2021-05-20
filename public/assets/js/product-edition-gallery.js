@@ -10,32 +10,30 @@ $(document).ready(function () {
   addImageBtn.on("click", function () {
     const url = $("#imageURL").val();
     const img = $(
-      `	<div class="product-edition-gallery__image-container">
-	  		<img data-image-url="${url}" class="product-edition-gallery__image drag" src="${url}">
-			<i class="remove-image fas fa-trash-alt"></i>
+      `	<div class="product-edition-gallery__image-container card shadow">
+	  		<img data-image-url="${url}" class="product-edition-gallery__image" src="${url}">
+			<i class="remove-image fas fa-times"></i>
 		</div>`
     );
     $("#modules").append(img);
   });
 
   const changeImages = () => {
-    const currentImages = $(".image__tag").toArray();
+    const currentImages = $(".product-gallery-image-tag.image__tag").toArray();
     const addedImages = $(
       "#dropzone .product-edition-gallery__image"
     ).toArray();
 
-    for (let index = 0; index < addedImages.length; index++) {
-      $(currentImages[index]).attr(
-        "src",
-        $(addedImages[index]).attr("data-image-url")
-      );
-      $(currentImages[index])
-        .closest("a")
-        .attr("href", $(addedImages[index]).attr("data-image-url"));
-      $(currentImages[4 + index]).attr(
-        "src",
-        $(addedImages[index]).attr("data-image-url")
-      );
+    const length =
+      addedImages.length <= currentImages.length
+        ? addedImages.length
+        : currentImages.length;
+
+    for (let index = 0; index < length; index++) {
+      const dataImageUrl = $(addedImages[index]).attr("data-image-url");
+      $(currentImages[index]).attr("src", dataImageUrl);
+      $(currentImages[index]).closest("a").attr("href", dataImageUrl);
+      $(currentImages[4 + index]).attr("src", dataImageUrl);
     }
   };
 
@@ -47,12 +45,30 @@ $(document).ready(function () {
     });
   };
 
-  $("#modules, #dropzone")
+  $("#dropzone")
     .sortable({
       connectWith: ".connectedSortable",
       update: function () {
         clearImages();
         changeImages();
+      },
+      over: function () {
+        $(this).addClass("active");
+      },
+      out: function () {
+        $(this).removeClass("active");
+      },
+    })
+    .disableSelection();
+
+  $("#modules")
+    .sortable({
+      connectWith: ".connectedSortable",
+      over: function () {
+        $(this).addClass("active");
+      },
+      out: function () {
+        $(this).removeClass("active");
       },
     })
     .disableSelection();
