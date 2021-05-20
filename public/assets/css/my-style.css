@@ -228,3 +228,106 @@
 .add-to-cart__spinner-border--show {
   display: block;
 }
+/* PRODUCT-EDITION */
+.editable {
+  position: relative;
+  border: 0.5px dashed #006847;
+  cursor: pointer;
+  display: inline-block;
+  min-width: 40px;
+  min-height: 20px;
+}
+.editable:hover {
+  border-color: orange;
+}
+.editable-icon {
+  font-size: 15px;
+  color: #006847;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(calc(-100% - 5px), -50%);
+}
+.editable:hover .editable-icon {
+  color: orange;
+}
+.editable-input {
+  border: none;
+  outline: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  left: 0;
+  top: 0;
+  font-style: italic;
+  resize: none;
+  word-wrap: break-word;
+  word-break: break-all;
+  font-family: inherit;
+  font-size: 0.9em;
+  color: inherit;
+  text-align: inherit;
+  padding: inherit;
+  overflow: auto;
+}
+
+.remove-feature {
+  cursor: pointer;
+  color: red;
+}
+
+/* PRODUCT EDITION GALLERY */
+.product-edition-gallery {
+  grid-column: 1/3;
+}
+#modules {
+  display: flex;
+  align-items: center;
+  background: #eefeef;
+  min-height: 150px;
+  margin: 0;
+  z-index: 0;
+}
+
+#dropzone {
+  display: flex;
+  align-items: center;
+  background: #eefeef;
+  min-height: 150px;
+  margin: 0;
+  z-index: 0;
+}
+
+.active {
+  outline: 1px solid #006847;
+}
+
+.hover {
+  outline: 1px solid #006847;
+}
+.product-edition-gallery__image-container {
+  position: relative;
+  width: 20%;
+  padding-top: 20%;
+  margin: 2.5%;
+  float: left;
+}
+.product-edition-gallery__image {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.product-edition-gallery .remove-image {
+  cursor: pointer;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  color: red;
+  z-index: 2;
+}
