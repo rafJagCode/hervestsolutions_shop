@@ -1,12 +1,6 @@
-{#
-// inputs: cart
-#}
-
-{% set cart = inputs.cart %}
-
 <div class="dropcart">
 	<ul class="dropcart__list">
-		{% for product in cart %}
+		{% for product in globalCart %}
 			<li class="dropcart__item">
 				<div class="dropcart__item-image image image--type--product">
 					<a class="image__body" href="/product/{{product.product.id}}">
@@ -45,7 +39,7 @@
 			<tr>
 				<th>Razem:
 				</th>
-				<td>{{ cart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+				<td>{{ globalCart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
 					zł</td>
 			</tr>
 		</table>

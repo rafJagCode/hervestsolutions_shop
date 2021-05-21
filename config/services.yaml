@@ -43,11 +43,11 @@ services:
     alias: App\Service\CartGetter
     public: true
 
-  App\Service\ProductsCategoriesGetter:
+  App\Service\ProductGetter:
     public: false
 
-  app.products.categories.getter:
-    alias: App\Service\ProductsCategoriesGetter
+  app.product.getter:
+    alias: App\Service\ProductGetter
     public: true
 
   App\Service\JwtDecoder:

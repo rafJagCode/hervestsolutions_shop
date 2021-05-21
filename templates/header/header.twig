@@ -1,5 +1,4 @@
 {% set topbar %}
-{% set cart = app.user != null ? app.user.cart : [] %}
 {% set user = app.user %}
 {% set topbar_classes = classnames('topbar', {
 'topbar--spaceship-end': global_header_layout == 'spaceship', 'topbar--classic':
@@ -186,18 +185,18 @@ global_header_layout == 'classic', }) %}
 			</div>
 		</div>
 		<div class="indicator indicator--trigger--click" id="cart-dropdown">
-			{% if user != null and cart is not empty %}
+			{% if globalCart is not empty %}
 				<a class="indicator__button">
 					<span class="indicator__icon">
 						{{ svg("cart-32.svg") }}
-						<span class="indicator__counter">{{ cart | length }}</span>
+						<span class="indicator__counter">{{ globalCart | length }}</span>
 					</span>
 					<span class="indicator__title">Koszyk</span>
-					<span class="indicator__value">{{ cart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+					<span class="indicator__value">{{ globalCart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
 						zł</span>
 				</a>
 				<div class="indicator__content">
-					{% include '/header/dropcart.twig' with {inputs: { cart: app.user.cart }} %}
+					{% include '/header/dropcart.twig' %}
 				</div>
 			{% else %}
 				<a class="indicator__button">
