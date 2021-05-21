@@ -10,18 +10,18 @@
 {% set producers = inputs.producers %}
 
 <div class="{{ root_classes }}">
-    <div class="container">
-        <ul class="block-brands__list">
-            {% for producer in producers %}
-                <li class="block-brands__item">
-                    <a href="/price-list" class="block-brands__item-link">
-                        <img src="{{ image(producer.image) }}" alt="">
+	<div class="container">
+		<ul class="block-brands__list">
+			{% for producer in producers %}
+				<li class="block-brands__item">
+					<a href="/shop/{{producer.Name|lower}}" class="block-brands__item-link">
+						<img src="{{ image(producer.image) }}" alt="">
 
-                        <span class="block-brands__item-name">{{ producer.Name }}</span>
-                    </a>
-                </li>
-                <li class="block-brands__divider" role="presentation"></li>
-            {% endfor %}
-        </ul>
-    </div>
+						<span class="block-brands__item-name">{{ producer.Name }}</span>
+					</a>
+				</li>
+				<li class="block-brands__divider" role="presentation"></li>
+			{% endfor %}
+		</ul>
+	</div>
 </div>
