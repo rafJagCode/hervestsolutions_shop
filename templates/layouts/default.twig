@@ -58,10 +58,14 @@
 
 
 		{% for message in app.flashes('notice') %}
-			<div class="snackbar">
-				{{ message }}
+			<div class="snackbar card shadow">
+				<div class="snackbar__content">
+					<img class="snackbar__image" src="{{image('images/error.svg')}}" alt="">
+					<span class="snackbar__message">{{ message }}lloremsfsdfsffloremsfsdfsffloremsfsdfsffloremsfsdfsffloremsfsdfsfforemsfsdfsff</span>
+				</div>
 			</div>
 		{% endfor %}
+
 	</body>
 </html></div><!-- site --><div
 class="site">

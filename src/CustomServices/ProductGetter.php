@@ -1,15 +1,20 @@
 <?php
 namespace App\Service;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Exception;
 
 class ProductGetter
 {
     private $client;
+    private $flash;
 
-    public function __construct(HttpClientInterface $client)
-    {
+    public function __construct(
+        HttpClientInterface $client,
+        FlashBagInterface $flash
+    ) {
         $this->client = $client;
+        $this->flash = $flash;
     }
 
     public function getProduct($id)
@@ -48,6 +53,7 @@ class ProductGetter
         try {
             $products = $response->toArray();
         } catch (\Exception $exception) {
+            $this->flash->add("notice", "error");
             $products = [];
         }
         return $products;
