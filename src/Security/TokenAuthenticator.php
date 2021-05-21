@@ -104,7 +104,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 		$user->setRoles($userDetails->roles);
 		$user->setRoles(['ROLE_ADMIN']);
 		$user->setId(3);
-		$user->setCart($this->cartGetter->getProducts(3)); // zmienić na user id z tokenu
 
 
 
@@ -134,6 +133,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 		TokenInterface $token,
 		$providerKey
 	) {
+		$token->getUser()->setCart($this->cartGetter->getCart());
 		if (
 			$targetPath = $this->getTargetPath(
 				$request->getSession(),
@@ -173,7 +173,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 		$user->setRoles(['ROLE_USER']);
 		$user->setId(1);
 		$user->setEmail('normal-user@test.com');
-		$user->setCart($this->cartGetter->getProducts(1));
+		$user->setCart($this->cartGetter->getCart());
 		return $user;
 	}
 

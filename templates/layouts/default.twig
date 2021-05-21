@@ -53,11 +53,9 @@
 		{{ analytics|default('') }}
 	</head>
 	<body>
-		{# {% if app.user is not null %}
-																	<pre>
-																	{{ dump(app.user) }}
-																</pre>
-																{% endif %} #}
+
+		{% set globalCart = app.user is null ? app.session.get('cart') : app.user.cart %}
+
 
 		{% for message in app.flashes('notice') %}
 			<div class="snackbar">
