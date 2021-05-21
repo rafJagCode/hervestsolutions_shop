@@ -1,24 +1,22 @@
 {% if cart is not empty %}
-<a class="indicator__button" >
-  <span class="indicator__icon">
-    {{ svg("cart-32.svg") }}
-    <span class="indicator__counter">{{ cart | length }}</span>
-  </span>
-  <span class="indicator__title">Koszyk</span>
-  <span class="indicator__value"
-    >{{ cart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
-    zł</span
-  >
-</a>
-<div class="indicator__content">
-  {% include '/header/dropcart.twig' with {inputs: { cart: cart }} %}
-</div>
+	<a class="indicator__button">
+		<span class="indicator__icon">
+			{{ svg("cart-32.svg") }}
+			<span class="indicator__counter">{{ cart | length }}</span>
+		</span>
+		<span class="indicator__title">Koszyk</span>
+		<span class="indicator__value">{{ cart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+			zł</span>
+	</a>
+	<div class="indicator__content">
+		{% include '/header/dropcart.twig' with {inputs: { cart: cart }} %}
+	</div>
 {% else %}
-<a class="indicator__button" >
-  <span class="indicator__icon">
-    {{ svg("cart-32.svg") }}
-  </span>
-  <span class="indicator__title">Koszyk</span>
-  <span class="indicator__value">Pusty</span>
-</a>
+	<a class="indicator__button">
+		<span class="indicator__icon">
+			{{ svg("cart-32.svg") }}
+		</span>
+		<span class="indicator__title">Koszyk</span>
+		<span class="indicator__value">Pusty</span>
+	</a>
 {% endif %}

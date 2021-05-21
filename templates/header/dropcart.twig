@@ -1,6 +1,6 @@
 <div class="dropcart">
 	<ul class="dropcart__list">
-		{% for product in globalCart %}
+		{% for product in globalCart is empty ? inputs.cart : globalCart %}
 			<li class="dropcart__item">
 				<div class="dropcart__item-image image image--type--product">
 					<a class="image__body" href="/product/{{product.product.id}}">

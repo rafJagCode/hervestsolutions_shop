@@ -10,6 +10,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Service\ProductGetter;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class CartController extends AbstractController
 {
@@ -17,16 +18,19 @@ class CartController extends AbstractController
     private $cartGetter;
     private $session;
     private $productGetter;
+	private $flash;
     public function __construct(
         HttpClientInterface $client,
         CartGetter $cartGetter,
         SessionInterface $session,
-        ProductGetter $productGetter
+        ProductGetter $productGetter,
+		FlashBagInterface $flash,
     ) {
         $this->client = $client;
         $this->cartGetter = $cartGetter;
         $this->session = $session;
         $this->productGetter = $productGetter;
+		$this->flash = $flash;
     }
 
     /**
@@ -130,6 +134,10 @@ class CartController extends AbstractController
                 "user" => $identyfier,
             ],
         ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200) {
+            throw new \Exception("kicha");
+        }
     }
 
     public function makeRemovingRequest($request, $api)

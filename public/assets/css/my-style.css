@@ -162,8 +162,8 @@
 .snackbar--show {
   transform: translate(-50%, 200%);
   visibility: visible;
-  opacity: 0.6;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+  background-color: rgba(255, 0, 0, 0.6);
   animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
 .snackbar__content {
@@ -173,20 +173,19 @@
   height: 100%;
   display: grid;
   place-items: center;
+  grid-template-columns: 1fr 9fr;
 }
 .snackbar__image {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
   height: 30px;
   width: 30px;
   margin-right: 20px;
+  background-image: url(../images/error.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .snackbar__message {
   max-width: 80%;
   word-wrap: break-word;
-  word-break: break-all;
   color: white;
   font-weight: 700;
   font-family: Arial, Helvetica, sans-serif;

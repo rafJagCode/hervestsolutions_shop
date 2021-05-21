@@ -1,16 +1,18 @@
 const getCartItems = async () => {
-  let cart = $(".cart-table__body");
-  $.ajax({
-    url: "/cart-items",
-    success: function (data) {
-      cart.html(data);
-    },
-  });
   let cartDropdown = $("#cart-dropdown");
   $.ajax({
     url: "/cart-dropdown-items",
     success: function (data) {
       cartDropdown.html(data);
+    },
+  });
+  let cart = $(".cart-table__body");
+  if (!cart.length) return;
+  $.ajax({
+    url: "/cart-items",
+    success: function (data) {
+      console.log("test");
+      cart.html(data);
     },
   });
 };
@@ -21,15 +23,19 @@ const cartAddProduct = async (button, id) => {
   loader.addClass("add-to-cart__spinner-border--show");
   adminAddToCartIcon.removeClass("fas-plus-circle");
   adminAddToCartIcon.addClass("fa-spinner fa-pulse");
-  await axios.post("/cart-add-product", {
-    product: id,
-    quantity: quantity ? quantity : 1,
-  });
-  loader.removeClass("add-to-cart__spinner-border--show");
-  adminAddToCartIcon.removeClass("fa-spinner fa-pulse");
-  adminAddToCartIcon.addClass("fa-plus-circle");
-
-  getCartItems();
+  try {
+    await axios.post("/cart-add-product", {
+      product: id,
+      quantity: quantity ? quantity : 1,
+    });
+    getCartItems();
+  } catch (e) {
+    addFlash(e.message);
+  } finally {
+    loader.removeClass("add-to-cart__spinner-border--show");
+    adminAddToCartIcon.removeClass("fa-spinner fa-pulse");
+    adminAddToCartIcon.addClass("fa-plus-circle");
+  }
 };
 const cartRemoveProduct = async (button, id) => {
   const loader = $(button).children(".dropcart__remove-loader");
