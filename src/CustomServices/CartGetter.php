@@ -40,6 +40,10 @@ class CartGetter
         $response = $this->client->request("POST", $_ENV["API_URL"] . $api, [
             "json" => ["user" => $identyfier],
         ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200) {
+            throw new \Exception("getCartRequest");
+        }
         $products = $response->toArray();
 
         return $products;

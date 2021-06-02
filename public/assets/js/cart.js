@@ -43,6 +43,10 @@ const cartRemoveProduct = async (button, id) => {
     return;
   }
   loader.removeClass("dropcart__remove-loader--hidden");
-  await axios.post("/cart-remove-product", { id: id });
-  getCartItems();
+  try {
+    await axios.post("/cart-remove-product", { id: id });
+    getCartItems();
+  } catch (e) {
+    addFlash(e.message);
+  }
 };

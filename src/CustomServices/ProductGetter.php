@@ -27,6 +27,11 @@ class ProductGetter
             ]
         );
 
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200) {
+            throw new \Exception("getProduct");
+        }
+
         $product = $response->toArray()[0];
         return $product;
     }
@@ -37,6 +42,11 @@ class ProductGetter
             "POST",
             $_ENV["API_URL"] . "getproducts"
         );
+
+        $statusCode = $response->getStatusCode();
+        if ($statusCode !== 200) {
+            throw new \Exception("getProducts");
+        }
         $products = $response->toArray();
         return $products;
     }
@@ -53,7 +63,7 @@ class ProductGetter
         try {
             $products = $response->toArray();
         } catch (\Exception $exception) {
-            $this->flash->add("notice", "error");
+            $this->flash->add("notice", "getProductsByBrand");
             $products = [];
         }
         return $products;
