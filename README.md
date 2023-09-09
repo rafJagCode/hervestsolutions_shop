@@ -24,7 +24,7 @@ This project is build from bought template. My task was to adjust it to client d
 
 List of technologies used to build the app:
 
-- [sympfony] - set of reusable PHP components and a PHP framework to build web applications, APIs, microservices and web services.
+- [symfony] - set of reusable PHP components and a PHP framework to build web applications, APIs, microservices and web services.
 - [twig] - a modern template engine for PHP.
 
 ---
