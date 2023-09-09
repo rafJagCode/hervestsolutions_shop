@@ -1,106 +1,113 @@
 {% apply spaceless %}
-    {# global variables #}
-        {# Value must be one of [spaceship, classic] #}
-        {% set global_header_layout = global_header_layout|default('spaceship') %}
+{# global variables #}
+{# Value must be one of [spaceship, classic] #}
+{% set global_header_layout = global_header_layout|default('spaceship') %}
 
-        {# If global_header_layout == spaceship, value must be one of 'style.header-spaceship-variant-[one, two, three].css' #}
-        {# If global_header_layout == classic,   value must be one of 'style.header-classic-variant-[one, two, three, four, five].css' #}
-        {% set global_header_style = global_header_style|default('style.header-spaceship-variant-one.css') %}
+{# If global_header_layout == spaceship, value must be one of 'style.header-spaceship-variant-[one, two, three].css' #}
+{# If global_header_layout == classic, value must be one of 'style.header-classic-variant-[one, two, three, four, five].css' #}
+{% set global_header_style =
+  global_header_style|default('style.header-spaceship-variant-one.css')
+%}
 
-        {# Value must be one of 'style.mobile-header-variant-[one, two].css' #}
-        {% set global_mobile_header_style = global_mobile_header_style|default('style.mobile-header-variant-one.css') %}
-    {# global variables / end #}
-{% endapply %}<!DOCTYPE html>
+{# Value must be one of 'style.mobile-header-variant-[one, two].css' #}
+{% set global_mobile_header_style =
+  global_mobile_header_style|default('style.mobile-header-variant-one.css')
+%}
+{# global variables / end #}
+{% endapply %}
+<!DOCTYPE html>
 <html lang="en" dir="{{ direction|default('ltr') }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="format-detection" content="telephone=no">
-    {% if global_page_description %}
-        <meta name="description" content="{{ global_page_description|escape('html_attr') }}">
-    {% endif %}
-    <title>{{ global_page_title }}</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="format-detection" content="telephone=no"/>
+		{% if global_page_description %}
+			<meta name="description" content="{{ global_page_description|escape('html_attr') }}"/>
+		{% endif %}
+		<title>
+			{{ global_page_title }}
+		</title>
+		<link
+		rel="icon" type="image/png" href="{{ app.request.schemeAndHttpHost }}/assets/images/favicon.png"/>
 
-    <!-- fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i">
+		<!-- fonts -->
+		<link
+		rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i"/>
 
-    <!-- css -->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="vendor/owl-carousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="vendor/photoswipe/photoswipe.css">
-    <link rel="stylesheet" href="vendor/photoswipe/default-skin/default-skin.css">
-    <link rel="stylesheet" href="vendor/select2/css/select2.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/{{ global_header_style }}" media="(min-width: 1200px)">
-    <link rel="stylesheet" href="css/{{ global_mobile_header_style }}" media="(max-width: 1199px)">
+		<!-- css -->
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/assets/owl.carousel.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/default-skin/default-skin.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/css/select2.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/style.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/my-style.css"/>
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_header_style }}" media="(min-width: 1200px)"/>
+		<link
+		rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/css/{{ global_mobile_header_style }}" media="(max-width: 1199px)"/>
 
-    <!-- font - fontawesome -->
-    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+		<!-- font - fontawesome -->
+		<link rel="stylesheet" href="{{ app.request.schemeAndHttpHost }}/assets/vendor/fontawesome/css/all.min.css"/>
 
-    {{ analytics|default('') }}
-</head>
-<body>
+		{{ analytics|default('') }}
+	</head>
+	<body>
 
-<!-- site -->
-<div class="site">
-    <!-- site__mobile-header -->
-    <header class="site__mobile-header">
-        {% include '/mobile/mobile-header.twig' %}
-    </header>
-    <!-- site__mobile-header / end -->
+		{% set globalCart = app.user is null ? app.session.get('cart') : app.user.cart %}
 
-    <!-- site__header -->
-    <header class="site__header">
-        {% include '/header/header.twig' %}
-    </header>
-    <!-- site__header / end -->
 
-    <!-- site__body -->
-    <div class="site__body">
-        {% block site_body %}{% endblock %}
-    </div>
-    <!-- site__body / end -->
+		<div id="flashes">
+			{% for message in app.flashes('notice') %}
+				<div class="snackbar card shadow">
+					<div class="snackbar__content">
+						<div class="snackbar__image" alt=""></div>
+						<span class="snackbar__message">{{ message }}</span>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+</html></div><!-- site --><div
+class="site">
+<!-- site__mobile-header -->
+<header class="site__mobile-header">
+	{% include '/mobile/mobile-header.twig' %}
+</header>
+<!-- site__mobile-header / end -->
 
-    <!-- site__footer -->
-    <footer class="site__footer">
-        {% include '/footer/footer.twig' %}
-    </footer>
-    <!-- site__footer / end -->
+<!-- site__header -->
+<header class="site__header">
+	{% include '/header/header.twig' %}
+</header>
+<!-- site__header / end -->
+
+<!-- site__body -->
+<div class="site__body"> {% block site_body %}{% endblock %}
+	</div>
+	<!-- site__body / end -->
+
+	<!-- site__footer -->
+	<footer class="site__footer">
+		{% include '/footer/footer.twig' %}
+	</footer>
+	<!-- site__footer / end -->
 </div>
 <!-- site / end -->
 
 <!-- mobile-menu -->
-{% include '/mobile/mobile-menu.twig' %}
-<!-- mobile-menu / end -->
+{% include '/mobile/mobile-menu.twig' %}<!-- mobile-menu / end -->
 
-<!-- quickview-modal -->
-<div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<!-- quickview-modal --><div id="quickview-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"> </div>
 <!-- quickview-modal / end -->
 
 <!-- add-vehicle-modal -->
-{% include '/components/add-vehicle-modal.twig' %}
-<!-- add-vehicle-modal / end -->
+{% include '/components/add-vehicle-modal.twig' %}<!-- add-vehicle-modal / end -->
 
-<!-- vehicle-picker-modal -->
-{% include '/components/vehicle-picker-modal.twig' %}
+<!-- vehicle-picker-modal -->{% include '/components/vehicle-picker-modal.twig' %}
 <!-- vehicle-picker-modal / end -->
 
-<!-- photoswipe -->
-{% include '/components/photoswipe.twig' %}
+<!-- photoswipe -->{% include '/components/photoswipe.twig' %}
 <!-- photoswipe / end -->
 
-<!-- scripts -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/owl-carousel/owl.carousel.min.js"></script>
-<script src="vendor/nouislider/nouislider.min.js"></script>
-<script src="vendor/photoswipe/photoswipe.min.js"></script>
-<script src="vendor/photoswipe/photoswipe-ui-default.min.js"></script>
-<script src="vendor/select2/js/select2.min.js"></script>
-
-<script src="js/number.js"></script>
-<script src="js/main.js"></script>
-
-</body>
-</html>
+<!-- scripts --></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script><script src="https://unpkg.com/axios/dist/axios.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/flash-message.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/customer-creator.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/admin-controls.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/order-product-search.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/snackbar.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/user-product-search.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition-gallery.js"></script></body></html>

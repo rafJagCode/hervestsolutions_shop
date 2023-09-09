@@ -13,22 +13,24 @@
 
 {% set root_classes = classnames(classes, 'product-tabs product-tabs--layout--'~layout) %}
 
-{% set review_form_col_classes = classnames({
-    'col-xxl-8 col-xl-10 col-lg-9 col-12': layout == 'full',
+{# {% set review_form_col_classes = classnames({
     'col-xxl-12 col-xl-10 col-12': layout == 'sidebar',
-}) %}
+    'col-xxl-8 col-xl-10 col-lg-9 col-12': layout == 'full',
+}) %} #}
+
+{% set review_form_col_classes = 'col-xxl-12 col-xl-10 col-12' %}
 
 <div class="{{ root_classes }}">
     <ul class="product-tabs__list">
-        <li class="product-tabs__item product-tabs__item--active"><a href="#product-tab-description">Description</a></li>
-        <li class="product-tabs__item"><a href="#product-tab-specification">Specification</a></li>
+        <li class="product-tabs__item product-tabs__item--active"><a href="#product-tab-description">Opis</a></li>
+        <li class="product-tabs__item"><a href="#product-tab-specification">Specifikacja</a></li>
         <li class="product-tabs__item">
             <a href="#product-tab-reviews">
-                Reviews
+                Opinie
                 <span class="product-tabs__item-counter">3</span>
             </a>
         </li>
-        <li class="product-tabs__item"><a href="#product-tab-analogs">Analogs</a></li>
+        <li class="product-tabs__item"><a href="#product-tab-analogs">Zamienniki</a></li>
     </ul>
     <div class="product-tabs__content">
         <div class="product-tabs__pane product-tabs__pane--active" id="product-tab-description">
@@ -179,7 +181,7 @@
                             {{ analog.vendor }}
                             <div class="analogs-table__country">({{ analog.country }})</div>
                         </td>
-                        <td class="analogs-table__column analogs-table__column--price">{{ analog.price|currency }}</td>
+                        <td class="analogs-table__column analogs-table__column--price">{{ analog.price }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

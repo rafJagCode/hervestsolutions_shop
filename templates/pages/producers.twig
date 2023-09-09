@@ -1,0 +1,10 @@
+{% set global_page_title = 'Shop Grid 4 Columns Full — Red Parts' %}
+{% set global_page_description = '' %}
+
+{% extends '/layouts/default.twig' %}
+
+{% block site_body %}
+    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+    {% include '/blocks/block-brands.twig' with {inputs: {producers: producers}} %}
+	{% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+{% endblock %}
