@@ -19,15 +19,15 @@ class IndexController extends AbstractController
      */
     public function index(): Response
     {
-        $newest = $this->productGetter->getNewest();
-        $popular = $this->productGetter->getPopular();
-        $bestSellers = $this->productGetter->getBestSellers();
+        // $newest = $this->productGetter->getNewest();
+        // $popular = $this->productGetter->getPopular();
+        // $bestSellers = $this->productGetter->getBestSellers();
 
         return $this->render("pages/index.twig", [
             "controller_name" => "IndexController",
-            "newest" => $newest,
-            "popular" => $popular,
-            "bestSellers" => $bestSellers,
+            "newest" => [],
+            "popular" => [],
+            "bestSellers" => [],
         ]);
     }
 }

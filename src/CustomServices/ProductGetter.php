@@ -45,6 +45,7 @@ class ProductGetter
 
         $statusCode = $response->getStatusCode();
         if ($statusCode !== 200) {
+			return [];
             throw new \Exception("getProducts");
         }
         $products = $response->toArray();
@@ -79,6 +80,7 @@ class ProductGetter
         } catch (Exception $exception) {
             throw $exception;
         }
+		return [];
         $products = $response->toArray();
 
         return $products;
