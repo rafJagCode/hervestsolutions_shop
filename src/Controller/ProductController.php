@@ -42,26 +42,7 @@ class ProductController extends AbstractController
 	 */
 	public function searchInProducts(Request $request)
 	{
-		$requestContent = json_decode($request->getContent(), true);
-
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "getproductbynumber",
-			[
-				"json" => ["number" => $requestContent["number"]],
-			]
-		);
-
-		if ($response->getStatusCode() === 200) {
-			try {
-				$products = $response->toArray();
-			} catch (Exception) {
-				$products = [];
-			}
-			return new JsonResponse($products);
-		}
-		if ($response->getStatusCode() === 404) {
-			return new JsonResponse([]);
-		}
+		$phraze = json_decode($request->getContent(), true)['number'];
+		return $this->productGetter->search($phraze);
 	}
 }
