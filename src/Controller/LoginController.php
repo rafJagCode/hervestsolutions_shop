@@ -9,16 +9,22 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
+use App\Entity\Cart;
 
 
 class LoginController extends AbstractController
 {
 	private $client;
+	private $em;
 
 	public function __construct(
 		HttpClientInterface $client,
+		EntityManagerInterface $entityManager
 	) {
 		$this->client = $client;
+		$this->em = $entityManager;
 	}
 
 	/**
@@ -41,39 +47,35 @@ class LoginController extends AbstractController
 	/**
 	 * @Route("/sign-in", name="sign-in")
 	 */
-	public function signIn(): Response
+	public function signIn(AuthenticationUtils $authenticationUtils): Response
 	{
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $authenticationUtils->getLastUsername();
+
 		return $this->render("/pages/account-login.twig", [
 			"controller_name" => "LoginController",
+			"error"=>$error,
 		]);
 	}
 
 	/**
 	 * @Route("/register", name="register")
 	 */
-	public function register(Request $request, AuthenticationUtils $authenticationUtils)
+	public function register(Request $request)
 	{
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "register",
-			[
-				"json" => $request->request->all(),
-			]
-		);
+		$cart = new Cart();
+		$this->em->persist($cart);
 
-		if ($response->getStatusCode() === 200) {
-			$email = $request->request->get("email");
-			$request->request->set("username", $email);
+		$user = new User();
+		$user->setEmail($request->request->get('email'));
+		$user->setPassword($request->request->get('password'));
+		$user->setCart($cart);
 
-			$loginResponse = $this->signIn($authenticationUtils);
-;
-			return $loginResponse;
-		}
+		$this->em->persist($user);
+        $this->em->flush();
 
-        $this->addFlash(
-            'notice',
-            $response->getContent(false)
-        );
-		return $this->redirectToRoute("account-login");
+		return $this->redirectToRoute('sign-in');
 	}
 }

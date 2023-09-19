@@ -1,26 +1,28 @@
+# config/packages/security.yaml
 security:
-  always_authenticate_before_granting: true
   encoders:
-    App\Security\User:
-      algorithm: auto
-
-  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    App\Entity\User:
+      algorithm: plaintext
   providers:
     # used to reload user from session & other features (e.g. switch_user)
     app_user_provider:
-      id: App\Security\UserProvider
+      entity:
+        class: App\Entity\User
+        property: email
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      provider: app_user_provider
+      anonymous: true
+      form_login:
+        login_path: sign-in
+        check_path: sign-in
+        username_parameter: email
+        password_parameter: password
       logout:
         path: logout
-      anonymous: lazy
-      provider: app_user_provider
-      guard:
-        authenticators:
-          - App\Security\TokenAuthenticator
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
