@@ -6,29 +6,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Service\ProductGetter;
 
 class UserProductSearchController extends AbstractController
 {
     private $http;
-    public function __construct(HttpClientInterface $client)
+	private $productGetter;
+
+    public function __construct(HttpClientInterface $client, ProductGetter $productGetter)
     {
         $this->http = $client;
+		$this->productGetter = $productGetter;
     }
     /**
      * @Route("/user-product-search/{input}", name="user-product-search")
      */
     public function searchProducts($input): Response
     {
-        $response = $this->http->request(
-            "POST",
-            "http://redparts.test/search-in-products",
-            [
-                "json" => ["number" => $input],
-            ]
-        );
-        if ($response->getStatusCode() === 200) {
-            $products = $response->toArray();
-
+      
+		$products = $this->productGetter->search($input);
             return $this->render(
                 "components/user-product-search-results.twig",
                 [
@@ -36,15 +32,5 @@ class UserProductSearchController extends AbstractController
                     "searchResults" => $products,
                 ]
             );
-        }
-        if ($response->getStatusCode() === 404) {
-            return $this->render(
-                "components/user-product-search-results.twig",
-                [
-                    "controller_name" => "UserProductSearchController",
-                    "searchResults" => [],
-                ]
-            );
-        }
     }
 }
