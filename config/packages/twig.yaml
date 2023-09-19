@@ -5,4 +5,4 @@ twig:
   exception_controller: null
   globals:
     base_url: "%kernel.project_dir%"
-    globalCart: []
+    cart_getter_service: "@app.cart.getter"
