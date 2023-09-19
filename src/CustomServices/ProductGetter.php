@@ -2,118 +2,71 @@
 namespace App\Service;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 
 class ProductGetter
 {
     private $client;
     private $flash;
+	private $em;
 
     public function __construct(
         HttpClientInterface $client,
-        FlashBagInterface $flash
+        FlashBagInterface $flash,
+		EntityManagerInterface $entityManager,
     ) {
         $this->client = $client;
         $this->flash = $flash;
+		$this->em = $entityManager;
     }
 
     public function getProduct($id)
     {
-        $response = $this->client->request(
-            "POST",
-            $_ENV["API_URL"] . "getproduct",
-            [
-                "json" => ["id" => $id],
-            ]
-        );
-
-        $statusCode = $response->getStatusCode();
-        if ($statusCode !== 200) {
-            throw new \Exception("getProduct");
-        }
-
-        $product = $response->toArray()[0];
+		$product = $this->em->getRepository(Product::class)->find($id);
         return $product;
     }
 
     public function getProducts()
     {
-        $response = $this->client->request(
-            "POST",
-            $_ENV["API_URL"] . "getproducts"
-        );
-
-        $statusCode = $response->getStatusCode();
-        if ($statusCode !== 200) {
-			return [];
-            throw new \Exception("getProducts");
-        }
-        $products = $response->toArray();
+		$products = $this->em->getRepository(Product::class)->findAll();
         return $products;
     }
 
     public function getProductsByBrand($brand)
     {
-        $response = $this->client->request(
-            "POST",
-            $_ENV["API_URL"] . "productsbymanufacturername",
-            [
-                "json" => ["name" => $brand],
-            ]
-        );
-        try {
-            $products = $response->toArray();
-        } catch (\Exception $exception) {
-            $this->flash->add("notice", "getProductsByBrand");
-            $products = [];
-        }
+		$products = $this->em->getRepository(Product::class)->findAll();
         return $products;
     }
 
     public function getNewest()
     {
-        try {
-            $response = $this->client->request(
-                "POST",
-                $_ENV["API_URL"] . "getproducts"
-            );
-        } catch (Exception $exception) {
-            throw $exception;
-        }
-		return [];
-        $products = $response->toArray();
-
+		$products = $this->em->getRepository(Product::class)->findAll();
         return $products;
     }
 
     public function getPopular()
     {
-        try {
-            $response = $this->client->request(
-                "POST",
-                $_ENV["API_URL"] . "getproducts"
-            );
-        } catch (Exception $exception) {
-            throw $exception;
-        }
-        $products = $response->toArray();
-
+		$products = $this->em->getRepository(Product::class)->findAll();
         return $products;
     }
 
     public function getBestSellers()
     {
-        try {
-            $response = $this->client->request(
-                "POST",
-                $_ENV["API_URL"] . "getproducts"
-            );
-        } catch (Exception $exception) {
-            throw $exception;
-        }
-        $products = $response->toArray();
-
+		$products = $this->em->getRepository(Product::class)->findAll();
         return $products;
+    }
+
+	public function search($phraze)
+    {
+		$products = $this->em->getRepository(Product::class)->findAll();
+		$searchResult = array_filter($products, function($product) use($phraze){
+			$regex = "/" . $phraze . "/";
+			return (preg_match($regex, $product->getName()));
+		});
+
+        return $searchResult;
     }
 }
 ?>
