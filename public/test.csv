@@ -1,4 +1,4 @@
-name,description,quantity,price,product_number,features
+name,description,quantity,price,productNumber,features
 Koło,Opis 1,5,1,9119,łż
 Silnik,Opis 2,10,2,8075,tani
 Sprężyna,Opis 3,23,3,91234,elegancki
