@@ -6,13 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Producer;
 
 class ProducersController extends AbstractController
 {
 	private $client;
-	public function __construct(HttpClientInterface $client)
+	private $em;
+
+	public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager)
 	{
 		$this->client = $client;
+		$this->em = $entityManager;
 	}
 
 	/**
@@ -20,18 +25,10 @@ class ProducersController extends AbstractController
 	 */
 	public function index(): Response
 	{
-		$response = $this->client->request(
-			"POST",
-			$_ENV["API_URL"] . "manufacturers"
-		);
-
-
-		if ($response->getStatusCode() === 200) {
-			$producers = $response->toArray();
-			return $this->render("pages/producers.twig", [
-				"controller_name" => "ProducersController",
-				"producers" => $producers,
-			]);
-		}
+		$producers = $this->em->getRepository(Producer::class)->findAll();
+		return $this->render("pages/producers.twig", [
+			"controller_name" => "ProducersController",
+			"producers" => $producers,
+		]);
 	}
 }
