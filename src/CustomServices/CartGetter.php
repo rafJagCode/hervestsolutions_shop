@@ -1,25 +1,25 @@
 <?php
 namespace App\Service;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use App\Entity\Cart;
 
 class CartGetter
 {
-    private $client;
-    private $security;
     private $session;
+	private $em;
+	private $security;
 
     public function __construct(
-        HttpClientInterface $client,
-        Security $security,
-        SessionInterface $sessionInterface
+        SessionInterface $sessionInterface,
+		EntityManagerInterface $entityManager,
+		Security $security
     ) {
-        $this->client = $client;
-        $this->security = $security;
         $this->session = $sessionInterface;
+		$this->em = $entityManager;
+		$this->security = $security;
     }
 
     public function getCart()
@@ -27,42 +27,29 @@ class CartGetter
         $user = $this->security->getUser();
 
         if (!$user) {
-            return $this->getUnathenticatedUserCart();
-        }
-        $cart = $this->getAuthenticatedUserCart();
-        $user->setCart($cart);
+            $cart = $this->getUnathenticatedUserCart();
+        }else{
+			$cart = $user->getCart();
+		}
 
-        return $cart;
-    }
-
-    public function getCartRequest($identyfier, $api)
-    {
-        $response = $this->client->request("POST", $_ENV["API_URL"] . $api, [
-            "json" => ["user" => $identyfier],
-        ]);
-        $statusCode = $response->getStatusCode();
-        if ($statusCode !== 200) {
-            throw new \Exception("getCartRequest");
-        }
-        $products = $response->toArray();
-
-        return $products;
-    }
-
-    public function getAuthenticatedUserCart()
-    {
-        $userId = $this->security->getUser()->getId();
-        $cart = $this->getCartRequest($userId, "cart");
         return $cart;
     }
 
     public function getUnathenticatedUserCart()
     {
-        $UUID = $this->session->get("UUID");
-        if (!$UUID) {
-            return [];
+        $cartId = $this->session->get('cartId');
+
+        if (!$cartId) {
+			$cart = new Cart();
+			$this->em->persist($cart);
+			$this->em->flush();
+
+			$this->session->set('cartId', $cart->getId());
+
+            return $cart;
         }
-        $cart = $this->getCartRequest($UUID, "cart");
+
+        $cart = $this->em->getRepository(Cart::class)->find($cartId);
         return $cart;
     }
 }
