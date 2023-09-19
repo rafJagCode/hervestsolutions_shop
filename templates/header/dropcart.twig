@@ -1,15 +1,15 @@
 <div class="dropcart">
 	<ul class="dropcart__list">
-		{% for product in globalCart is empty ? inputs.cart : globalCart %}
+		{% for item in cart_getter_service.getCart().getCartItem() %}
 			<li class="dropcart__item">
 				<div class="dropcart__item-image image image--type--product">
-					<a class="image__body" href="/product/{{product.product.id}}">
-						<img class="image__tag" src="{{ image(product.product.images[0]) }}" alt="">
+					<a class="image__body" href="/product/{{item.product.id}}">
+						<img class="image__tag" src="{{ image(item.product.images[0]) }}" alt="">
 					</a>
 				</div>
 				<div class="dropcart__item-info">
 					<div class="dropcart__item-name">
-						<a href="/product/{{product.product.id}}">{{ product.product.name }}</a>
+						<a href="/product/{{item.product.id}}">{{ item.product.name }}</a>
 					</div>
 					{% if item.options is defined %}
 						<ul class="dropcart__item-features">
@@ -20,12 +20,12 @@
 						</ul>
 					{% endif %}
 					<div class="dropcart__item-meta">
-						<div class="dropcart__item-quantity">{{ product.product.quantity }}</div>
-						<div class="dropcart__item-price">{{ product.product.price }}</div>
+						<div class="dropcart__item-quantity">{{ item.amount }}</div>
+						<div class="dropcart__item-price">{{ item.product.price }}</div>
 						{# <div class="dropcart__item-price">{{ item.price|currency }}</div> #}
 					</div>
 				</div>
-				<button onclick="cartRemoveProduct(this,{{product.id}})" type="button" class="dropcart__item-remove">
+				<button onclick="cartRemoveProduct(this,{{item.id}})" type="button" class="dropcart__item-remove">
 					{{ svg('cross-10.svg') }}
 					<div class="dropcart__remove-loader dropcart__remove-loader--hidden btn btn-light btn-loading btn-icon"></div>
 				</button>
@@ -39,7 +39,7 @@
 			<tr>
 				<th>Razem:
 				</th>
-				<td>{{ globalCart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+				<td>{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
 					zł</td>
 			</tr>
 		</table>

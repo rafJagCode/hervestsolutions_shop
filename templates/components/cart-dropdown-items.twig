@@ -1,15 +1,16 @@
-{% if cart is not empty %}
+{% set cartItems = cart_getter_service.getCart().getCartItem() %}
+{% if cartItems is not empty %}
 	<a class="indicator__button">
 		<span class="indicator__icon">
 			{{ svg("cart-32.svg") }}
-			<span class="indicator__counter">{{ cart | length }}</span>
+			<span class="indicator__counter">{{ cartItems | length }}</span>
 		</span>
 		<span class="indicator__title">Koszyk</span>
-		<span class="indicator__value">{{ cart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+		<span class="indicator__value">{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
 			zł</span>
 	</a>
 	<div class="indicator__content">
-		{% include '/header/dropcart.twig' with {inputs: { cart: cart }} %}
+		{% include '/header/dropcart.twig' with {inputs: { cartItems: cartItems }} %}
 	</div>
 {% else %}
 	<a class="indicator__button">

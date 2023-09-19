@@ -1,4 +1,4 @@
-{% for product in cartItems %}
+{% for item in cart_getter_service.getCart().getCartItem() %}
   <tr class="cart-table__row">
     <td class="cart-table__column cart-table__column--image">
       <div class="image image--type--product">
@@ -6,7 +6,7 @@
           path(
             'product',
             {
-              id: product.id
+              id: item.product.id
             }
           )
           }}"
@@ -14,7 +14,7 @@
           <img class="image__tag"
             src="{{
             image(
-              product.product.images[0],
+              item.product.images[0],
               {
                 size: 160
               }
@@ -25,7 +25,7 @@
       </div>
     </td>
     <td class="cart-table__column cart-table__column--product">
-      <a href="" class="cart-table__product-name">{{ product.product.name }}</a>
+      <a href="" class="cart-table__product-name">{{ item.product.name }}</a>
       {# {% if item.options %}
 							<ul class="cart-table__options">
 								{% for option in item.options %}
@@ -36,7 +36,7 @@
     </td>
     {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
     <td class="cart-table__column cart-table__column--price" data-title="Price">
-      {{ product.product.price }}
+      {{ item.product.price }}
       zł
     </td>
     <td class="cart-table__column cart-table__column--quantity"
@@ -45,18 +45,18 @@
         <input class="form-control input-number__input"
           type="number"
           min="1"
-          value="{{ product.product.quantity }}" />
+          value="{{ item.amount }}" />
         <div class="input-number__add"></div>
         <div class="input-number__sub"></div>
       </div>
     </td>
     {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
     <td class="cart-table__column cart-table__column--total" data-title="Total">
-      {{ product.product.price * product.product.quantity }}
+      {{ item.product.price * item.amount }}
       zł
     </td>
     <td class="cart-table__column cart-table__column--remove">
-      <button onclick="cartRemoveProduct(this,{{ product.id }})"
+      <button onclick="cartRemoveProduct(this,{{ item.id }})"
         type="button"
         class="dropcart__item-remove">
         {{ svg('cross-10.svg') }}

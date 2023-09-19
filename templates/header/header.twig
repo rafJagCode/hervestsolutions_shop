@@ -118,8 +118,6 @@ global_header_layout == 'classic', }) %}
 				{% if global_header_layout == 'classic' or true %}
 					<span class="indicator__title">Witaj,
 						{{ app.user is null or is_granted('ROLE_UNAUTHENTICATED') ? 'Zaloguj Się' : app.user.email }}</span>
-
-
 					<span class="indicator__value">Moje Konto</span>
 				{% endif %}
 			</a>
@@ -185,14 +183,15 @@ global_header_layout == 'classic', }) %}
 			</div>
 		</div>
 		<div class="indicator indicator--trigger--click" id="cart-dropdown">
-			{% if globalCart is not empty %}
+			{% set cartItems = cart_getter_service.getCart().getCartItem() %}
+			{% if cartItems is not empty %}
 				<a class="indicator__button">
 					<span class="indicator__icon">
 						{{ svg("cart-32.svg") }}
-						<span class="indicator__counter">{{ globalCart | length }}</span>
+						<span class="indicator__counter">{{ cartItems | length }}</span>
 					</span>
 					<span class="indicator__title">Koszyk</span>
-					<span class="indicator__value">{{ globalCart|reduce((sum, product) => sum + (product.product.price * product.product.quantity)) }}
+					<span class="indicator__value">{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
 						zł</span>
 				</a>
 				<div class="indicator__content">
