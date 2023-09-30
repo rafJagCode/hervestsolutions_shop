@@ -1,7 +1,3 @@
-{#
-// inputs:
-#}
-
 <div class="block block-sale">
     <div class="block-sale__content">
         <div class="block-sale__header">
@@ -11,15 +7,7 @@
                 {% include '/components/timer.twig' %}
             </div>
             <div class="block-sale__controls">
-                {% include '/components/arrow.twig' with {inputs: {
-                    classes: 'block-sale__arrow block-sale__arrow--prev',
-                    direction: 'prev',
-                }} %}
-                <div class="block-sale__link"><a href="">Zobacz wszystkie dostępne oferty</a></div>
-                {% include '/components/arrow.twig' with {inputs: {
-                    classes: 'block-sale__arrow block-sale__arrow--next',
-                    direction: 'next',
-                }} %}
+                <div class="block-sale__link"><a href="/shop?promotion=true">Sprawdź oferty promocyjne</a></div>
                 {% include '/components/decor.twig' with {inputs: {
                     type: 'center',
                     classes: 'block-sale__header-decor',
@@ -35,20 +23,6 @@
                 class="block-sale__image"
                 style="background-image: url('{{ image('images/big/many-parts.jpg', {size: [1903, 640]}) }}');"
             ></div>
-            {# <div class="container">
-                <div class="block-sale__carousel">
-                    <div class="owl-carousel">
-                        {% for product in products[:8] %}
-                            <div class="block-sale__item">
-                                {% include '/components/product-card.twig' with {inputs: {
-                                    product: product,
-                                    exclude: ['features', 'list-buttons'],
-                                }} %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div> #}
         </div>
     </div>
 </div>
