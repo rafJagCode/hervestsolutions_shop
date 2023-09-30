@@ -14,47 +14,22 @@
     <div class="block-finder__body container container--max--xl">
         <div class="block-finder__title">Znajdź To Czego Szukasz Do Swojej Maszyny</div>
         <div class="block-finder__subtitle">Dziesiątki marek i tysiące produktów</div>
-        <form class="block-finder__form">
+        <form class="block-finder__form" method="get" action="/shop">
             <div class="block-finder__form-control block-finder__form-control--select">
-                <select name="year" aria-label="Vehicle Year">
+                <select name="producer[]" aria-label="Producer">
                     <option value="none">Wybierz Producenta</option>
-                    <option>AGCO</option>
-                    <option>Arbos</option>
-                    <option>Case</option>
-                    <option>Cat</option>
-                    <option>Claas</option>
-                    <option>Krone</option>
-                    <option>Massey Ferguson</option>
+					{%for producer in producer_getter_service.getProducers() %}
+                    	<option value="{{producer.name}}">{{producer.name|title}}</option>
+					{%endfor%}
                 </select>
             </div>
             <div class="block-finder__form-control block-finder__form-control--select">
-                <select name="make" aria-label="Vehicle Make" disabled>
-                    <option value="none">Wybierz Kategorie</option>
-                    <option>Rozsiewacze</option>
-                    <option>Sadzarki</option>
-                    <option>Paszowozy</option>
-                    <option>Opryskiwacze</option>
-                    <option>Pługi</option>
+                <select name="category" aria-label="Category" disabled>
+					{%for category in category_getter_service.getCategories() %}
+                    	<option value="{{category.name}}">{{category.name|title}}</option>
+					{%endfor%}
                 </select>
             </div>
-            {# <div class="block-finder__form-control block-finder__form-control--select">
-                <select name="model" aria-label="Vehicle Model" disabled>
-                    <option value="none">Select Model</option>
-                    <option>Explorer</option>
-                    <option>Focus S</option>
-                    <option>Fusion SE</option>
-                    <option>Mustang</option>
-                </select>
-            </div>
-            <div class="block-finder__form-control block-finder__form-control--select">
-                <select name="engine" aria-label="Vehicle Engine" disabled>
-                    <option value="none">Select Engine</option>
-                    <option>Gas 1.6L 125 hp AT/L4</option>
-                    <option>Diesel 2.5L 200 hp AT/L5</option>
-                    <option>Diesel 3.0L 250 hp MT/L5</option>
-                </select>
-            </div> #}
-
             <button class="block-finder__form-control block-finder__form-control--button" type="submit">Szukaj</button>
         </form>
     </div>
