@@ -19,15 +19,15 @@ class CsvController extends AbstractController
 		$file = fopen($fileName, "r");
 
 		while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
-			//name,description,quantity,price,productNumber,features
+			//name,description,quantity,price,sku,features
 
 			$productName = $column[0];
 			$description = $column[1];
 			$quantity = $column[2];
 			$price = $column[3];
-			$productNumber = $column[4];
+			$sku = $column[4];
 			$features = $column[5];
-			$product = (object)['name' => $productName, 'description' => $description, 'quantity' => $quantity, 'price' => $price, 'productNumber' => $productNumber, 'features' => $features];
+			$product = (object)['name' => $productName, 'description' => $description, 'quantity' => $quantity, 'price' => $price, 'sku' => $sku, 'features' => $features];
 			array_push($products, $product);
 		}
 
