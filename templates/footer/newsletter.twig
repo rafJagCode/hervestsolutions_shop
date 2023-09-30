@@ -8,7 +8,7 @@
 		Podaj poniżej swój adres email aby subskrybować nasz newsletter i dostawać informacje o najnowszych zniżach i ofertach specjalnych.
     </div>
 
-    <form action="" class="footer-newsletter__form">
+    <form class="footer-newsletter__form" onsubmit="return false">
         <label class="sr-only" for="footer-newsletter-address">Adres Email</label>
         <input type="text" class="footer-newsletter__form-input" id="footer-newsletter-address" placeholder="Adres Email...">
 
@@ -21,11 +21,11 @@
 
     <div class="footer-newsletter__social-links social-links">
         <ul class="social-links__list">
-            <li class="social-links__item social-links__item--facebook"><a href="{{ theme.author.profile_url }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-            <li class="social-links__item social-links__item--twitter"><a href="{{ theme.author.profile_url }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
-            <li class="social-links__item social-links__item--youtube"><a href="{{ theme.author.profile_url }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
-            <li class="social-links__item social-links__item--instagram"><a href="{{ theme.author.profile_url }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-            <li class="social-links__item social-links__item--rss"><a href="{{ theme.author.profile_url }}" target="_blank"><i class="fas fa-rss"></i></a></li>
+            <li class="social-links__item social-links__item--facebook"><a target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li class="social-links__item social-links__item--twitter"><a target="_blank"><i class="fab fa-twitter"></i></a></li>
+            <li class="social-links__item social-links__item--youtube"><a target="_blank"><i class="fab fa-youtube"></i></a></li>
+            <li class="social-links__item social-links__item--instagram"><a target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li class="social-links__item social-links__item--rss"><a target="_blank"><i class="fas fa-rss"></i></a></li>
         </ul>
     </div>
 </div>
