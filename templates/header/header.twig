@@ -24,7 +24,7 @@ global_header_layout == 'classic', }) %}
 		<div class="topbar__item-spring"></div>
 	{% endif %}
 
-	<div class="topbar__item-button topbar__menu">
+	{#<div class="topbar__item-button topbar__menu">
 		<button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
 			<span class="topbar__button-label">Waluta:</span>
 			<span class="topbar__button-title">PLN</span>
@@ -48,7 +48,7 @@ global_header_layout == 'classic', }) %}
       }}</span>
 		</button>
 		<div class="topbar__menu-body"></div>
-	</div>
+	</div>#}
 </div>
 {% endset %}
 
@@ -59,7 +59,7 @@ global_header_layout == 'classic', }) %}
 		<div class="header__topbar-start">
 			<div class="topbar topbar--spaceship-start">
 				<div class="topbar__item-text d-none d-xxl-flex">
-					Zadzwoń: (800) 060-0730
+					Zadzwoń: 88 835 32732
 				</div>
 				<div class="topbar__item-text">
 					<a class="topbar__link" href="/about">O nas</a>
@@ -69,7 +69,7 @@ global_header_layout == 'classic', }) %}
 				</div>
 				{% if is_granted('ROLE_ADMIN') %}
 					<div class="topbar__item-text">
-						<a class="topbar__link" href="/dashboard">Admin</a>
+						<a class="topbar__link" href="/account-dashboard">Admin</a>
 					</div>
 				{% endif %}
 
@@ -103,13 +103,13 @@ global_header_layout == 'classic', }) %}
 	<div class="header__logo">{% include '/header/logo.twig' %}</div>
 	<div class="header__search">{% include '/header/search.twig' %}</div>
 	<div class="header__indicators">
-		<div class="indicator">
+		{#<div class="indicator">
 			<a href="wishlist.html" class="indicator__button">
 				<span class="indicator__icon">
 					{{ svg("heart-32.svg") }}
 				</span>
 			</a>
-		</div>
+		</div>#}
 		<div class="indicator indicator--trigger--click">
 			<a class="indicator__button">
 				<span class="indicator__icon">
@@ -163,13 +163,10 @@ global_header_layout == 'classic', }) %}
 						<div class="account-menu__divider"></div>
 						<ul class="account-menu__links">
 							<li>
-								<a href="/dashboard">Pulpit</a>
+								<a href="/account-dashboard">Pulpit</a>
 							</li>
 							<li>
 								<a href="account-orders.html">Historia Zamówień</a>
-							</li>
-							<li>
-								<a href="account-addresses.html">Adresy</a>
 							</li>
 						</ul>
 						<div class="account-menu__divider"></div>
@@ -188,7 +185,7 @@ global_header_layout == 'classic', }) %}
 				<a class="indicator__button">
 					<span class="indicator__icon">
 						{{ svg("cart-32.svg") }}
-						<span class="indicator__counter">{{ cartItems | length }}</span>
+						<span class="indicator__counter">{{ cartItems|reduce((sum, item) => sum + item.amount) }}</span>
 					</span>
 					<span class="indicator__title">Koszyk</span>
 					<span class="indicator__value">{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
