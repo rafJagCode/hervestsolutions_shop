@@ -5,40 +5,29 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Service\ProductGetter;
 
 class SearchController extends AbstractController
 {
-    private $http;
-    public function __construct(HttpClientInterface $http)
-    {
-        $this->http = $http;
-    }
-    /**
-     * @Route("/search-results/{input}", name="search-results")
-     */
-    public function searchProducts($input): Response
-    {
-        $response = $this->http->request(
-            "POST",
-            "http://redparts.test/search-in-products",
-            [
-                "json" => ["number" => $input],
-            ]
-        );
-        if ($response->getStatusCode() === 200) {
-            $products = $response->toArray();
+	private $productGetter;
 
-            return $this->render("components/search-results.twig", [
-                "controller_name" => "SearchController",
-                "searchResults" => $products,
-            ]);
-        }
-        if ($response->getStatusCode() === 404) {
-            return $this->render("components/search-results.twig", [
-                "controller_name" => "SearchController",
-                "searchResults" => [],
-            ]);
-        }
+    public function __construct(ProductGetter $productGetter)
+    {
+		$this->productGetter = $productGetter;
     }
+	
+	/**
+	 * @Route("/search-in-products/{phraze}", name="search-in-products")
+	 */
+	public function searchInProducts($phraze)
+	{
+		$products = $this->productGetter->getByPhraze($phraze);
+
+		return $this->render(
+			"components/search-results.twig", [
+				"controller_name" => "SearchController",
+				"searchResults" => $products,
+			]
+		);
+	}
 }
