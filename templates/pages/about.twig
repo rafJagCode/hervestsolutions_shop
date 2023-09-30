@@ -1,4 +1,4 @@
-{% set global_page_title = 'About Us — Red Parts' %}
+{% set global_page_title = 'O Nas - Agroserwis' %}
 {% set global_page_description = '' %}
 
 {% set teammates = data('site-teammates.json') %}
@@ -21,14 +21,15 @@
             </div>
 
             <div class="about__card">
-                <div class="about__card-title">About Us</div>
+                <div class="about__card-title">O Nas</div>
                 <div class="about__card-text">
-                    RedParts is an international company with 30 years of history selling spare parts for cars, trucks and motorcycles.
-                    During our work we managed to create a unique service for the sale and delivery of spare parts around the world.
+                    Specjalizujemy się w sprzedaży i serwisie maszyn do produkcji rolnej. Posiadamy pełną ofertę maszyn firm: 
+					{% for producer in producer_getter_service.getProducers()%}{{producer.name|upper}}{% if not loop.last%}, {%endif%}{%endfor%}
+					i wielu innych. Oferujemy maszyny nowe jak i używane z obsługą finansowania i z możliwością skorzystania z pakietu ubezpieczeń. W sprzedaży posiadamy szeroką gamę części zamiennych oraz kompleksowy serwis podparty fachowym doradztwem techniczym.
                 </div>
-                <div class="about__card-author">Ryan Ford, CEO RedParts</div>
+                <div class="about__card-author">Wilhelm Słupek, CEO Agroserwis</div>
                 <div class="about__card-signature">
-                    <img src="{{image('images/signature.jpg')}}" width="160" height="55" alt="">
+                    <img src="{{image('images/signature.png')}}" width="160" height="55" alt="">
                 </div>
             </div>
 
@@ -36,15 +37,15 @@
                 <div class="about__indicators-body">
                     <div class="about__indicators-item">
                         <div class="about__indicators-item-value">350</div>
-                        <div class="about__indicators-item-title">Stores around the world</div>
+                        <div class="about__indicators-item-title">Sklepy w całej Polsce</div>
                     </div>
                     <div class="about__indicators-item">
                         <div class="about__indicators-item-value">80 000</div>
-                        <div class="about__indicators-item-title">Original auto parts</div>
+                        <div class="about__indicators-item-title">Oryginalnych części</div>
                     </div>
                     <div class="about__indicators-item">
                         <div class="about__indicators-item-value">5 000</div>
-                        <div class="about__indicators-item-title">Satisfied customers</div>
+                        <div class="about__indicators-item-title">Zadowolonych klientów</div>
                     </div>
                 </div>
             </div>
@@ -55,8 +56,8 @@
 
     <div class="block block-teammates">
         <div class="container container--max--xl">
-            <div class="block-teammates__title">Professional Team</div>
-            <div class="block-teammates__subtitle">Meet this is our professional team.</div>
+            <div class="block-teammates__title">Profesjonalny Zespół</div>
+            <div class="block-teammates__subtitle">Poznaj naszych specjalistów</div>
             <div class="block-teammates__list">
                 <div class="owl-carousel">
                     {% for teammate in teammates %}
@@ -79,8 +80,8 @@
 
     <div class="block block-reviews">
         <div class="container">
-            <div class="block-reviews__title">Testimonials</div>
-            <div class="block-reviews__subtitle">During our work we have accumulated<br>hundreds of positive reviews.</div>
+            <div class="block-reviews__title">Referencje</div>
+            <div class="block-reviews__subtitle">W trakcie naszej działalności zebraliśmy<br>setki pozytywnych opini.</div>
             <div class="block-reviews__list">
                 <div class="owl-carousel">
                     {% for testimonial in testimonials %}
@@ -91,11 +92,6 @@
                             <div class="block-reviews__item-content">
                                 <div class="block-reviews__item-text">{{ testimonial.review }}</div>
                                 <div class="block-reviews__item-meta">
-                                    <div class="block-reviews__item-rating">
-                                        {% include '/components/rating.twig' with {inputs: {
-                                            rating: testimonial.rating,
-                                        }} %}
-                                    </div>
                                     <div class="block-reviews__item-author">
                                         {{ testimonial.name }}, {{ testimonial.position }}
                                     </div>
