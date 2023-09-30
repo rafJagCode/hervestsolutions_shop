@@ -15,14 +15,17 @@ class CarouselController extends AbstractController
         $this->productGetter = $productGetter;
     }
     /**
-     * @Route("/carousel-newest", name="carousel")
+     * @Route("/carousel/{category}", name="carousel")
      */
-    public function index(): Response
+    public function carouselNewest($category): Response
     {
-        $newest = $this->productGetter->getNewest();
+		if($category=='newest') $products = $this->productGetter->getNewest();
+		else if($category=='bestsellers') $products = $this->productGetter->getBestSellers();
+		else $products = $this->productGetter->getPopular();
+
         return $this->render("components/carousel.twig", [
             "controller_name" => "CarouselController",
-            "selected" => $newest,
+            "selected" => $products,
         ]);
     }
 }
