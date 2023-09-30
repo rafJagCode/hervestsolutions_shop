@@ -7,7 +7,7 @@
     {% include '/blocks/block-map.twig' %}
 
     {% include '/blocks/block-header.twig' with {inputs: {
-        title: 'Contact Us',
+        title: 'Napisz Do Nas',
     }} %}
 
     <div class="block">
@@ -17,27 +17,26 @@
                     <div class="row">
                         <div class="col-12 col-lg-6 pb-4 pb-lg-0">
                             <div class="mr-1">
-                                <h4 class="contact-us__header card-title">Our Address</h4>
+                                <h4 class="contact-us__header card-title">Nasz Adres</h4>
 
                                 <div class="contact-us__address">
                                     <p>
-                                        715 Fake Ave, Apt. 34, New York, NY 10021 USA<br>
+                                        ul. Oczki Wojciecha 21, Białystok 15-166 PL<br>
                                         Email: przykładowy@example.com<br>
-                                        Phone Number: +1 754 000-00-00
+                                        Tel: 88 835 32732
                                     </p>
 
                                     <p>
-                                        <strong>Opening Hours</strong><br>
-                                        Monday to Friday: 8am-8pm<br>
-                                        Saturday: 8am-6pm<br>
-                                        Sunday: 10am-4pm
+                                        <strong>Godziny Otwarcia</strong><br>
+                                        Poniedziałek - Piątek: 8:00-16:00<br>
+                                        Sobota: 8:00-14:00<br>
+                                        Niedziela: Nieczynne
                                     </p>
 
                                     <p>
 
-                                        <strong>Comment</strong><br>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit suscipit mi, non
-                                        tempor nulla finibus eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        <strong>Opis</strong><br>
+                                        Potrzebujesz naszej pomocy lub masz pytania? Nie wahaj się skontaktować! Proszę wypełnij ten formularz, a my postaramy się odpowiedzieć najszybciej, jak to możliwe. Jesteśmy tu, aby Ci pomóc.
                                     </p>
                                 </div>
                             </div>
@@ -45,28 +44,28 @@
 
                         <div class="col-12 col-lg-6">
                             <div class="ml-1">
-                                <h4 class="contact-us__header card-title">Leave us a Message</h4>
+                                <h4 class="contact-us__header card-title">Skontaktuj się z nami</h4>
 
-                                <form>
+                                <form onsubmit="return false">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="form-name">Your Name</label>
-                                            <input type="text" id="form-name" class="form-control" placeholder="Your Name">
+                                            <label for="form-name">Twoje Imię</label>
+                                            <input type="text" id="form-name" class="form-control" placeholder="Twoje Imię">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="form-email">Email</label>
-                                            <input type="email" id="form-email" class="form-control" placeholder="Email Address">
+                                            <input type="email" id="form-email" class="form-control" placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-subject">Subject</label>
-                                        <input type="text" id="form-subject" class="form-control" placeholder="Subject">
+                                        <label for="form-subject">Temat</label>
+                                        <input type="text" id="form-subject" class="form-control" placeholder="Temat">
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-message">Message</label>
+                                        <label for="form-message">Wiadomość</label>
                                         <textarea id="form-message" class="form-control" rows="4"></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Send Message</button>
+                                    <button type="submit" class="btn btn-primary">Wyślij Wiadomość</button>
                                 </form>
                             </div>
 
