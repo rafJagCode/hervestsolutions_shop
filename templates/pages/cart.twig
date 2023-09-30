@@ -1,4 +1,3 @@
-{# Backend inputs: products, total #}
 {% set global_page_title = 'Shopping Cart — Red Parts' %}
 {% set global_page_description = '' %}
 
@@ -10,187 +9,10 @@
       title: 'Koszyk'
     }
   } %}
+
   <div class="block">
-    <div class="container">
-      <div class="cart">
-        <div class="cart__table cart-table">
-          <table class="cart-table__table">
-            <thead class="cart-table__head">
-              <tr class="cart-table__row">
-                <th class="cart-table__column cart-table__column--image">
-                  Zdjęcie
-                </th>
-                <th class="cart-table__column cart-table__column--product">
-                  Produkt
-                </th>
-                <th class="cart-table__column cart-table__column--price">
-                  Cena
-                </th>
-                <th class="cart-table__column cart-table__column--quantity">
-                  Ilość
-                </th>
-                <th class="cart-table__column cart-table__column--total">
-                  Razem
-                </th>
-                <th class="cart-table__column cart-table__column--remove"></th>
-              </tr>
-            </thead>
-            <tbody class="cart-table__body">
-              {% for item in cart_getter_service.getCart().getCartItem() %} 
-                <tr class="cart-table__row">
-                  <td class="cart-table__column cart-table__column--image">
-                    <div class="image image--type--product">
-                      <a href="{{
-                        path(
-                          'product',
-                          {
-                            id: item.product.id
-                          }
-                        )
-                        }}"
-                        class="image__body">
-                        <img class="image__tag"
-                          src="{{
-                          image(
-                            item.product.images[0],
-                            {
-                              size: 160
-                            }
-                          )
-                          }}"
-                          alt="" />
-                      </a>
-                    </div>
-                  </td>
-                  <td class="cart-table__column cart-table__column--product">
-                    <a href="" class="cart-table__product-name">
-                      {{ item.product.name }}
-                    </a>
-                    {# {% if item.options %}
-																				                                        <ul class="cart-table__options">
-																				                                            {% for option in item.options %}
-																				                                                <li>{{ option.name }}: {{ option.value }}</li>
-																				                                            {% endfor %}
-																				                                        </ul>
-																				                                    {% endif %} #}
-                  </td>
-                  {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
-                  <td class="cart-table__column cart-table__column--price"
-                    data-title="Price">
-                    {{ item.product.price }}
-                    zł
-                  </td>
-                  <td class="cart-table__column cart-table__column--quantity"
-                    data-title="Quantity">
-                    <div class="cart-table__quantity input-number">
-                      <input class="form-control input-number__input"
-                        type="number"
-                        min="1"
-                        value="{{ item.amount }}" />
-                      <div class="input-number__add"></div>
-                      <div class="input-number__sub"></div>
-                    </div>
-                  </td>
-                  {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
-                  <td class="cart-table__column cart-table__column--total"
-                    data-title="Total">
-                    {{ item.product.price * item.amount }}
-                    zł
-                  </td>
-                  <td class="cart-table__column cart-table__column--remove">
-                    <button onclick="cartRemoveProduct(this,{{ item.id }})"
-                      type="button"
-                      class="dropcart__item-remove">
-                      {{ svg('cross-10.svg') }}
-                      <div class="dropcart__remove-loader dropcart__remove-loader--hidden btn btn-light btn-loading btn-icon"></div>
-                    </button>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-            <tfoot class="cart-table__foot">
-              <tr>
-                <td colspan="6">
-                  <div class="cart-table__actions">
-                    <form class="cart-table__coupon-form form-row">
-                      <div class="form-group mb-0 col flex-grow-1">
-                        <input type="text"
-                          class="form-control form-control-sm"
-                          placeholder="Kod Rabatowy" />
-                      </div>
-                      <div class="form-group mb-0 col-auto">
-                        <button type="button" class="btn btn-sm btn-primary">
-                          Użyj rabatu
-                        </button>
-                      </div>
-                    </form>
-                    <div class="cart-table__update-button">
-                      <a class="btn btn-sm btn-primary" href="">
-                        Przelicz Koszyk
-                      </a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <div class="cart__totals">
-          <div class="card">
-            <div class="card-body card-body--padding--2">
-              <h3 class="card-title">
-                Cart Totals
-              </h3>
-
-              <table class="cart__totals-table">
-                <thead>
-                  <tr>
-                    <th>
-                      Koszt
-                    </th>
-                    <td>
-                      {{ total }}
-                      zł
-                    </td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>
-                      Dostawa
-                    </th>
-                    <td>
-                      0.00 zł
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>
-                      Podatek
-                    </th>
-                    <td>
-                      0.00 zł
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>
-                      Razem
-                    </th>
-                    <td>
-                      ${{ total }}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-
-              <a class="btn btn-primary btn-xl btn-block" href="">
-                Złóż zamówienie
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div id='cart-container' class="container">
+	  	{% include '/components/cart-items.twig' %}
     </div>
   </div>
 
@@ -199,4 +21,22 @@
       layout: 'before-footer'
     }
   } %}
+
+<script type="text/javascript">
+	const handleCartItemAmountChange = (input)=>{
+		const value = $(input).val();
+		if(isNaN(parseInt(value))) return;
+		callOnce(()=>cartAddProduct(input,$(input).data('product-id'), 'INPUT_SET'));
+	};
+	const callOnce = (func, within=300, timerId=null) =>{
+		window.callOnceTimers = window.callOnceTimers || {};
+		if (timerId == null) 
+			timerId = func;
+		var timer = window.callOnceTimers[timerId];
+		clearTimeout(timer);
+		timer = setTimeout(() => func(), within);
+		window.callOnceTimers[timerId] = timer;
+	};
+</script>
+
 {% endblock %}

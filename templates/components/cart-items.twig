@@ -1,67 +1,151 @@
-{% for item in cart_getter_service.getCart().getCartItem() %}
-  <tr class="cart-table__row">
-    <td class="cart-table__column cart-table__column--image">
-      <div class="image image--type--product">
-        <a href="{{
-          path(
-            'product',
-            {
-              id: item.product.id
-            }
-          )
-          }}"
-          class="image__body">
-          <img class="image__tag"
-            src="{{
-            image(
-              item.product.images[0],
-              {
-                size: 160
-              }
-            )
-            }}"
-            alt="" />
-        </a>
-      </div>
-    </td>
-    <td class="cart-table__column cart-table__column--product">
-      <a href="" class="cart-table__product-name">{{ item.product.name }}</a>
-      {# {% if item.options %}
-							<ul class="cart-table__options">
-								{% for option in item.options %}
-									<li>{{ option.name }}: {{ option.value }}</li>
-								{% endfor %}
-							</ul>
-						{% endif %} #}
-    </td>
-    {# <td class="cart-table__column cart-table__column--price" data-title="Price">{{ item.price|currency }}</td> #}
-    <td class="cart-table__column cart-table__column--price" data-title="Price">
-      {{ item.product.price }}
-      zł
-    </td>
-    <td class="cart-table__column cart-table__column--quantity"
-      data-title="Quantity">
-      <div class="cart-table__quantity input-number">
-        <input class="form-control input-number__input"
-          type="number"
-          min="1"
-          value="{{ item.amount }}" />
-        <div class="input-number__add"></div>
-        <div class="input-number__sub"></div>
-      </div>
-    </td>
-    {# <td class="cart-table__column cart-table__column--total" data-title="Total">{{ item.total|currency }}</td> #}
-    <td class="cart-table__column cart-table__column--total" data-title="Total">
-      {{ item.product.price * item.amount }}
-      zł
-    </td>
-    <td class="cart-table__column cart-table__column--remove">
-      <button onclick="cartRemoveProduct(this,{{ item.id }})"
-        type="button"
-        class="dropcart__item-remove">
-        {{ svg('cross-10.svg') }}
-        <div class="dropcart__remove-loader dropcart__remove-loader--hidden btn btn-light btn-loading btn-icon"></div>
-      </button>
-    </td>
-  </tr>
-{% endfor %}
+{% set cartItems = cart_getter_service.getCart().getCartItem() %}
+<div class="cart">
+	<div class="cart__table cart-table">
+		<table class="cart-table__table">
+		<thead class="cart-table__head">
+			<tr class="cart-table__row">
+			<th class="cart-table__column cart-table__column--image">
+				Zdjęcie
+			</th>
+			<th class="cart-table__column cart-table__column--product">
+				Produkt
+			</th>
+			<th class="cart-table__column cart-table__column--price">
+				Cena
+			</th>
+			<th class="cart-table__column cart-table__column--quantity">
+				Ilość
+			</th>
+			<th class="cart-table__column cart-table__column--total">
+				Razem
+			</th>
+			<th class="cart-table__column cart-table__column--remove"></th>
+			</tr>
+		</thead>
+		<tbody class="cart-table__body">
+			{% for item in cartItems %} 
+			<tr class="cart-table__row">
+				<td class="cart-table__column cart-table__column--image">
+				<div class="image image--type--product">
+					<a href="{{
+					path(
+						'product',
+						{
+						id: item.product.id
+						}
+					)
+					}}"
+					class="image__body">
+					<img class="image__tag"
+						src="{{
+						image(
+						item.product.images[0],
+						{
+							size: 160
+						}
+						)
+						}}"
+						alt="" />
+					</a>
+				</div>
+				</td>
+				<td class="cart-table__column cart-table__column--product">
+				<a href="" class="cart-table__product-name">
+					{{ item.product.name }}
+				</a>
+				</td>
+				<td class="cart-table__column cart-table__column--price"
+				data-title="Price">
+				{{ item.product.price }}
+				zł
+				</td>
+				<td class="cart-table__column cart-table__column--quantity"
+				data-title="Quantity">
+				<div class="cart-table__quantity input-number">
+					<input class="form-control input-number__input"
+					type="number"
+					min="1"
+					max={{item.product.quantity}}
+					value="{{ item.amount }}" 
+					onchange="handleCartItemAmountChange(this)"
+					data-old-value="{{item.amount}}"
+					data-product-id="{{item.product.id}}"
+					/>
+					<div class="input-number__add"></div>
+					<div class="input-number__sub"></div>
+				</div>
+				</td>
+				<td class="cart-table__column cart-table__column--total"
+				data-title="Total">
+				{{ item.product.price * item.amount }}
+				zł
+				</td>
+				<td class="cart-table__column cart-table__column--remove">
+				<button onclick="cartRemoveProduct(this,{{ item.id }})"
+					type="button"
+					class="dropcart__item-remove">
+					{{ svg('cross-10.svg') }}
+					<div class="dropcart__remove-loader dropcart__remove-loader--hidden btn btn-light btn-loading btn-icon"></div>
+				</button>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+	<div class="cart__totals">
+		<div class="card">
+		<div class="card-body card-body--padding--2">
+			<h3 class="card-title">
+			Podsumowanie
+			</h3>
+
+			<table class="cart__totals-table">
+			<thead>
+				<tr>
+				<th>
+					Koszt
+				</th>
+				<td>
+					{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
+					zł
+				</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				<th>
+					Dostawa
+				</th>
+				<td>
+					0.00 zł
+				</td>
+				</tr>
+				<tr>
+				<th>
+					Podatek
+				</th>
+				<td>
+					0.00 zł
+				</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+				<th>
+					Razem
+				</th>
+				<td>
+					{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }} zł
+				</td>
+				</tr>
+			</tfoot>
+			</table>
+
+			<a class="btn btn-primary btn-xl btn-block" href="">
+			Złóż zamówienie
+			</a>
+		</div>
+		</div>
+	</div>
+</div>
