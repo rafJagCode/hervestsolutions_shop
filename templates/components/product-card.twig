@@ -27,12 +27,6 @@
 				</button>
 			</a>
 		{% endif %}
-		{% if not ('actions' in exclude) %}
-			<button class="product-card__action product-card__action--wishlist" type="button" aria-label="Add to wish list">
-				{{ svg('wishlist-16.svg') }}
-			</button>
-
-		{% endif %}
 	</div>
 
 
@@ -47,8 +41,7 @@
 			{% include '/components/status-badge.twig' with {inputs: {
                 classes: 'product-card__fit',
                 style: 'success',
-                text: "SKU: #{product.productNumber}",
-                tooltip: "SKU: #{product.productNumber}",
+                text: "SKU: #{product.sku}",
                 icon: 'success',
             }} %}
 		{% endif %}
@@ -58,13 +51,11 @@
 		{% if not ('meta' in exclude) %}
 			<div class="product-card__meta">
 				<span class="product-card__meta-title">SKU:</span>
-				{{ product.productNumber }}</div>
+				{{ product.sku }}</div>
 		{% endif %}
 
 		<div class="product-card__name">
 			<div>
-
-
 				<a href="{{ path('product', {'id': product.id})}}">{{ product.name }}</a>
 			</div>
 		</div>
@@ -118,11 +109,6 @@
 
 					Dodaj do koszyka
 				</button>
-				<button class="product-card__wishlist" type="submit">
-					{{ svg('wishlist-16.svg') }}
-					<span>Dodaj do ulubionych</span>
-				</button>
-
 			{% endif %}
 		{% endif %}
 	</div>
