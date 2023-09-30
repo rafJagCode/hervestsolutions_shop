@@ -31,7 +31,6 @@ class CartController extends AbstractController
 	{
 		return $this->render("pages/cart.twig", [
 			"controller_name" => "CartController",
-			"total" => 143,
 		]);
 	}
 
@@ -54,19 +53,30 @@ class CartController extends AbstractController
 	public function cartAddProduct(Request $request)
 	{
 		$requestContent = json_decode($request->getContent(), true);
-		$productId = $requestContent['product'];
-		$amount = $requestContent['quantity'];
+		$productId = $requestContent['productId'];
+		$amount = $requestContent['amount'];
+		$operation = $requestContent['operation'];
 
 		$cart = $this->cartGetter->getCart();
 		$cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['cart'=>$cart->getId(), 'product'=>$productId]);
+		
+		$product = $this->em->getRepository(Product::class)->find($productId);
+		$productQuantity = $product->getQuantity();
 
 		if(is_null($cartItem)){
-			$this->addCartItem($cart, $productId, $amount);
+			$availableAmount = min($productQuantity, $amount);
+			$this->addCartItem($cart, $productId, $availableAmount);
 		}else{
-			$this->changeCartItemAmount($cartItem, '+', $amount);
+			$availableAmount = min($productQuantity - $cartItem->getAmount(), $amount);
+			$this->changeCartItemAmount($cartItem, $operation, $availableAmount);
 		}
 
-		return $this->json(['message'=>'product added']);
+		$error = null;
+		if($availableAmount < $amount){
+			$error = 'Za mało produktu na stanie. Dodano do koszyka '.$availableAmount.' '.$product->getName();
+		}
+
+		return $this->json(['message'=>'product added', 'error'=>$error]);
 	}
 
 	/**
