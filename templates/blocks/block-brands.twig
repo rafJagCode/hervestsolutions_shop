@@ -4,7 +4,7 @@
 // - producers: lista producentów
 #}
 
-{% set layout = inputs.layout|default('columns-8-full') %}
+{% set layout = inputs.layout|default('columns-4-full') %}
 {% set root_classes = classnames('block block-brands block-brands--layout--'~layout) %}
 
 {% set producers = inputs.producers %}
@@ -14,7 +14,7 @@
 		<ul class="block-brands__list">
 			{% for producer in producers %}
 				<li class="block-brands__item">
-					<a href="/shop/{{producer.Name|lower}}" class="block-brands__item-link">
+					<a href="{{producer.link}}" target="_blank" class="block-brands__item-link">
 						<img src="{{ image(producer.image) }}" alt="">
 
 						<span class="block-brands__item-name">{{ producer.Name }}</span>
