@@ -58,8 +58,16 @@
 
 
 		<div id="flashes">
-			{% for message in app.flashes('notice') %}
-				<div class="snackbar card shadow">
+			{% for message in app.flashes('error') %}
+				<div class="snackbar snackbar--error card shadow">
+					<div class="snackbar__content">
+						<div class="snackbar__image" alt=""></div>
+						<span class="snackbar__message">{{ message }}</span>
+					</div>
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('success') %}
+				<div class="snackbar snackbar--success card shadow">
 					<div class="snackbar__content">
 						<div class="snackbar__image" alt=""></div>
 						<span class="snackbar__message">{{ message }}</span>
@@ -102,12 +110,10 @@ class="site">
 <!-- quickview-modal / end -->
 
 <!-- add-vehicle-modal -->
-{% include '/components/add-vehicle-modal.twig' %}<!-- add-vehicle-modal / end -->
 
-<!-- vehicle-picker-modal -->{% include '/components/vehicle-picker-modal.twig' %}
 <!-- vehicle-picker-modal / end -->
 
 <!-- photoswipe -->{% include '/components/photoswipe.twig' %}
 <!-- photoswipe / end -->
 
-<!-- scripts --></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script><script src="https://unpkg.com/axios/dist/axios.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/flash-message.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/customer-creator.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/admin-controls.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/order-product-search.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/snackbar.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/user-product-search.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-edition-gallery.js"></script></body></html>
+<!-- scripts --></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/DataTables/datatables.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/owl-carousel/owl.carousel.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/nouislider/nouislider.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/vendor/select2/js/select2.min.js"></script><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script><script src="https://unpkg.com/axios/dist/axios.min.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/flash-message.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/number.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/main.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/cart.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/snackbar.js"></script><script src="{{ app.request.schemeAndHttpHost }}/assets/js/product-search.js"></script></body></html>
