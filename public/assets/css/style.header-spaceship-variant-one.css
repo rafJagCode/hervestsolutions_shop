@@ -2271,6 +2271,10 @@
   order: -1;
 }
 
+.search__button--start:hover:after {
+  background: transparent;
+}
+
 [dir="ltr"] .search__button--start:before {
   left: auto;
   right: -8px;
