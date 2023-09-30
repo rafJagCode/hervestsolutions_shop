@@ -2,16 +2,13 @@
 
 {% block site_body %}
 	{% set account_pages = [
-        {type: 'link', label: 'Dashboard', url: 'account-dashboard'},
-        {type: 'link', label: 'Garage', url: 'account-garage'},
-        {type: 'link', label: 'Edit Profile', url: 'account-profile'},
-        {type: 'link', label: 'Order History', url: 'account-orders'},
-        {type: 'link', label: 'Order Details', url: 'account-order-details'},
-        {type: 'link', label: 'Addresses', url: 'account-addresses'},
-        {type: 'link', label: 'Edit Address', url: 'account-edit-address'},
-        {type: 'link', label: 'Password', url: 'account-password'},
+        {type: 'link', label: 'Pulpit', url: 'account-dashboard'},
+        {type: 'link', label: 'Historia Zamówień', url: 'account-orders'},
+        {type: 'link', label: 'Edytuj Profil', url: 'account-profile'},
+        {type: 'link', label: 'Edytuj Adres', url: 'account-edit-address'},
+        {type: 'link', label: 'Edytuj Hasło', url: 'account-password'},
         {type: 'divider'},
-        {type: 'link', label: 'Logout', url: '/account-login'}
+        {type: 'link', label: 'Logout', url: 'logout'}
     ] %}
 
 	{% include '/blocks/block-space.twig' with {inputs: {layout: 'after-header'}} %}
@@ -24,7 +21,7 @@
 						{% if is_granted('ROLE_ADMIN') %}
 							{% include "components/admin-controls.twig" %}
 						{% endif %}
-						<h4 class="account-nav__title">Navigation</h4>
+						<h4 class="account-nav__title">Menu</h4>
 
 						<ul class="account-nav__list">
 							{% for link in account_pages %}
