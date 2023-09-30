@@ -6,35 +6,44 @@ const getCartItems = async () => {
       cartDropdown.html(data);
     },
   });
-  let cart = $(".cart-table__body");
+  let cart = $("#cart-container");
   if (!cart.length) return;
+  cart.find(".input-number").customNumber({ destroy: true });
   $.ajax({
     url: "/cart-items",
     success: function (data) {
-      console.log("test");
       cart.html(data);
+    },
+    complete: function () {
+      cart.find(".input-number").customNumber();
     },
   });
 };
-const cartAddProduct = async (button, id) => {
-  const adminAddToCartIcon = $(button).children(".add-to-cart-btn__icon");
-  const loader = $(button).children(".add-to-cart__spinner-border");
-  let quantity = $(".input-number__input").val();
+const cartAddProduct = async (el, productId, type = "BUTTON", e = null) => {
+  if (e) preventDropdownClose(e);
+
+  const loader = $(el).children(".add-to-cart__spinner-border");
+  const input =
+    type === "BUTTON" ? null : $(el).parent().parent().find("input");
+  const amount = type === "BUTTON" ? 1 : input.val();
+  const operation = type === "INPUT_SET" ? "=" : "+";
+
   loader.addClass("add-to-cart__spinner-border--show");
-  adminAddToCartIcon.removeClass("fas-plus-circle");
-  adminAddToCartIcon.addClass("fa-spinner fa-pulse");
+  let response = null;
   try {
-    await axios.post("/cart-add-product", {
-      product: id,
-      quantity: quantity ? quantity : 1,
+    response = await axios.post("/cart-add-product", {
+      productId: productId,
+      amount: amount,
+      operation: operation,
     });
     getCartItems();
   } catch (e) {
     addFlash(e.message);
   } finally {
     loader.removeClass("add-to-cart__spinner-border--show");
-    adminAddToCartIcon.removeClass("fa-spinner fa-pulse");
-    adminAddToCartIcon.addClass("fa-plus-circle");
+    if (response && response.data.error) {
+      addFlash(response.data.error);
+    }
   }
 };
 const cartRemoveProduct = async (button, id) => {
@@ -49,4 +58,9 @@ const cartRemoveProduct = async (button, id) => {
   } catch (e) {
     addFlash(e.message);
   }
+};
+const preventDropdownClose = (e) => {
+  $(".search__input").focus();
+  e.preventDefault();
+  e.stopPropagation();
 };
