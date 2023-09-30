@@ -40,17 +40,26 @@ class CartGetter
         $cartId = $this->session->get('cartId');
 
         if (!$cartId) {
-			$cart = new Cart();
-			$this->em->persist($cart);
-			$this->em->flush();
-
-			$this->session->set('cartId', $cart->getId());
-
-            return $cart;
+			return $this->addSessionCart();
         }
 
         $cart = $this->em->getRepository(Cart::class)->find($cartId);
+
+		if(is_null($cart)) {
+			return $this->addSessionCart();
+		}
+		
         return $cart;
     }
+
+	public function addSessionCart(){
+		$cart = new Cart();
+		$this->em->persist($cart);
+		$this->em->flush();
+
+		$this->session->set('cartId', $cart->getId());
+
+		return $cart;	
+	}
 }
 ?>
