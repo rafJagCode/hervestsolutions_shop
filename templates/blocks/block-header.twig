@@ -5,7 +5,7 @@
 #}
 
 {% set title = inputs.title %}
-{% set breadcrumb = breadcrumbs() %}
+{% set breadcrumb = null and breadcrumbs() %}
 
 {% set root_classes = classnames('block-header', {
     'block-header--has-title': title,
