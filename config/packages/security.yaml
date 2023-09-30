@@ -17,12 +17,14 @@ security:
       provider: app_user_provider
       anonymous: true
       form_login:
-        login_path: sign-in
-        check_path: sign-in
+        login_path: login
+        check_path: login
         username_parameter: email
         password_parameter: password
       logout:
         path: logout
+  access_control:
+    - { path: ^/account, roles: ROLE_USER }
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -32,6 +34,3 @@ security:
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
-  access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
