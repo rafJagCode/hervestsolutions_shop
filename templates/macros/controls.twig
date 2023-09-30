@@ -3,10 +3,11 @@
     {% set name = args.name|default('') %}
     {% set checked = args.checked|default(false) %}
     {% set disabled = args.disabled|default(false) %}
+    {% set value = args.value|default('') %}
 
     <span class="{{ classnames(classes, 'input-radio') }}">
         <span class="input-radio__body">
-            <input class="input-radio__input"{% if name %} name="{{ name }}"{% endif %} type="radio"{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}>
+            <input class="input-radio__input"{% if name %} name="{{ name }}"{% endif %}{% if value %} value="{{ value }}"{% endif %} type="radio"{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}>
             <span class="input-radio__circle"></span>
         </span>
     </span>
@@ -17,10 +18,12 @@
     {% set id = args.id|default('') %}
     {% set checked = args.checked|default(false) %}
     {% set disabled = args.disabled|default(false) %}
+    {% set name = args.name|default('') %}
+    {% set value = args.value|default('') %}
 
     <span class="{{ classnames('input-check', classes) }}">
         <span class="input-check__body">
-            <input class="input-check__input" type="checkbox"{% if id %} id="{{ id }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}>
+            <input class="input-check__input"{% if name %} name="{{ name }}"{% endif %}{% if value %} value="{{ value }}"{% endif %} type="checkbox"{% if id %} id="{{ id }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}>
             <span class="input-check__box"></span>
             <span class="input-check__icon">{{ svg('check-9x7.svg') }}</span>
         </span>
