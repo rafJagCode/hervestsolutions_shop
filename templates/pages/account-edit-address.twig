@@ -1,0 +1,52 @@
+{% set global_page_title = 'Account Edit Address — Red Parts' %}
+{% set global_page_description = '' %}
+{% set global_current_account_page = 'account-edit-address' %}
+
+{% from '/macros/controls.twig' import input_check %}
+
+{% extends '/layouts/account.twig' %}
+
+{% block account_body %}
+    <div class="card">
+        <div class="card-header">
+            <h5>Edytuj Adres</h5>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-body card-body--padding--2">
+            <div class="row no-gutters">
+                <form action="/account-submit-address" method="post" class="col-12 col-lg-10 col-xl-8">
+                    <div class="form-group">
+                        <label for="address-address1">Kraj</label>
+                        <input
+							name="country"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{app.user.country is empty ? 'Kraj' : app.user.country}}"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="address-address1">Miasto i kod pocztowy</label>
+                        <input
+							name="city"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{app.user.city is empty ? 'Miasto i kod pocztowy' : app.user.city}}"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="address-address1">Ulica i numer budynku</label>
+                        <input
+							name="street"
+                            type="text"
+                            class="form-control"
+                            placeholder="{{app.user.street is empty ? 'Ulica i numer budynku' : app.user.street}}"
+                        >
+                    </div>
+                    <div class="form-group mb-0 pt-3 mt-3">
+                        <button type="submit" class="btn btn-primary">Zapisz</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
