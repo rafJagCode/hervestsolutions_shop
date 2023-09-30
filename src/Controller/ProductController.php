@@ -28,21 +28,13 @@ class ProductController extends AbstractController
 	 */
 	public function index($id): Response
 	{
-		$newest = $this->productGetter->getNewest();
 		$product = $this->productGetter->getProduct($id);
+		$relatedProducts = $this->productGetter->getByOptions(['categoryId'=>$product->getCategory(), 'excludedId' => $id]);
 
 		return $this->render("pages/product-full.twig", [
 			"controller_name" => "ProductController",
 			"product" => $product,
-			"selectedFourProducts" => $newest,
+			"relatedProducts" => $relatedProducts,
 		]);
-	}
-	/**
-	 * @Route("/search-in-products", name="search-in-products")
-	 */
-	public function searchInProducts(Request $request)
-	{
-		$phraze = json_decode($request->getContent(), true)['number'];
-		return $this->productGetter->search($phraze);
 	}
 }
