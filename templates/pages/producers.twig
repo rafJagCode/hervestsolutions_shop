@@ -5,6 +5,8 @@
 
 {% block site_body %}
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
-    {% include '/blocks/block-brands.twig' with {inputs: {producers: producers}} %}
+    {% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
+    {% include '/blocks/block-brands.twig' with {inputs: {producers: producer_getter_service.getProducers()}} %}
+	{% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
 	{% include '/blocks/block-space.twig' with {inputs: {layout: 'divider-nl'}} %}
 {% endblock %}
