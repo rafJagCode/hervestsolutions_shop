@@ -38,7 +38,7 @@
                 <div class="block-split__item block-split__item-sidebar col-auto">
                     {% include '/components/shop-sidebar.twig' with {inputs: {
                         offcanvas: 'mobile',
-						products: products,
+						products: paginator.items,
                     }} %}
                 </div>
             {% endif %}
@@ -49,12 +49,6 @@
                         <div class="{{ classnames('products-view__options view-options', 'view-options--offcanvas--'~offcanvas) }}">
 
                             <div class="view-options__body">
-                                {# <button type="button" class="view-options__filters-button filters-button">
-                                    <span class="filters-button__icon">{{ svg('filters-16.svg') }}</span>
-                                    <span class="filters-button__title">Filters</span>
-                                    <span class="filters-button__counter">3</span>
-                                </button> #}
-
                                 <div class="view-options__layout layout-switcher">
                                     <div class="layout-switcher__list">
                                         <button
@@ -93,47 +87,15 @@
                                 </div>
 
                                 <div class="view-options__legend">
-                                    Wyświetlono 6 z 98 produktów
+									{%if paginator.total == 0 %} Nie znaleziono żadnego produktu spełniającego kryteria
+									{%elseif paginator.total == 1 %} Znaleziono 1 produkt
+									{%else%} Znaleziono {{paginator.total}} produktów
+                                    {%endif%}
                                 </div>
 
                                 <div class="view-options__spring"></div>
-
-                                <div class="view-options__select">
-                                    <label for="view-option-sort">Sortuj:</label>
-                                    <select id="view-option-sort" class="form-control form-control-sm" name="">
-                                        <option value="">Cena</option>
-                                    </select>
-                                </div>
-                                <div class="view-options__select">
-                                    <label for="view-option-limit">Pokaż:</label>
-                                    <select id="view-option-limit" class="form-control form-control-sm" name="">
-                                        <option value="">16</option>
-                                    </select>
-                                </div>
                             </div>
 
-                            {# <div class="view-options__body view-options__body--filters">
-                                <div class="view-options__label">Active Filters</div>
-                                <div class="applied-filters">
-                                    <ul class="applied-filters__list">
-                                        <li class="applied-filters__item">
-                                            <a href="" class="applied-filters__button applied-filters__button--filter">
-                                                Sales: Top Sellers
-                                                {{ svg('cross-9-light.svg') }}
-                                            </a>
-                                        </li>
-                                        <li class="applied-filters__item">
-                                            <a href="" class="applied-filters__button applied-filters__button--filter">
-                                                Color: True Red
-                                                {{ svg('cross-9-light.svg') }}
-                                            </a>
-                                        </li>
-                                        <li class="applied-filters__item">
-                                            <button type="button" class="applied-filters__button applied-filters__button--clear">Clear All</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> #}
                         </div>
                         <div class="{{ list_classes }}" data-layout="{{ layout }}" data-with-features="false">
                             <div class="products-list__head">
@@ -144,7 +106,7 @@
                                 <div class="products-list__column products-list__column--price">Cena</div>
                             </div>
                             <div class="products-list__content">
-                                {% for product in products %}
+                                {% for product in paginator.items %}
                                     <div class="products-list__item">
                                         {% include '/components/product-card.twig' with {inputs: {
                                             product: product,
@@ -160,7 +122,10 @@
                                 {% include '/components/pagination.twig' %}
                             </nav>
                             <div class="products-view__pagination-legend">
-                                Wyświetlono 6 z 98 produktów
+								{%if paginator.total == 0 %} Nie znaleziono żadnego produktu spełniającego kryteria
+								{%elseif paginator.total == 1 %} Znaleziono 1 produkt
+								{%else%} Znaleziono {{paginator.total}} produktów
+								{%endif%}
                             </div>
                         </div>
                     </div>
