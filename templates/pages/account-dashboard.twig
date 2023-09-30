@@ -1,6 +1,6 @@
 {% set global_page_title = 'Account Dashboard — Red Parts' %}
 {% set global_page_description = '' %}
-{% set global_current_account_page = 'account-dashboard.html' %}
+{% set global_current_account_page = 'account-dashboard' %}
 
 {% set address = data('account-addresses.json')|first %}
 {% set orders = data('account-orders.json') %}
@@ -14,34 +14,35 @@
                 <div class="profile-card__avatar">
                     <img src="{{image('images/avatars/avatar-4.png')}}" alt="">
                 </div>
-                <div class="profile-card__name">John</div>
-                <div class="profile-card__email">{{app.user.email}}</div>
-                <div class="profile-card__edit">
-                    <a href="account-profile.html" class="btn btn-secondary btn-sm">Edit Profile</a>
+                <div class="profile-card__name">{{app.user.firstName is empty ? app.user.email : app.user.firstName}}</div>
+                {% if app.user.firstName is not empty %}<div class="profile-card__email">{{app.user.email}}</div>{% endif %}
+                <div class="profile-card__edit mt-1">
+                    <a href="/account-profile" class="btn btn-secondary btn-sm">Edytuj Profil</a>
                 </div>
             </div>
         </div>
         <div class="dashboard__address card address-card address-card--featured">
-            {% if address.default %}
-                <div class="address-card__badge tag-badge tag-badge--theme">Default</div>
-            {% endif %}
             <div class="address-card__body">
-                <div class="address-card__name">{{ address.firstName~' '~address.lastName}}</div>
+                <div class="address-card__name">{{ app.user.firstName is empty or app.user.lastName is empty ? 'Użytkownik' : app.user.firstName~' '~app.user.lastName}}</div>
                 <div class="address-card__row">
-                    {{ address.country }}<br>
-                    {{ address.postcode }}, {{ address.city }}<br>
-                    {{ address.address }}
+					{%if app.user.country is empty or app.user.city is empty or app.user.street is empty %}
+					Nie ustawiono adresu
+					{% else %}
+					{{app.user.country}}<br>
+					{{app.user.city}}<br>
+					{{app.user.street}}
+					{%endif%}
                 </div>
                 <div class="address-card__row">
-                    <div class="address-card__row-title">Phone Number</div>
-                    <div class="address-card__row-content">{{ address.phone }}</div>
+                    <div class="address-card__row-title">Numer Telefonu</div>
+                    <div class="address-card__row-content">{{app.user.phone is empty ? 'Nie ustawiono numeru telefonu' : app.user.phone}}</div>
                 </div>
                 <div class="address-card__row">
-                    <div class="address-card__row-title">Email Address</div>
+                    <div class="address-card__row-title">Adres Email</div>
                     <div class="address-card__row-content">{{ address.email }}</div>
                 </div>
                 <div class="address-card__footer">
-                    <a href="">Edit Address</a>
+                    <a href="/account-edit-address">Edytuj Adres</a>
                 </div>
             </div>
         </div>
