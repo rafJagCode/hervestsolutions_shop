@@ -22,7 +22,6 @@
 					<div class="dropcart__item-meta">
 						<div class="dropcart__item-quantity">{{ item.amount }}</div>
 						<div class="dropcart__item-price">{{ item.product.price }}</div>
-						{# <div class="dropcart__item-price">{{ item.price|currency }}</div> #}
 					</div>
 				</div>
 				<button onclick="cartRemoveProduct(this,{{item.id}})" type="button" class="dropcart__item-remove">
@@ -45,7 +44,7 @@
 		</table>
 	</div>
 	<div class="dropcart__actions">
-		<a href="cart" class="btn btn-secondary">Koszyk</a>
+		<a href="/cart" class="btn btn-secondary">Koszyk</a>
 		<a href="checkout.html" class="btn btn-primary">Zamów</a>
 	</div>
 </div>
