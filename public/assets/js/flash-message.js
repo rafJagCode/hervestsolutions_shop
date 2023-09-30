@@ -1,7 +1,7 @@
 const flashes = $("#flashes");
 
-const addFlash = (message) => {
-  const flash = $(`<div class="snackbar card shadow">
+const addFlash = (message, type = "error") => {
+  const flash = $(`<div class="snackbar snackbar--${type} card shadow">
 		<div class="snackbar__content">
 			<div class="snackbar__image" alt=""></div>
 			<span class="snackbar__message">${message}</span>
