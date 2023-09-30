@@ -43,5 +43,19 @@ services:
     alias: App\Service\ProductGetter
     public: true
 
+  App\Service\ProducerGetter:
+    public: false
+
+  app.producer.getter:
+    alias: App\Service\ProducerGetter
+    public: true
+
+  App\Service\CategoryGetter:
+    public: false
+
+  app.category.getter:
+    alias: App\Service\CategoryGetter
+    public: true
+
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
