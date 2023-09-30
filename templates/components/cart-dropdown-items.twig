@@ -3,7 +3,7 @@
 	<a class="indicator__button">
 		<span class="indicator__icon">
 			{{ svg("cart-32.svg") }}
-			<span class="indicator__counter">{{ cartItems | length }}</span>
+			<span class="indicator__counter">{{ cartItems|reduce((sum, item) => sum + item.amount) }}</span>
 		</span>
 		<span class="indicator__title">Koszyk</span>
 		<span class="indicator__value">{{ cartItems|reduce((sum, item) => sum + (item.product.price * item.amount)) }}
