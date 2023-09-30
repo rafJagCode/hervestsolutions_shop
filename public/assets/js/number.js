@@ -1,185 +1,215 @@
 (function ($) {
-    "use strict";
+  "use strict";
 
-    // CustomEvent polyfill
-    try {
-        new CustomEvent('IE has CustomEvent, but doesn\'t support constructor');
-    } catch (e) {
-        window.CustomEvent = function(event, params) {
-            let evt;
-            params = params || {
-                bubbles: false,
-                cancelable: false,
-                detail: undefined
-            };
-            evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        };
+  // CustomEvent polyfill
+  try {
+    new CustomEvent("IE has CustomEvent, but doesn't support constructor");
+  } catch (e) {
+    window.CustomEvent = function (event, params) {
+      let evt;
+      params = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined,
+      };
+      evt = document.createEvent("CustomEvent");
+      evt.initCustomEvent(
+        event,
+        params.bubbles,
+        params.cancelable,
+        params.detail
+      );
+      return evt;
+    };
 
-        CustomEvent.prototype = Object.create(window.Event.prototype);
-    }
+    CustomEvent.prototype = Object.create(window.Event.prototype);
+  }
+
+  /**
+   * @param {HTMLInputElement} input
+   * @param {HTMLElement} sub
+   * @param {HTMLElement} add
+   */
+  function CustomNumber(input, sub, add) {
+    const self = this;
+
+    input.value = input.getAttribute("value");
+
+    this.input = input;
+    this.sub = sub;
+    this.add = add;
+
+    this._subHandler = function () {
+      self._change(-1);
+      self._changeByTimer(-1);
+    };
+    this._addHandler = function () {
+      self._change(1);
+      self._changeByTimer(1);
+    };
+    this._invalidHandler = function () {
+      self._handleInvalid();
+    };
+
+    this.input.addEventListener("change", this._invalidHandler, false);
+    this.sub.addEventListener("mousedown", this._subHandler, false);
+    this.add.addEventListener("mousedown", this._addHandler, false);
+  }
+
+  CustomNumber.prototype = {
+    destroy: function () {
+      this.input.removeEventListener("change", this._invalidHandler, false);
+      this.sub.removeEventListener("mousedown", this._subHandler, false);
+      this.add.removeEventListener("mousedown", this._addHandler, false);
+    },
 
     /**
-     * @param {HTMLInputElement} input
-     * @param {HTMLElement} sub
-     * @param {HTMLElement} add
+     * @private
      */
-    function CustomNumber(input, sub, add) {
-        const self = this;
+    _handleInvalid: function () {
+      console.log("test");
+      if (!this._value()) {
+        this.input.value = $(this.input).data("old-value");
+        return;
+      }
+      if (this._value() < this._min()) {
+        this.input.value = this._min();
+        return;
+      }
+      if (this._value() > this._max()) {
+        this.input.value = this._max();
+        return;
+      }
+    },
+    /**
+     * @param {number} direction - one of [-1, 1]
+     * @private
+     */
+    _change: function (direction) {
+      const step = this._step();
+      const min = this._min();
+      const max = this._max();
 
-        this.input = input;
-        this.sub = sub;
-        this.add = add;
+      let value = this._value() + step * direction;
 
-        this._subHandler = function () {
-            self._change(-1);
-            self._changeByTimer(-1);
-        };
-        this._addHandler = function () {
-            self._change(1);
-            self._changeByTimer(1);
-        };
+      if (max != null) {
+        value = Math.min(max, value);
+      }
+      if (min != null) {
+        value = Math.max(min, value);
+      }
 
-        this.sub.addEventListener('mousedown', this._subHandler, false);
-        this.add.addEventListener('mousedown', this._addHandler, false);
-    }
+      const triggerChange = this.input.value !== value.toString();
+      this.input.value = value;
 
-    CustomNumber.prototype = {
-        destroy: function() {
-            this.sub.removeEventListener('mousedown', this._subHandler, false);
-            this.add.removeEventListener('mousedown', this._addHandler, false);
-        },
+      if (triggerChange) {
+        this.input.dispatchEvent(new CustomEvent("change", { bubbles: true }));
+      }
+    },
 
-        /**
-         * @param {number} direction - one of [-1, 1]
-         * @private
-         */
-        _change: function(direction) {
-            const step = this._step();
-            const min = this._min();
-            const max = this._max();
+    /**
+     * @param {number} direction - one of [-1, 1]
+     * @private
+     */
+    _changeByTimer: function (direction) {
+      const self = this;
 
-            let value = this._value() + step * direction;
+      let interval;
+      const timer = setTimeout(function () {
+        interval = setInterval(function () {
+          self._change(direction);
+        }, 50);
+      }, 300);
 
-            if (max != null) {
-                value = Math.min(max, value);
-            }
-            if (min != null) {
-                value = Math.max(min, value);
-            }
+      const documentMouseUp = function () {
+        clearTimeout(timer);
+        clearInterval(interval);
 
-            const triggerChange = this.input.value !== value.toString();
+        document.removeEventListener("mouseup", documentMouseUp, false);
+      };
 
-            this.input.value = value;
+      document.addEventListener("mouseup", documentMouseUp, false);
+    },
 
-            if (triggerChange) {
-                this.input.dispatchEvent(new CustomEvent('change', {bubbles: true}));
-            }
-        },
+    /**
+     * @return {number}
+     * @private
+     */
+    _step: function () {
+      let step = 1;
 
-        /**
-         * @param {number} direction - one of [-1, 1]
-         * @private
-         */
-        _changeByTimer: function(direction) {
-            const self = this;
+      if (this.input.hasAttribute("step")) {
+        step = parseFloat(this.input.getAttribute("step"));
+        step = isNaN(step) ? 1 : step;
+      }
 
-            let interval;
-            const timer = setTimeout(function () {
-                interval = setInterval(function () {
-                    self._change(direction);
-                }, 50);
-            }, 300);
+      return step;
+    },
 
-            const documentMouseUp = function () {
-                clearTimeout(timer);
-                clearInterval(interval);
+    /**
+     * @return {?number}
+     * @private
+     */
+    _min: function () {
+      let min = null;
+      if (this.input.hasAttribute("min")) {
+        min = parseFloat(this.input.getAttribute("min"));
+        min = isNaN(min) ? null : min;
+      }
 
-                document.removeEventListener('mouseup', documentMouseUp, false);
-            };
+      return min;
+    },
 
-            document.addEventListener('mouseup', documentMouseUp, false);
-        },
+    /**
+     * @return {?number}
+     * @private
+     */
+    _max: function () {
+      let max = null;
+      if (this.input.hasAttribute("max")) {
+        max = parseFloat(this.input.getAttribute("max"));
+        max = isNaN(max) ? null : max;
+      }
 
-        /**
-         * @return {number}
-         * @private
-         */
-        _step: function() {
-            let step = 1;
+      return max;
+    },
 
-            if (this.input.hasAttribute('step')) {
-                step = parseFloat(this.input.getAttribute('step'));
-                step = isNaN(step) ? 1 : step;
-            }
+    /**
+     * @return {number}
+     * @private
+     */
+    _value: function () {
+      let value = parseFloat(this.input.value);
 
-            return step;
-        },
+      return isNaN(value) ? null : value;
+    },
+  };
 
-        /**
-         * @return {?number}
-         * @private
-         */
-        _min: function() {
-            let min = null;
-            if (this.input.hasAttribute('min')) {
-                min = parseFloat(this.input.getAttribute('min'));
-                min = isNaN(min) ? null : min;
-            }
+  /** @this {HTMLElement} */
+  $.fn.customNumber = function (options) {
+    options = $.extend({ destroy: false }, options);
 
-            return min;
-        },
+    return this.each(function () {
+      if (!$(this).is(".input-number")) {
+        return;
+      }
 
-        /**
-         * @return {?number}
-         * @private
-         */
-        _max: function() {
-            let max = null;
-            if (this.input.hasAttribute('max')) {
-                max = parseFloat(this.input.getAttribute('max'));
-                max = isNaN(max) ? null : max;
-            }
+      /** @type {(undefined|CustomNumber)} */
+      let instance = $(this).data("customNumber");
 
-            return max;
-        },
-
-        /**
-         * @return {number}
-         * @private
-         */
-        _value: function() {
-            let value = parseFloat(this.input.value);
-
-            return isNaN(value) ? 0 : value;
-        }
-    };
-
-    /** @this {HTMLElement} */
-    $.fn.customNumber = function (options) {
-        options = $.extend({destroy: false}, options);
-
-        return this.each(function () {
-            if (!$(this).is('.input-number')) {
-                return;
-            }
-
-            /** @type {(undefined|CustomNumber)} */
-            let instance = $(this).data('customNumber');
-
-            if (instance && options.destroy) {  // destroy
-                instance.destroy();
-                $(this).removeData('customNumber');
-
-            } else if (!instance && !options.destroy) {  // init
-                instance = new CustomNumber(
-                    this.querySelector('.input-number__input'),
-                    this.querySelector('.input-number__sub'),
-                    this.querySelector('.input-number__add')
-                );
-                $(this).data('customNumber', instance);
-            }
-        });
-    };
+      if (instance && options.destroy) {
+        // destroy
+        instance.destroy();
+        $(this).removeData("customNumber");
+      } else if (!instance && !options.destroy) {
+        // init
+        instance = new CustomNumber(
+          this.querySelector(".input-number__input"),
+          this.querySelector(".input-number__sub"),
+          this.querySelector(".input-number__add")
+        );
+        $(this).data("customNumber", instance);
+      }
+    });
+  };
 })(jQuery);
