@@ -156,14 +156,18 @@
   transform: translate(-50%, 50%);
   min-width: 300px;
   min-height: 50px;
-  background-color: red;
   border-radius: 2px;
+}
+.snackbar--success {
+  background-color: green;
+}
+.snackbar--error {
+  background-color: red;
 }
 .snackbar--show {
   transform: translate(-50%, 200%);
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
-  background-color: rgba(255, 0, 0, 0.6);
   animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
 .snackbar__content {
@@ -179,9 +183,14 @@
   height: 30px;
   width: 30px;
   margin-right: 20px;
-  background-image: url(../images/error.svg);
   background-size: cover;
   background-repeat: no-repeat;
+}
+.snackbar--error .snackbar__image {
+  background-image: url(../images/error.svg);
+}
+.snackbar--success .snackbar__image {
+  background-image: url(../images/check.svg);
 }
 .snackbar__message {
   max-width: 80%;
@@ -198,7 +207,7 @@
   }
   to {
     transform: translate(-50%, 200%);
-    opacity: 0.6;
+    opacity: 1;
   }
 }
 
@@ -209,14 +218,14 @@
   }
   to {
     transform: translate(-50%, 200%);
-    opacity: 0.6;
+    opacity: 1;
   }
 }
 
 @-webkit-keyframes fadeout {
   from {
     transform: translate(-50%, 200%);
-    opacity: 0.6;
+    opacity: 1;
   }
   to {
     transform: translate(-50%, 50%);
@@ -227,7 +236,7 @@
 @keyframes fadeout {
   from {
     transform: translate(-50%, 200%);
-    opacity: 0.6;
+    opacity: 1;
   }
   to {
     transform: translate(-50%, 50%);
