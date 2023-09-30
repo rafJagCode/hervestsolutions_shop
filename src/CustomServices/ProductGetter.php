@@ -1,24 +1,15 @@
 <?php
 namespace App\Service;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
+use App\Entity\Product;
 
 class ProductGetter
 {
-    private $client;
-    private $flash;
 	private $em;
 
     public function __construct(
-        HttpClientInterface $client,
-        FlashBagInterface $flash,
 		EntityManagerInterface $entityManager,
     ) {
-        $this->client = $client;
-        $this->flash = $flash;
 		$this->em = $entityManager;
     }
 
@@ -34,39 +25,38 @@ class ProductGetter
         return $products;
     }
 
-    public function getProductsByBrand($brand)
-    {
-		$products = $this->em->getRepository(Product::class)->findAll();
-        return $products;
-    }
-
     public function getNewest()
     {
-		$products = $this->em->getRepository(Product::class)->findAll();
+		$products = $this->em->getRepository(Product::class)->findNewest();
         return $products;
     }
 
     public function getPopular()
     {
-		$products = $this->em->getRepository(Product::class)->findAll();
+		$products = $this->em->getRepository(Product::class)->findPopular();
         return $products;
     }
 
     public function getBestSellers()
     {
-		$products = $this->em->getRepository(Product::class)->findAll();
+		$products = $this->em->getRepository(Product::class)->findBestSellers();
         return $products;
     }
 
-	public function search($phraze)
-    {
-		$products = $this->em->getRepository(Product::class)->findAll();
-		$searchResult = array_filter($products, function($product) use($phraze){
-			$regex = "/" . $phraze . "/";
-			return (preg_match($regex, $product->getName()));
-		});
+	public function getByOptions($options, $returnQuery=false){
+		$products = $this->em->getRepository(Product::class)->findByOptions($options, $returnQuery);
+		return $products;
+	}
 
-        return $searchResult;
+	public function getByPhraze($phraze)
+    {
+		$products = $this->em->getRepository(Product::class)->findByPhraze($phraze);
+		// $searchResult = array_filter($products, function($product) use($phraze){
+		// 	$regex = "/" . $phraze . "/";
+		// 	return (preg_match($regex, $product->getName()));
+		// });
+
+        return $products;
     }
 }
 ?>
