@@ -5,16 +5,7 @@
   },
   {
     "title": "Sklep",
-    "url": "/shop",
-    "submenu": {
-      "type": "menu",
-      "links": [
-        {
-          "title": "Koszyk",
-          "url": "/cart"
-        }
-      ]
-    }
+    "url": "/shop"
   },
   {
     "title": "Producenci",
