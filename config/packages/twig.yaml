@@ -6,3 +6,6 @@ twig:
   globals:
     base_url: "%kernel.project_dir%"
     cart_getter_service: "@app.cart.getter"
+    product_getter_service: "@app.product.getter"
+    producer_getter_service: "@app.producer.getter"
+    category_getter_service: "@app.category.getter"
