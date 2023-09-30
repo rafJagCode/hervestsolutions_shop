@@ -2,8 +2,6 @@
 // inputs:
 #}
 
-{% set theme = data('theme.json') %}
-
 <div class="site-footer">
     {% include '/components/decor.twig' with {inputs: {
         type: 'bottom',
@@ -19,29 +17,16 @@
                     {% include '/footer/links.twig' with {inputs: {
                         title: 'Informacje',
                         links: [
-                            {'title': 'O nas'},
-                            {'title': 'Dostawa'},
+                            {'title': 'O nas', 'href': '/about'},
 
-                            {'title': 'Producenci'},
-                            {'title': 'Kontakt'},
+                            {'title': 'Producenci', 'href': '/producers'},
+                            {'title': 'Kontakt', 'href': '/contact'},
 
-                            {'title': 'Lokalizacja'},
+                            {'title': 'Lokalizacja', 'href': '/contact'},
                         ],
                     }} %}
                 </div>
                 <div class="col-0 col-md-0 col-xl-2">
-                    {# {% include '/footer/links.twig' with {inputs: {
-                        title: 'My Account',
-                        links: [
-                            {'title': 'Store Location'},
-                            {'title': 'Order History'},
-                            {'title': 'Wish List'},
-                            {'title': 'Newsletter'},
-                            {'title': 'Specials'},
-                            {'title': 'Gift Certificates'},
-                            {'title': 'Affiliate'},
-                        ],
-                    }} %} #}
                 </div>
                 <div class="col-12 col-md-12 col-xl-4">
                     {% include '/footer/newsletter.twig' %}
@@ -53,13 +38,8 @@
         <div class="container">
             <div class="site-footer__bottom-row">
                 <div class="site-footer__copyright">
-                    <!-- copyright -->
-								   Agroserwis
-                    <!-- copyright / end -->
+					Agroserwis
                 </div>
-                {# <div class="site-footer__payments">
-                    <img src="images/payments.png" alt="">
-                </div> #}
             </div>
         </div>
     </div>
