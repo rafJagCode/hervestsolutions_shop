@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Order;
 
 class DashboardController extends AbstractController
 {
@@ -24,8 +25,11 @@ class DashboardController extends AbstractController
 	 */
 	public function dashboard(): Response
 	{
+		$lastOrders = $this->em->getRepository(Order::class)->findOrders(3);
+		
 		return $this->render("pages/account-dashboard.twig", [
 			"controller_name" => "DashboardController",
+			"lastOrders" => $lastOrders
 		]);
 	}
 

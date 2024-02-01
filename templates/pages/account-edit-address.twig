@@ -14,32 +14,32 @@
         <div class="card-divider"></div>
         <div class="card-body card-body--padding--2">
             <div class="row no-gutters">
-                <form action="/account-submit-address" method="post" class="col-12 col-lg-10 col-xl-8">
+                <form action="/account-submit-address" method="post" class="col-12 col-lg-10 col-xl-8" onSubmit="validateForm(this, event)">
+					<div class="form-group">
+						<label for="address-country">Kraj</label>
+						<select id="address-country" class="form-control form-control-select2" name="country">
+						</select>
+					</div>
                     <div class="form-group">
-                        <label for="address-address1">Kraj</label>
+                        <label for="address-city">Miasto i kod pocztowy</label>
                         <input
-							name="country"
-                            type="text"
-                            class="form-control"
-                            placeholder="{{app.user.country is empty ? 'Kraj' : app.user.country}}"
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="address-address1">Miasto i kod pocztowy</label>
-                        <input
+							id="address-city"
 							name="city"
                             type="text"
                             class="form-control"
-                            placeholder="{{app.user.city is empty ? 'Miasto i kod pocztowy' : app.user.city}}"
+                            placeholder="Miasto i kod pocztowy"
+							value="{{app.user.city}}"
                         >
                     </div>
                     <div class="form-group">
-                        <label for="address-address1">Ulica i numer budynku</label>
+                        <label for="address-street">Ulica i numer budynku</label>
                         <input
+							id="address-street"
 							name="street"
                             type="text"
                             class="form-control"
-                            placeholder="{{app.user.street is empty ? 'Ulica i numer budynku' : app.user.street}}"
+                            placeholder="Ulica i numer budynku"
+							value="{{app.user.street}}"
                         >
                     </div>
                     <div class="form-group mb-0 pt-3 mt-3">
@@ -49,4 +49,42 @@
             </div>
         </div>
     </div>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
+		const options = [
+			{
+				text: 'Wybierz kraj...',
+				value: 'none'
+			},
+			{
+				text: 'Polska',
+				value: 'Polska'
+			}
+		]
+		options.forEach(option=>{
+			const newOption = new Option(option.text, option.value, true, true);
+			$('#address-country').append(newOption).change();
+		});
+
+		const country = "{{app.user.country is defined ? app.user.country : ''}}";
+		if(!country || !country.length) $('#address-country').val('none').change();
+		else $('#address-country').val(country).change();
+	});
+	const validateForm = (form, event) => {
+		const country = $(form).find('#address-country').select2('data')[0].id;
+		console.log(country);
+		const city = $(form).find('#address-city').val();
+		const street = $(form).find('#address-street').val();
+		const messages = [];
+		if(country === 'none') messages.push('wybierz kraj'); 
+		if(!city.length) messages.push('uzupełnij miasto i kod pocztowy'); 
+		if(!street.length) messages.push('uzupełnij ulice i numer budynku');
+		if(messages.length){
+			event.preventDefault();
+			let message = messages.join(', ');
+			message = message.charAt(0).toUpperCase() + message.slice(1);
+			addFlash(message);
+		} 
+	}
+	</script>
 {% endblock %}

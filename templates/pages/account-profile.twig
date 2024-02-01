@@ -15,15 +15,15 @@
                 <form action="/account-submit-profile" method="post" class="col-12 col-lg-7 col-xl-6">
                     <div class="form-group">
                         <label for="profile-first-name">Imię</label>
-                        <input name="firstName" stype="text" class="form-control" id="profile-first-name" placeholder="{{app.user.firstName is empty ? 'Imię' : app.user.firstName}}">
+                        <input name="firstName" stype="text" class="form-control" id="profile-first-name" placeholder="Imię" value="{{app.user.firstName}}">
                     </div>
                     <div class="form-group">
                         <label for="profile-last-name">Nazwisko</label>
-                        <input name="lastName" type="text" class="form-control" id="profile-last-name" placeholder="{{app.user.lastName is empty ? 'Nazwisko' : app.user.lastName}}">
+                        <input name="lastName" type="text" class="form-control" id="profile-last-name" placeholder="Nazwisko" value="{{app.user.lastName}}">
                     </div>
                     <div class="form-group">
                         <label for="profile-phone">Numer Telefonu</label>
-                        <input name="phone" type="text" class="form-control" id="profile-phone" placeholder="{{app.user.phone is empty ? 'Numer Telefonu' : app.user.phone}}">
+                        <input name="phone" type="text" class="form-control" id="profile-phone" placeholder="Numer Telefonu" value="{{app.user.phone}}">
                     </div>
 
                     <div class="form-group mb-0">

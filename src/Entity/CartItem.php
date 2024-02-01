@@ -81,5 +81,4 @@ class CartItem
 
         return $this;
     }
-
 }

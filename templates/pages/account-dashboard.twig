@@ -2,9 +2,6 @@
 {% set global_page_description = '' %}
 {% set global_current_account_page = 'account-dashboard' %}
 
-{% set address = data('account-addresses.json')|first %}
-{% set orders = data('account-orders.json') %}
-
 {% extends '/layouts/account.twig' %}
 
 {% block account_body %}
@@ -39,7 +36,7 @@
                 </div>
                 <div class="address-card__row">
                     <div class="address-card__row-title">Adres Email</div>
-                    <div class="address-card__row-content">{{ address.email }}</div>
+                    <div class="address-card__row-content">{{ app.user.email }}</div>
                 </div>
                 <div class="address-card__footer">
                     <a href="/account-edit-address">Edytuj Adres</a>
@@ -48,7 +45,7 @@
         </div>
         <div class="dashboard__orders card">
             <div class="card-header">
-                <h5>Recent Orders</h5>
+                <h5>Ostatnie Zamówienia</h5>
             </div>
             <div class="card-divider"></div>
             <div class="card-table">
@@ -56,19 +53,19 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>Order</th>
-                            <th>Date</th>
+                            <th>Zamówienie</th>
+                            <th>Data</th>
                             <th>Status</th>
-                            <th>Total</th>
+                            <th>Razem</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for order in orders[:3] %}
+                        {% for order in lastOrders %}
                             <tr>
                                 <td><a href="account-order-details.html">#{{ order.id }}</a></td>
-                                <td>{{ order.date }}</td>
-                                <td>{{ order.status }}</td>
-                                <td>{{ order.total }}</td>
+                                <td>{{ order.createdAt|date('d-m-Y') }}</td>
+                                <td style="text-transform: uppercase">{{ order.status }}</td>
+                                <td>{{order.items|reduce((sum, item) => sum + (item.product.price * item.amount)) }} zł</td>
                             </tr>
                         {% endfor %}
                         </tbody>
