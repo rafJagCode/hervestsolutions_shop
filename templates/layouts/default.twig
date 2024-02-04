@@ -56,25 +56,19 @@
 
 		{% set globalCart = app.user is null ? app.session.get('cart') : app.user.cart %}
 
-
 		<div id="flashes">
-			{% for message in app.flashes('error') %}
-				<div class="snackbar snackbar--error card shadow">
-					<div class="snackbar__content">
-						<div class="snackbar__image" alt=""></div>
-						<span class="snackbar__message">{{ message }}</span>
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="snackbar snackbar--{{label}} card shadow">
+						<div class="snackbar__content">
+							<div class="snackbar__image" alt=""></div>
+							<span class="snackbar__message">{{ message }}</span>
+						</div>
 					</div>
-				</div>
-			{% endfor %}
-			{% for message in app.flashes('success') %}
-				<div class="snackbar snackbar--success card shadow">
-					<div class="snackbar__content">
-						<div class="snackbar__image" alt=""></div>
-						<span class="snackbar__message">{{ message }}</span>
-					</div>
-				</div>
+				{% endfor %}
 			{% endfor %}
 		</div>
+
 	</body>
 </html></div><!-- site --><div
 class="site">

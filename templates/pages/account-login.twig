@@ -21,9 +21,6 @@
 									<li>HASŁO: test123</li>
 								</ul>
 							</div>
-							{% if loginMessage is defined and loginMessage != null %}
-							<h5 class="alert alert-danger">{{loginMessage.messageKey}}</h5>
-							{% endif %}
                             <form action="sign-in" method="POST">
                                 <div class="form-group">
                                     <label for="signin-email">Adres email</label>

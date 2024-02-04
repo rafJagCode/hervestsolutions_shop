@@ -8,9 +8,4 @@ const addFlash = (message, type = "error") => {
 		</div>
 	</div>`);
   flashes.html(flash);
-  flash.addClass("snackbar--show");
-  setTimeout(function () {
-    flash.removeClass("snackbar--show");
-    flash.remove();
-  }, 5000);
 };

@@ -145,7 +145,6 @@
   display: none;
 }
 .snackbar {
-  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,10 +152,15 @@
   position: fixed;
   left: 50%;
   top: 0;
-  transform: translate(-50%, 50%);
   min-width: 300px;
   min-height: 50px;
   border-radius: 2px;
+  animation-name: fadein, fadeout;
+  animation-duration: 0.5s;
+  animation-delay: 0s, 3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 .snackbar--success {
   background-color: green;
@@ -165,10 +169,6 @@
   background-color: red;
 }
 .snackbar--show {
-  transform: translate(-50%, 200%);
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
-  animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
 .snackbar__content {
   padding: 1em;
@@ -202,45 +202,37 @@
 }
 @-webkit-keyframes fadein {
   from {
-    transform: translate(-50%, 50%);
-    opacity: 0;
+    transform: translate(-50%, -100%);
   }
   to {
     transform: translate(-50%, 200%);
-    opacity: 1;
   }
 }
 
 @keyframes fadein {
   from {
-    transform: translate(-50%, 50%);
-    opacity: 0;
+    transform: translate(-50%, -100%);
   }
   to {
     transform: translate(-50%, 200%);
-    opacity: 1;
   }
 }
 
 @-webkit-keyframes fadeout {
   from {
     transform: translate(-50%, 200%);
-    opacity: 1;
   }
   to {
-    transform: translate(-50%, 50%);
-    opacity: 0;
+    transform: translate(-50%, -100%);
   }
 }
 
 @keyframes fadeout {
   from {
     transform: translate(-50%, 200%);
-    opacity: 1;
   }
   to {
-    transform: translate(-50%, 50%);
-    opacity: 0;
+    transform: translate(-50%, -100%);
   }
 }
 
