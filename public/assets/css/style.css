@@ -885,6 +885,10 @@ h6 {
   font-weight: 500;
 }
 
+.btn:hover .tooltip {
+  opacity: 1;
+}
+
 .btn.disabled,
 .btn:disabled {
   cursor: default;
@@ -4360,6 +4364,7 @@ select.form-control::-ms-expand {
   -webkit-transition-duration: 0s;
   transition-duration: 0s;
   font-family: inherit;
+  white-space: pre;
 }
 
 .tooltip.show {
