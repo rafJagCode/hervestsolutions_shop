@@ -31,22 +31,6 @@ class LoginController extends AbstractController
 		$this->cartGetter = $cartGetter;
 	}
 
-	/**
-	 * @Route("/account-login", name="account-login")
-	 */
-	public function index(): Response
-	{
-		return $this->render("/pages/account-login.twig", [
-			"controller_name" => "LoginController",
-		]);
-	}
-	/**
-	 * @Route("/logout", name="logout")
-	 */
-	public function logout()
-	{
-		return $this->redirectToRoute('index');
-	}
 
 	/**
 	 * @Route("/login", name="login")
@@ -62,7 +46,6 @@ class LoginController extends AbstractController
 
 		return $this->render("/pages/account-login.twig", [
 			"controller_name" => "LoginController",
-			"error"=>$error,
 		]);
 	}
 
@@ -107,9 +90,9 @@ class LoginController extends AbstractController
 				'request' => $request
 			], 307);
 		}else{
-			$this->addFlash('error', 'Podany email jest już przypisany do innego użytkownika użyj innego adresu email.');
+			$this->addFlash('error', 'Podany email jest już przypisany do innego użytkownika. Użyj innego adresu email.');
 
-			return $this->redirectToRoute('account-login');
+			return $this->redirectToRoute('login');
 		}
 	}
 }

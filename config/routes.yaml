@@ -3,7 +3,9 @@ index:
   controller: App\Controller\IndexController::index
 login:
   path: /login
-  controller: App\Controller\LoginController::index
+  controller: App\Controller\LoginController::login
+logout:
+  path: /logout
 signIn:
   path: /sign-in
   controller: App\Controller\LoginController::signIn

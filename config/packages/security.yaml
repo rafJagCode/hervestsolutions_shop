@@ -21,8 +21,10 @@ security:
         check_path: login
         username_parameter: email
         password_parameter: password
+        use_referer: true
       logout:
         path: logout
+        target: index
   access_control:
     - { path: ^/account, roles: ROLE_USER }
 
