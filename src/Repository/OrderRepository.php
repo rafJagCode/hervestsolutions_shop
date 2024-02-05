@@ -32,6 +32,23 @@ class OrderRepository extends ServiceEntityRepository
         
 		return $qb->getQuery()->getResult();
     }
+	   
+    /**
+     * @return Order[] Returns an array of Product objects
+     */
+    public function findUserOrders($userId, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('o')
+			->andWhere('o.user = :userId')
+			->setParameter('userId', $userId)
+			->orderBy('o.createdAt', 'DESC');
+		
+		if($limit !== null){
+			$qb->setMaxResults($limit);
+		}
+        
+		return $qb->getQuery()->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Order
