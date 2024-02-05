@@ -2,14 +2,12 @@
 {% set global_page_description = '' %}
 {% set global_current_account_page = 'account-orders' %}
 
-{% set orders = data('account-orders.json') %}
-
 {% extends '/layouts/account.twig' %}
 
 {% block account_body %}
     <div class="card">
         <div class="card-header">
-            <h5>Order History</h5>
+            <h5>Historia Zamówień</h5>
         </div>
         <div class="card-divider"></div>
         <div class="card-table">
@@ -17,19 +15,19 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Order</th>
-                        <th>Date</th>
+                        <th>Nr Zamówienia</th>
+                        <th>Data</th>
                         <th>Status</th>
-                        <th>Total</th>
+                        <th>Koszt</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for order in orders %}
                         <tr>
-                            <td><a href="account-order-details.html">#{{ order.id }}</a></td>
-                            <td>{{ order.date }}</td>
-                            <td>{{ order.status }}</td>
-                            <td>{{ order.total }}</td>
+                            <td><a href="/account-order-details/{{order.id}}">#{{ order.id }}</a></td>
+                            <td>{{ order.createdAt|date('d-m-Y') }}</td>
+                            <td>W REALIZACJI</td>
+                            <td>{{order.items|reduce((sum, item) => sum + (item.product.price * item.amount)) }} zł</td>
                         </tr>
                     {% endfor %}
                     </tbody>

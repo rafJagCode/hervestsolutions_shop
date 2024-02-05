@@ -25,7 +25,8 @@ class DashboardController extends AbstractController
 	 */
 	public function dashboard(): Response
 	{
-		$lastOrders = $this->em->getRepository(Order::class)->findOrders(3);
+		$userId = $this->security->getUser()->getId();
+		$lastOrders = $this->em->getRepository(Order::class)->findUserOrders($userId, 3);
 		
 		return $this->render("pages/account-dashboard.twig", [
 			"controller_name" => "DashboardController",
@@ -65,8 +66,12 @@ class DashboardController extends AbstractController
      */
     public function orders(): Response
     {
+		$userId = $this->security->getUser()->getId();
+		$orders = $this->em->getRepository(Order::class)->findUserOrders($userId);
+
         return $this->render('pages/account-orders.twig', [
             'controller_name' => 'DashboardController',
+			'orders' => $orders
         ]);
     }
 

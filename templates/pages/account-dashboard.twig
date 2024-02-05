@@ -62,9 +62,9 @@
                         <tbody>
                         {% for order in lastOrders %}
                             <tr>
-                                <td><a href="account-order-details.html">#{{ order.id }}</a></td>
+                                <td><a href="/account-order-details/{{order.id}}">#{{ order.id }}</a></td>
                                 <td>{{ order.createdAt|date('d-m-Y') }}</td>
-                                <td style="text-transform: uppercase">{{ order.status }}</td>
+                                <td style="text-transform: uppercase">W REALIZACJI</td>
                                 <td>{{order.items|reduce((sum, item) => sum + (item.product.price * item.amount)) }} zł</td>
                             </tr>
                         {% endfor %}

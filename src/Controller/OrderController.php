@@ -106,4 +106,22 @@ class OrderController extends AbstractController
 			"order" => $order
         ]);
     }
+	
+	/**
+     * @Route("/account-order-details/{id}", name="account-order-details")
+     */
+    public function orderDetails($id): Response
+    {
+		$user = $this->security->getUser();
+		if(is_null($user)) return $this->redirectToRoute('login');
+
+		$order = $this->em->getRepository(Order::class)->find($id);
+		if(is_null($order)) throw $this->createNotFoundException();
+		if($user !== $order->getUser()) return $this->redirectToRoute('login');
+
+        return $this->render("pages/account-order-details.twig", [
+            "controller_name" => "OrderController",
+			"order" => $order
+        ]);
+    }
 }
