@@ -27,7 +27,7 @@
 							{% for link in account_pages %}
 								{% if link.type == 'link' %}
 									<li class="account-nav__item {% if link.url == global_current_account_page %} account-nav__item--active {% endif %}">
-										<a href="{{ link.url }}">{{ link.label }}</a>
+										<a href="/{{ link.url }}">{{ link.label }}</a>
 									</li>
 								{% elseif link.type == 'divider' %}
 									<li class="account-nav__divider" role="presentation"></li>
