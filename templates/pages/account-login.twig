@@ -21,14 +21,14 @@
 									<li>HASŁO: test123</li>
 								</ul>
 							</div>
-                            <form action="sign-in" method="POST">
+                            <form action="sign-in" method="POST" onSubmit="validateForm(this, event)">
                                 <div class="form-group">
                                     <label for="signin-email">Adres email</label>
-                                    <input name="email" id="signin-email" type="email" class="form-control" placeholder="przykładowy@email.com" value='test@test.com'>
+                                    <input name="email" id="signin-email" class="form-control" placeholder="przykładowy@email.com" value='test@test.com' data-validate="required,email">
                                 </div>
                                 <div class="form-group">
                                     <label for="signin-password">Hasło</label>
-                                    <input name="password" id="signin-password" type="password" class="form-control" placeholder="Hasło" value='test123'>
+                                    <input name="password" id="signin-password" type="password" class="form-control" placeholder="Hasło" value='test123' data-validate="required">
                                 </div>
                                 <div class="form-group mb-0">
                                     <button type="submit" class="btn btn-primary mt-3">Zaloguj</button>
@@ -44,14 +44,14 @@
 							{% if registerMessage is defined %}
 							<h5 class="alert alert-danger">{{registerMessage}}</h5>
 							{% endif %}
-                            <form action="register" method="POST">
+                            <form action="register" method="POST" onSubmit="validateForm(this, event)">
                                 <div class="form-group">
                                     <label for="signup-email">Adres email</label>
-                                    <input name="email" id="signup-email" type="email" class="form-control" placeholder="przykładowy@email.com">
+                                    <input name="email" id="signup-email" class="form-control" placeholder="przykładowy@email.com" data-validate="required,email">
                                 </div>
                                 <div class="form-group">
                                     <label for="signup-password">Hasło</label>
-                                    <input name="password" id="signup-password" type="password" class="form-control" placeholder="Hasło">
+                                    <input name="password" id="signup-password" type="password" class="form-control" placeholder="Hasło" data-validate="required,minLength-7">
                                 </div>
                                 <div class="form-group mb-0">
                                     <button type="submit" class="btn btn-primary mt-3">Zarejestruj</button>

@@ -10,7 +10,7 @@
         title: 'Podsumowanie Zamówienia',
     }} %}
 
-    <form action="/submit-order" method="post" class="checkout block">
+    <form action="/submit-order" method="post" class="checkout block" onSubmit="validateForm(this, event)">
         <div class="container container--max--xl">
             <div class="row">
 
@@ -21,35 +21,39 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="checkout-first-name">Imię</label>
-                                    <input type="text" class="form-control" id="checkout-first-name" placeholder="Imię" value="{{ app.user is null or app.user.firstName is empty ? '' : app.user.firstName}}" name="firstName">
+                                    <input type="text" class="form-control" id="checkout-first-name" placeholder="Imię" value="{{ app.user is null ? '' : app.user.firstName}}" name="firstName" data-validate="required">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="checkout-last-name">Nazwisko</label>
-                                    <input type="text" class="form-control" id="checkout-last-name" placeholder="Nazwisko" value="{{ app.user is null or app.user.lastName is empty ? '' : app.user.lastName}}" name="lastName">
+                                    <input type="text" class="form-control" id="checkout-last-name" placeholder="Nazwisko" value="{{ app.user is null ? '' : app.user.lastName}}" name="lastName" data-validate="required">
                                 </div>
                             </div>
 
 							<div class="form-group">
 								<label for="checkout-country">Kraj</label>
-								<select id="checkout-country" class="form-control form-control-select2" name="country">
+								<select id="checkout-country" class="form-control form-control-select2" name="country" data-validate="required">
+									<option value="">--Wybierz Kraj--</option>
+									<option value="Niemcy" {% if app.user is not null and app.user.country == 'Niemcy' %}selected{% endif %}>Niemcy</option>
+									<option value="Polska" {% if app.user is not null and app.user.country == 'Polska' %}selected{% endif %}>Polska</option>
+									<option value="Wielka Brytania" {% if app.user is not null and app.user.country == 'Wielka Brytania' %}selected{% endif %}>Wielka Brytania</option>
 								</select>
 							</div>
                             <div class="form-group">
                                 <label for="checkout-city">Miasto i kod pocztowy</label>
-                                <input type="text" class="form-control" id="checkout-city" placeholder="Misto i kod pocztowy" value="{{ app.user is null or app.user.city is empty ? '' : app.user.city}}" name="city">
+                                <input type="text" class="form-control" id="checkout-city" placeholder="Misto i kod pocztowy" value="{{ app.user is null ? '' : app.user.city}}" name="city" data-validate="required,minLength-5">
                             </div>
                             <div class="form-group">
                                 <label for="checkout-street-address">Ulica i numer budynku</label>
-                                <input type="text" class="form-control" id="checkout-street-address" placeholder="Ulica i number budynku" value="{{ app.user is null or app.user.street is empty ? '' : app.user.street}}" name="street">
+                                <input type="text" class="form-control" id="checkout-street-address" placeholder="Ulica i number budynku" value="{{ app.user is null ? '' : app.user.street}}" name="street" data-validate="required,minLength-5">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="checkout-email">Adres email</label>
-                                    <input type="email" class="form-control" id="checkout-email" placeholder="Adres email" value="{{ app.user is null or app.user.email is empty ? '' : app.user.email}}" name="email">
+                                    <input class="form-control" id="checkout-email" placeholder="Adres email" value="{{ app.user is null ? '' : app.user.email}}" name="email" data-validate="required,email">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="checkout-phone">Numer telefonu</label>
-                                    <input type="text" class="form-control" id="checkout-phone" placeholder="Numer telefonu" value="{{ app.user is null or app.user.phone is empty ? '' : app.user.phone}}" name="phone">
+                                    <input type="text" class="form-control" id="checkout-phone" placeholder="Numer telefonu" value="{{ app.user is null ? '' : app.user.phone}}" name="phone" data-validate="required,phone">
                                 </div>
                             </div>
                         </div>
@@ -121,26 +125,4 @@
     </form>
 
     {% include '/blocks/block-space.twig' with {inputs: {layout: 'before-footer'}} %}
-	<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', () => {
-		const options = [
-			{
-				text: 'Wybierz kraj...',
-				value: 'none'
-			},
-			{
-				text: 'Polska',
-				value: 'Polska'
-			}
-		]
-		options.forEach(option=>{
-			const newOption = new Option(option.text, option.value, true, true);
-			$('#checkout-country').append(newOption).change();
-		});
-
-		const country = "{{app.user.country is defined ? app.user.country : ''}}";
-		if(!country || !country.length) $('#checkout-country').val('none').change();
-		else $('#checkout-country').val(country).change();
-	});
-	</script>
 {% endblock %}

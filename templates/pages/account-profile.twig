@@ -12,18 +12,18 @@
         <div class="card-divider"></div>
         <div class="card-body card-body--padding--2">
             <div class="row no-gutters">
-                <form action="/account-submit-profile" method="post" class="col-12 col-lg-7 col-xl-6">
+                <form action="/account-submit-profile" method="post" class="col-12 col-lg-7 col-xl-6" onsubmit="validateForm(this, event)">
                     <div class="form-group">
                         <label for="profile-first-name">Imię</label>
-                        <input name="firstName" stype="text" class="form-control" id="profile-first-name" placeholder="Imię" value="{{app.user.firstName}}">
+                        <input name="firstName" stype="text" class="form-control" id="profile-first-name" placeholder="Imię" value="{{app.user.firstName}}" data-validate="required">
                     </div>
                     <div class="form-group">
                         <label for="profile-last-name">Nazwisko</label>
-                        <input name="lastName" type="text" class="form-control" id="profile-last-name" placeholder="Nazwisko" value="{{app.user.lastName}}">
+                        <input name="lastName" type="text" class="form-control" id="profile-last-name" placeholder="Nazwisko" value="{{app.user.lastName}}" data-validate="required">
                     </div>
                     <div class="form-group">
                         <label for="profile-phone">Numer Telefonu</label>
-                        <input name="phone" type="text" class="form-control" id="profile-phone" placeholder="Numer Telefonu" value="{{app.user.phone}}">
+                        <input name="phone" type="text" class="form-control" id="profile-phone" placeholder="Numer Telefonu" value="{{app.user.phone}}" data-validate="required,phone">
                     </div>
 
                     <div class="form-group mb-0">
