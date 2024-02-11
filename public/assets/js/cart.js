@@ -19,6 +19,7 @@ const getCartItems = async () => {
     },
   });
 };
+
 const cartAddProduct = async (el, productId, type = "BUTTON", e = null) => {
   if (e) preventDropdownClose(e);
 
@@ -46,6 +47,7 @@ const cartAddProduct = async (el, productId, type = "BUTTON", e = null) => {
     }
   }
 };
+
 const cartRemoveProduct = async (button, id) => {
   const loader = $(button).children(".dropcart__remove-loader");
   if (!loader.hasClass("dropcart__remove-loader--hidden")) {
@@ -59,6 +61,7 @@ const cartRemoveProduct = async (button, id) => {
     addFlash(e.message);
   }
 };
+
 const preventDropdownClose = (e) => {
   $(".search__input").focus();
   e.preventDefault();
