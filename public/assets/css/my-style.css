@@ -157,7 +157,7 @@
   border-radius: 2px;
   animation-name: fadein, fadeout;
   animation-duration: 0.5s;
-  animation-delay: 0s, 3s;
+  animation-delay: 0s, 5s;
   animation-iteration-count: 1;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -193,7 +193,7 @@
   background-image: url(../images/check.svg);
 }
 .snackbar__message {
-  max-width: 80%;
+  max-width: 100%;
   word-wrap: break-word;
   color: white;
   font-weight: 700;
@@ -205,7 +205,7 @@
     transform: translate(-50%, -100%);
   }
   to {
-    transform: translate(-50%, 200%);
+    transform: translate(-50%, 20px);
   }
 }
 
@@ -214,13 +214,13 @@
     transform: translate(-50%, -100%);
   }
   to {
-    transform: translate(-50%, 200%);
+    transform: translate(-50%, 20px);
   }
 }
 
 @-webkit-keyframes fadeout {
   from {
-    transform: translate(-50%, 200%);
+    transform: translate(-50%, 20px);
   }
   to {
     transform: translate(-50%, -100%);
@@ -229,7 +229,7 @@
 
 @keyframes fadeout {
   from {
-    transform: translate(-50%, 200%);
+    transform: translate(-50%, 20px);
   }
   to {
     transform: translate(-50%, -100%);
