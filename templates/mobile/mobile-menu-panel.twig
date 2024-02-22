@@ -97,7 +97,7 @@
                     {% endfor %}
                 </ul>
             {% elseif item.type == 'contacts' %}
-                <a class="mobile-menu__contacts" href="">
+                <a class="mobile-menu__contacts" href="tel:{{item.title}}">
                     <div class="mobile-menu__contacts-subtitle">{{ item.subtitle }}</div>
                     <div class="mobile-menu__contacts-title">{{ item.title }}</div>
                 </a>

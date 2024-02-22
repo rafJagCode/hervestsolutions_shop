@@ -23,32 +23,6 @@ global_header_layout == 'classic', }) %}
 		</div>
 		<div class="topbar__item-spring"></div>
 	{% endif %}
-
-	{#<div class="topbar__item-button topbar__menu">
-		<button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
-			<span class="topbar__button-label">Waluta:</span>
-			<span class="topbar__button-title">PLN</span>
-			<span class="topbar__button-arrow">{{
-        svg("arrow-down-sm-7x5.svg")
-      }}</span>
-		</button>
-		<div class="topbar__menu-body">
-			<a class="topbar__menu-item" href="#">€ Euro</a>
-			<a class="topbar__menu-item" href="#">£ Pound Sterling</a>
-			<a class="topbar__menu-item" href="#">$ US Dollar</a>
-			<a class="topbar__menu-item" href="#">₽ Russian Ruble</a>
-		</div>
-	</div>
-	<div class="topbar__menu">
-		<button class="topbar__button topbar__button--has-arrow topbar__menu-button" type="button">
-			<span class="topbar__button-label">Język:</span>
-			<span class="topbar__button-title">PL</span>
-			<span class="topbar__button-arrow">{{
-        svg("arrow-down-sm-7x5.svg")
-      }}</span>
-		</button>
-		<div class="topbar__menu-body"></div>
-	</div>#}
 </div>
 {% endset %}
 
@@ -103,13 +77,6 @@ global_header_layout == 'classic', }) %}
 	<div class="header__logo">{% include '/header/logo.twig' %}</div>
 	<div class="header__search">{% include '/header/search.twig' %}</div>
 	<div class="header__indicators">
-		{#<div class="indicator">
-			<a href="wishlist.html" class="indicator__button">
-				<span class="indicator__icon">
-					{{ svg("heart-32.svg") }}
-				</span>
-			</a>
-		</div>#}
 		<div class="indicator indicator--trigger--click">
 			<a class="indicator__button">
 				<span class="indicator__icon">
@@ -124,8 +91,6 @@ global_header_layout == 'classic', }) %}
 			<div class="indicator__content">
 				<div class="account-menu">
 					{% if app.user is null or is_granted('ROLE_UNAUTHENTICATED') %}
-
-
 						<form class="account-menu__form" action="/sign-in" method="POST">
 							<div class="account-menu__form-title">Zaloguj Się</div>
 							<div style="font-size: 12px;">
