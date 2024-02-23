@@ -27,14 +27,7 @@
 			<tr class="cart-table__row">
 				<td class="cart-table__column cart-table__column--image">
 				<div class="image image--type--product">
-					<a href="{{
-					path(
-						'product',
-						{
-						id: item.product.id
-						}
-					)
-					}}"
+					<a href="/product/{{item.product.id}}"
 					class="image__body">
 					<img class="image__tag"
 						src="{{
@@ -50,7 +43,7 @@
 				</div>
 				</td>
 				<td class="cart-table__column cart-table__column--product">
-				<a href="" class="cart-table__product-name">
+				<a href="/product/{{item.product.id}}" class="cart-table__product-name">
 					{{ item.product.name }}
 				</a>
 				</td>
