@@ -388,14 +388,6 @@
         .not($(event.target).closest(".indicator"))
         .removeClass("indicator--open");
     });
-
-    // $(document).on("click", function (event) {
-    //   $(".indicator")
-    //     .not($(event.target).closest(".indicator"))
-    //     .removeClass("indicator--open");
-    // 			console.log('docum')
-
-    // });
   });
 
   /*

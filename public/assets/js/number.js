@@ -67,7 +67,6 @@
      * @private
      */
     _handleInvalid: function () {
-      console.log("test");
       if (!this._value()) {
         this.input.value = $(this.input).data("old-value");
         return;
