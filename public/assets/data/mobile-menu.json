@@ -12,6 +12,7 @@
           "url": "/account-dashboard"
         },
         {
+          "class": "mobile-cart-counter-indicator",
           "icon": "cart-20",
           "title": "Koszyk",
           "counter": 3,

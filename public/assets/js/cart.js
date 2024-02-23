@@ -1,12 +1,16 @@
-const getCartItems = async () => {
-  let cartDropdown = $("#cart-dropdown");
+const updateCartDropdown = () => {
+  const cartDropdown = $("#cart-dropdown");
+  if (!cartDropdown.length) return;
   $.ajax({
     url: "/cart-dropdown-items",
     success: function (data) {
       cartDropdown.html(data);
     },
   });
-  let cart = $("#cart-container");
+};
+
+const updateCartItems = () => {
+  const cart = $("#cart-container");
   if (!cart.length) return;
   cart.find(".input-number").customNumber({ destroy: true });
   $.ajax({
@@ -18,6 +22,19 @@ const getCartItems = async () => {
       cart.find(".input-number").customNumber();
     },
   });
+};
+
+const updateCartCounterIndicators = async () => {
+  const mobileCartCounterIndicators = $(".mobile-cart-counter-indicator");
+  if (!mobileCartCounterIndicators.length) return;
+  const { data } = await axios.get("/cart-count");
+  mobileCartCounterIndicators.text(data.count);
+};
+
+const updateCart = () => {
+  updateCartDropdown();
+  updateCartItems();
+  updateCartCounterIndicators();
 };
 
 const cartAddProduct = async (el, productId, type = "BUTTON", e = null) => {
@@ -37,7 +54,7 @@ const cartAddProduct = async (el, productId, type = "BUTTON", e = null) => {
       amount: amount,
       operation: operation,
     });
-    getCartItems();
+    updateCart();
   } catch (e) {
     addFlash(e.message);
   } finally {
@@ -56,7 +73,7 @@ const cartRemoveProduct = async (button, id) => {
   loader.removeClass("dropcart__remove-loader--hidden");
   try {
     await axios.post("/cart-remove-product", { id: id });
-    getCartItems();
+    updateCart();
   } catch (e) {
     addFlash(e.message);
   }

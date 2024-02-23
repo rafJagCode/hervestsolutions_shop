@@ -80,6 +80,18 @@ class CartController extends AbstractController
 	}
 
 	/**
+	 * @Route("/cart-count", name="cart-cart-count")
+	 */
+	public function cartCount()
+	{
+
+		$cartItems = $this->cartGetter->getCart()->getCartItem()->toArray();
+		$count = array_reduce($cartItems, function($acc, $item){return $acc+=$item->getAmount();});
+
+		return $this->json(['count' => $count]);
+	}
+
+	/**
 	 * @Route("/cart-items", name="cart-items")
 	 */
 	public function cartItems()

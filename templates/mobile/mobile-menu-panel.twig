@@ -56,7 +56,9 @@
                             <span class="mobile-menu__indicator-icon">
                                 {{ svg(item.icon~'.svg') }}
                                 {% if item.counter %}
-                                    <span class="mobile-menu__indicator-counter">{{ item.counter }}</span>
+                                    <span class="mobile-menu__indicator-counter{% if item.class is defined %} {{ item.class }}{% endif %}">
+										{{cart_getter_service.getCart().getCartItem()|length }}
+									</span>
                                 {% endif %}
                             </span>
                             <span class="mobile-menu__indicator-title">{{ item.title }}</span>
