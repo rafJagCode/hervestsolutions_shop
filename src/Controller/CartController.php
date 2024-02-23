@@ -63,17 +63,22 @@ class CartController extends AbstractController
 		$product = $this->em->getRepository(Product::class)->find($productId);
 		$productQuantity = $product->getQuantity();
 
-		if(is_null($cartItem)){
-			$availableAmount = min($productQuantity, $amount);
-			$this->addCartItem($cart, $productId, $availableAmount);
-		}else{
-			$availableAmount = min($productQuantity - $cartItem->getAmount(), $amount);
-			$this->changeCartItemAmount($cartItem, $operation, $availableAmount);
-		}
+		$itemsInCart = $cartItem ? $cartItem->getAmount() : 0;
+		$desiredAmount = $operation == '=' ? $amount : $itemsInCart + $amount;
+		$missingInStock = max(0, $desiredAmount - $productQuantity);
+		$finalAmount = $amount - $missingInStock;
+
+		if($cartItem) $this->changeCartItemAmount($cartItem, $operation, $finalAmount);
+		else $this->addCartItem($cart, $productId, $finalAmount);
 
 		$error = null;
-		if($availableAmount < $amount){
-			$error = 'Za mało produktu na stanie. Dodano do koszyka '.$availableAmount.' '.$product->getName();
+		if($missingInStock){
+			$addedProducts = $operation == '=' ? $finalAmount - $itemsInCart : $finalAmount;
+			$error = 'Za mało produktów na stanie. ';
+			if($addedProducts<1) $error.='Nie dodano żadnego produktu.';
+			else if($addedProducts==1) $error.='Dodano jedynie 1 produkt.';
+			else if($addedProducts<5) $error.='Dodano jedynie '.$addedProducts.' produkty.';
+			else $error.='Dodano jedynie '.$addedProducts.' produktów.';
 		}
 
 		return $this->json(['message'=>'product added', 'error'=>$error]);
