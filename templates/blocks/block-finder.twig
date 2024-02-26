@@ -25,6 +25,7 @@
             </div>
             <div class="block-finder__form-control block-finder__form-control--select">
                 <select name="category" aria-label="Category" disabled>
+                    <option value="none">Wybierz Kategorie</option>
 					{%for category in category_getter_service.getCategories() %}
                     	<option value="{{category.name}}">{{category.name|title}}</option>
 					{%endfor%}
