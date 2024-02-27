@@ -76,7 +76,10 @@
 				<td class="cart-table__column cart-table__column--remove">
 				<button onclick="cartRemoveProduct(this,{{ item.id }})"
 					type="button"
-					class="dropcart__item-remove">
+					{# class="dropcart__item-remove"> #}
+					{# class="dropcart__item-remove cart-table__remove btn btn-sm btn-icon btn-muted"> #}
+					class="cart-table__remove btn btn-sm btn-icon btn-muted">
+					
 					{{ svg('cross-10.svg') }}
 					<div class="dropcart__remove-loader dropcart__remove-loader--hidden btn btn-light btn-loading btn-icon"></div>
 				</button>

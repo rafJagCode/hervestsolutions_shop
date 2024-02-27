@@ -12403,6 +12403,11 @@ select.form-control::-ms-expand {
   color: #6c757d;
 }
 
+.cart-table__remove {
+  display: grid;
+  place-items: center;
+}
+
 @media (min-width: 992px) {
   .cart-table {
     -ms-flex-item-align: start;
