@@ -1,19 +1,37 @@
-$(document).ready(function () {
-  const searchIcon = $(".user-product-search__icon");
-  const searchInput = $(".search__input");
-  const dropdown = $(".suggestions__group-content");
-  searchInput.on("input focus", () => {
-    const phraze = searchInput.val();
-    if (phraze.length < 3) return;
-    searchIcon.removeClass("fa-search");
-    searchIcon.addClass("fa-spinner fa-pulse");
+const handleEmptySearch = (e, form) => {
+  const phraze = $(form).find('input[name="phraze"]').val().trim();
+  if (!phraze.length) e.preventDefault();
+};
+
+const toggleLoader = () =>
+  $(".user-product-search__icon").toggleClass("fa-search fa-spinner fa-pulse");
+
+const search = (phraze) => {
+  toggleLoader();
+  return new Promise((resolve, reject) => {
+    if (!phraze.length) {
+      resolve("");
+      return;
+    }
     $.ajax({
       url: `/search-in-products/${phraze}`,
-      success: function (data) {
-        dropdown.html(data);
-        searchIcon.removeClass("fa-spinner fa-pulse");
-        searchIcon.addClass("fa-search");
-      },
+      success: (data) => resolve(data),
+      error: (err) => reject(err),
     });
+  });
+};
+
+$(function () {
+  const debouncedSearch = debounce(search, 300);
+  $(".search__input").on("input change", async function () {
+    const phraze = $(this).val().trim();
+    try {
+      const data = await debouncedSearch(phraze);
+      $(".suggestions__group-content").html(data);
+      toggleLoader();
+    } catch (e) {
+      toggleLoader();
+      addFlash("Wyszukiwanie produktów nie powiodło się");
+    }
   });
 });

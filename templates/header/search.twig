@@ -7,16 +7,7 @@
 {% from '/macros/controls.twig' import input_radio %}
 
 <div class="search">
-	<script type="text/javascript">
-		const handleEmptySearch = (e, form) =>{
-			const searchInput = $(form).find('.search__input');
-			if(searchInput.val().length > 0) return;
-			e.preventDefault();
-			$('#search-redirect')[0].click();
-		};
-	</script>
 	<form method="get" action="/shop" class="search__body" onsubmit="handleEmptySearch(event, this)">
-		<a id="search-redirect" href='/shop' style="visibility:hidden; width:0; height:0"></a>
 		<div class="search__shadow"></div>
 		<input class="search__input" type="text" name="phraze" placeholder="Wpisz nazwę szukanego przedmiotu">
 		<button
