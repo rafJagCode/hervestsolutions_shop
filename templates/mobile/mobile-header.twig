@@ -14,8 +14,8 @@
 				</div>
             </a>
             <div class="mobile-header__search mobile-search">
-                <form class="mobile-search__body">
-                    <input type="text" class="mobile-search__input" placeholder="Wpisz nazwę szukanego przedmiotu">
+                <form class="mobile-search__body" method="get" action="/shop" onsubmit="handleEmptySearch(event, this)">
+                    <input type="text" name="phraze" class="mobile-search__input" placeholder="Wpisz nazwę szukanego przedmiotu">
                     <button type="submit" class="mobile-search__button mobile-search__button--search">
                         {{ svg('search-20.svg') }}
                     </button>
