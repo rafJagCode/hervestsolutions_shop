@@ -21,7 +21,7 @@ class SearchController extends AbstractController
 	 */
 	public function searchInProducts($phraze)
 	{
-		$products = $this->productGetter->getByPhraze($phraze);
+		$products = $this->productGetter->getByPhraze($phraze, 5);
 
 		return $this->render(
 			"components/search-results.twig", [

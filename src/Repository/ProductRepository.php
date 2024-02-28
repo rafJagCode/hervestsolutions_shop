@@ -113,14 +113,13 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Product[] Returns an array of Product objects
      */
-    public function findByPhraze($phraze)
+    public function findByPhraze($phraze, $limit=null)
     {
-        return $this->createQueryBuilder('p')
-			->andWhere('p.name LIKE :phraze')
-			->setParameter('phraze', '%'.$phraze.'%')
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('p')->andWhere('p.name LIKE :phraze')->setParameter('phraze', '%'.$phraze.'%');
+
+		if($limit) $qb->setMaxResults($limit);
+            
+		return $qb->getQuery()->getResult();
     }
 
 }

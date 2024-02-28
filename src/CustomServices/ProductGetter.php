@@ -48,14 +48,9 @@ class ProductGetter
 		return $products;
 	}
 
-	public function getByPhraze($phraze)
+	public function getByPhraze($phraze, $limit=null)
     {
-		$products = $this->em->getRepository(Product::class)->findByPhraze($phraze);
-		// $searchResult = array_filter($products, function($product) use($phraze){
-		// 	$regex = "/" . $phraze . "/";
-		// 	return (preg_match($regex, $product->getName()));
-		// });
-
+		$products = $this->em->getRepository(Product::class)->findByPhraze($phraze, $limit);
         return $products;
     }
 }
