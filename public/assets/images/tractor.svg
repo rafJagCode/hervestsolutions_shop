@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="265"
+   height="180.00003"
+   viewBox="0 0 265.00001 180.00003"
+   version="1.1"
+   id="svg264"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="tractor.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview266"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="1.4912879"
+     inkscape:cx="91.531623"
+     inkscape:cy="85.16129"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs261" />
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-75.554707,-95.408869)">
+    <path
+       id="rect234"
+       style="fill:#6d6e70;stroke:#ffffff;stroke-width:4.55793;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       d="m 195.01903,152.53566 h 86.55176 c 23.44426,0 18.88723,18.23641 18.88723,40.01675 v 5.14403 c 0,21.7802 -18.87382,39.31448 -42.31803,39.31448 h -95.71 c -23.44421,0 -42.31806,-17.53428 -42.31806,-39.31448 v -7.79206 c 0,-21.78033 50.85033,-37.36872 74.9071,-37.36872 z"
+       sodipodi:nodetypes="sssssssss" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:28.7022;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path4737"
+       cx="271.69653"
+       cy="217.81212"
+       rx="56.358162"
+       ry="57.596783" />
+    <ellipse
+       style="fill:#6d6e70;fill-opacity:1;stroke:none;stroke-width:33.0812;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path4735"
+       cx="271.69653"
+       cy="217.81212"
+       rx="52.600956"
+       ry="53.757011" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:83.3337px;line-height:1.25;font-family:Impact;-inkscape-font-specification:Impact;letter-spacing:1.78357px;fill:#88b042;fill-opacity:1;stroke:#ffffff;stroke-width:3.56716;stroke-dasharray:none;stroke-opacity:1"
+       x="200.39131"
+       y="163.40276"
+       id="text4887"
+       transform="scale(0.98918896,1.0109292)"><tspan
+         sodipodi:role="line"
+         id="tspan4885"
+         x="200.39131"
+         y="163.40276"
+         style="font-size:83.3337px;stroke-width:3.56716">HS</tspan></text>
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:14.9038;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path3955"
+       cx="271.69653"
+       cy="217.81212"
+       rx="22.543264"
+       ry="23.038715" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:22.9621;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path4737-5"
+       cx="133.14124"
+       cy="228.67593"
+       rx="45.086533"
+       ry="46.077435" />
+    <ellipse
+       style="fill:#6d6e70;fill-opacity:1;stroke:none;stroke-width:25.9926;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path4735-8"
+       cx="133.14124"
+       cy="228.67593"
+       rx="41.329323"
+       ry="42.237652" />
+    <ellipse
+       style="fill:#ffffff;stroke:none;stroke-width:13.7726;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path443"
+       cx="133.14124"
+       cy="228.67593"
+       rx="18.786055"
+       ry="19.19894" />
+  </g>
+</svg>

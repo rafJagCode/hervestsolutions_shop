@@ -1,8 +1,8 @@
 {
   "contacts": {
-    "address": ["ul. Oczki Wojciecha 21, Białystok 15-166 PL"],
-    "email": ["email@example.com"],
-    "phone": ["88 835 32732"],
+    "address": ["ul. Grodzka 12, 03-500 Warszawa PL"],
+    "email": ["hervestsolutions@example.com"],
+    "phone": ["+48 666 789 012"],
     "hours": ["Pn-Pt: 8:00-16:00", "Sobota: 8:00-14:00", "Niedziela: Nieczynne"]
   }
 }

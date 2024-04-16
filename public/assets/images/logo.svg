@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="396"
+   height="65"
+   viewBox="0 0 396 65"
+   version="1.1"
+   id="svg562"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview564"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.9825758"
+     inkscape:cx="200.3302"
+     inkscape:cy="21.457963"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs559" />
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-40.529576,-180.73265)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:45.9269px;line-height:0.9;font-family:'Fira Code';-inkscape-font-specification:'Fira Code Bold';text-align:center;letter-spacing:-3.41663px;text-anchor:middle;fill:#88b042;fill-opacity:1;stroke-width:0.631365"
+       x="313.81293"
+       y="177.81696"
+       id="text7119"
+       transform="scale(0.75169444,1.3303278)"><tspan
+         sodipodi:role="line"
+         x="312.10461"
+         y="177.81696"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:45.9269px;font-family:'Sonsie One';-inkscape-font-specification:'Sonsie One Bold';text-align:center;text-anchor:middle;stroke-width:0.631365"
+         id="tspan445">HervestSolutions</tspan></text>
+  </g>
+</svg>

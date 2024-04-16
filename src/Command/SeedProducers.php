@@ -29,43 +29,43 @@ class SeedProducers extends Command
     {
         $producers = array(
 		array(
-			'name' => 'agco',
-			'image' => 'images/producers/agco.png',
-			'link' => 'https://www.agcocorp.pl/'
+			'name' => 'annaburger',
+			'image' => 'images/producers/annaburger.svg',
+			'link' => 'https://www.annaburger.de/en/'
 		),
 		array(
-			'name' => 'arbos',
-			'image' => 'images/producers/arbos.png',
-			'link' => 'https://www.arbos.com/'
+			'name' => 'cynkomet',
+			'image' => 'images/producers/cynkomet.svg',
+			'link' => 'https://cynkomet.pl/'
 		),
 		array(
 			'name' => 'case',
-			'image' => 'images/producers/case.png',
-			'link' => 'https://www.caseih.com/emea/pl-pl'
+			'image' => 'images/producers/case.svg',
+			'link' => 'https://www.caseih.com/pl-pl/poland'
 		),
 		array(
-			'name' => 'cat',
-			'image' => 'images/producers/cat.png',
-			'link' => 'https://www.cat.com/pl_PL.html'
+			'name' => 'lemken',
+			'image' => 'images/producers/lemken.svg',
+			'link' => 'https://lemken.com/en-en/'
 		),
 		array(
-			'name' => 'claas',
-			'image' => 'images/producers/claas.png',
-			'link' => 'https://www.claas.pl/'
+			'name' => 'manitou',
+			'image' => 'images/producers/manitou.svg',
+			'link' => 'https://www.manitou.com/pl-PL'
 		),
 		array(
-			'name' => 'krone',
-			'image' => 'images/producers/krone.png',
-			'link' => 'https://www.krone-agriculture.com/en/'
+			'name' => 'steyr',
+			'image' => 'images/producers/steyr.svg',
+			'link' => 'https://www.steyr-traktoren.com/pl-pl/rolnictwo'
 		),
 		array(
-			'name' => 'massey ferguson',
-			'image' => 'images/producers/massey_ferguson.png',
-			'link' => 'https://www.masseyferguson.com/en.html'
+			'name' => 'strautman',
+			'image' => 'images/producers/stratman.svg',
+			'link' => 'https://www.strautmann.com/pl'
 		),
 		array(
 			'name' => 'john deere',
-			'image' => 'images/producers/john_deere.png',
+			'image' => 'images/producers/john-deere.svg',
 			'link' => 'https://www.deere.pl/pl/index.html'
 		),
 		);

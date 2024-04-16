@@ -4,14 +4,14 @@
     "type": "categories",
     "options": {
       "items": [
-        { "type": "child", "count": 254, "name": "AGCO" },
-        { "type": "child", "count": 75, "name": "Arbos" },
+        { "type": "child", "count": 254, "name": "ANNABURGER" },
+        { "type": "child", "count": 75, "name": "Cynkomet" },
         { "type": "child", "count": 21, "name": "Braud" },
         { "type": "child", "count": 15, "name": "Case" },
-        { "type": "child", "count": 2, "name": "Cat" },
-        { "type": "child", "count": 30, "name": "Claas" },
-        { "type": "child", "count": 7, "name": "Krone" },
-        { "type": "child", "count": 5, "name": "Massey Ferguson" }
+        { "type": "child", "count": 2, "name": "Lemken" },
+        { "type": "child", "count": 30, "name": "Manitou" },
+        { "type": "child", "count": 7, "name": "Steyr" },
+        { "type": "child", "count": 5, "name": "Strautman" }
       ]
     }
   },

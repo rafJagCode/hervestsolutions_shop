@@ -1,4 +1,4 @@
-{% set global_page_title = 'O Nas - Agroserwis' %}
+{% set global_page_title = 'O Nas - HervestSolutions' %}
 {% set global_page_description = '' %}
 
 {% set teammates = data('site-teammates.json') %}
@@ -27,7 +27,7 @@
 					{% for producer in producer_getter_service.getProducers()%}{{producer.name|upper}}{% if not loop.last%}, {%endif%}{%endfor%}
 					i wielu innych. Oferujemy maszyny nowe jak i używane z obsługą finansowania i z możliwością skorzystania z pakietu ubezpieczeń. W sprzedaży posiadamy szeroką gamę części zamiennych oraz kompleksowy serwis podparty fachowym doradztwem techniczym.
                 </div>
-                <div class="about__card-author">Wilhelm Słupek, CEO Agroserwis</div>
+                <div class="about__card-author">Wilhelm Słupek, CEO HervestSolutions</div>
                 <div class="about__card-signature">
                     <img src="{{image('images/signature.png')}}" width="160" height="55" alt="">
                 </div>
