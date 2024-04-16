@@ -4389,6 +4389,17 @@ select.form-control::-ms-expand {
   transform: translate(-50%, 100%);
 }
 
+@media (max-width: 580px) {
+  .tooltip-bottom-contact {
+    left: 0;
+    transform: translate(0%, 100%);
+  }
+  .tooltip-bottom-newsletter {
+    left: 100%;
+    transform: translate(-100%, 100%);
+  }
+}
+
 .tooltip .arrow {
   width: 8px;
   height: 8px;

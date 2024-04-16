@@ -12,8 +12,8 @@
         <label class="sr-only" for="footer-newsletter-address">Adres Email</label>
         <input type="text" class="footer-newsletter__form-input" id="footer-newsletter-address" placeholder="Adres Email...">
 
-        <button class="footer-newsletter__form-button">
-			<div class="tooltip tooltip-bottom">Subskrybcja tymczasowo niedostępna</div>
+        <button class="footer-newsletter__form-button" onclick="$(this).find('.tooltip').addClass('show')">
+			<div class="tooltip tooltip-bottom tooltip-bottom-newsletter">Subskrybcja tymczasowo niedostępna</div>
 			Subskrybuj
 		</button>
     </form>
