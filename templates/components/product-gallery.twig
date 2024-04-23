@@ -17,21 +17,13 @@
 			{{ svg('zoom-in-24.svg') }}
 		</button>
 		<div class="owl-carousel">
-			{% for i in [2, 1, 3, 4] %}
-				<!--
-								                The data-width and data-height attributes must contain the size of a larger version
-								                of the product image.
-				
-								                If you do not know the image size, you can remove the data-width and data-height
-								                attribute, in which case the width and height will be obtained from the naturalWidth
-								                and naturalHeight property of img.image__tag.
-								                -->
+			{# {% for i in [2, 1, 3, 4] %} #}
 				<a class="image image--type--product" href="{{image(inputs.image)}}" target="_blank" data-width="700" data-height="700">
 					<div class="image__body">
 						<img class="product-gallery-image-tag image__tag" src="{{image(inputs.image)}}" alt="">
 					</div>
 				</a>
-			{% endfor %}
+			{# {% endfor %} #}
 		</div>
 	</div>
 </div>
