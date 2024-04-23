@@ -56,13 +56,13 @@
                                 <tr>
                                     <td class="order-list__column-image">
                                         <div class="image image--type--product">
-                                            <a href="product-full.html" class="image__body">
+                                            <a href="/product/{{item.product.id}}" class="image__body">
                                                 <img class="image__tag" src="{{ image(item.product.images[0], {size: 40}) }}" alt="">
                                             </a>
                                         </div>
                                     </td>
                                     <td class="order-list__column-product">
-                                        <a href="product-full.html">{{ item.product.name }}</a>
+                                        <a href="/product/{{item.product.id}}">{{ item.product.name }}</a>
                                         {% if item.product.features|length > 0 %}
                                             <div class="order-list__options">
                                                 <ul class="order-list__options-list">
