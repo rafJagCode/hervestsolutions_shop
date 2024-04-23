@@ -17513,8 +17513,8 @@ select.form-control::-ms-expand {
     .product-card
     .product-card__addtocart-full {
     display: block;
-    height: 36px;
-    padding: 0 20px;
+    height: fit-content;
+    padding: 10px 20px;
     width: 100%;
     margin-bottom: 10px;
   }
