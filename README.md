@@ -28,11 +28,53 @@ List of technologies used to build the app:
 
 ## Build Setup
 
-- To install dependecies run:
+- Clone repository
+
+  ```sh
+  git clone https://github.com/rafJagCode/hervestsolutions_shop.git
+  ```
+
+- Create and edit .env file
+
+  ```sh
+  cd hervestsolutions_shop
+  cp .env.example .env
+  vim .env
+  ```
+
+- Install dependencies
 
   ```sh
   composer install
   ```
+
+- Run migrations
+
+   ```sh
+  php bin/console doctrine:migrations:diff
+  php bin/console doctrine:migrations:migrate
+  ```
+
+- Seed db with categories, producers and products
+
+   ```sh
+  php bin/console seed-categories
+  php bin/console seed-producers
+  php bin/console seed-products
+  ```
+
+- Serve at localhost:8000
+  
+  [🔗 How to install symfony CLI](https://symfony.com/download)
+
+  ```sh
+  symfony server:start
+  ```
+
+## License
+
+MIT
+
 
 [symfony]: https://symfony.com
 [twig]: https://twig.symfony.com
