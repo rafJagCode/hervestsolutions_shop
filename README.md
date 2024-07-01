@@ -14,7 +14,7 @@ Fully functional e-commerce platform tailored for agricultural products
 
 ## General Informations
 
-This project is a fully functional e-commerce platform tailored for agricultural products. It is built using a purchased template crafted in Twig and connected to a robust backend developed with Symfony and Mysql based database. I have made several appearance adjustments to the template to better fit the agricultural theme, including custom color schemes, typography, and layout enhancements. Additionally, I have implemented several new features such as advanced filtering options to help users easily find the products they need, making the shopping experience more efficient and user-friendly.
+A fully functional e-commerce platform, offering features for product presentation, searching, and filtering, adding to cart, order fulfillment, account registration, user profile editing, and viewing order history.
 
 ## Technologies
 
